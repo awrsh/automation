@@ -39,7 +39,7 @@
 <!-- end::page loader -->
 
 <!-- Setting Pannel SideBar -->
-@include('Layouts.Pannel.SettingSideBar');
+{{-- @include('Layouts.Pannel.SettingSideBar'); --}}
 <!-- End Setting Pannel SideBar -->
 
 <!-- Pannel SideBar -->
@@ -63,9 +63,10 @@
 @yield('js')
 
 <!-- begin::custom scripts -->
-<script src="{{route('BaseUrl')}}/Pannel/assets/js/custom.js"></script>
+{{-- <script src="{{route('BaseUrl')}}/Pannel/assets/js/custom.js"></script> --}}
 <script src="{{route('BaseUrl')}}/Pannel/assets/js/app.js"></script>
 <!-- end::custom scripts -->
+<script src="{{route('BaseUrl')}}/Pannel/assets/js/examples/sweet-alert.js"></script>
 
 </body>
 </html>
