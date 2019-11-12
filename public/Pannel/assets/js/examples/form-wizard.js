@@ -4,33 +4,33 @@ $(document).ready(function () {
     $('#wizard1').steps({
         headerTag: 'h3',
         bodyTag: 'section',
-        autoFocus: true, 
+        autoFocus: true,
         titleTemplate: '#index# #title#',
-		labels: {
-			cancel: 'انصراف',
-			current: 'قدم کنونی:',
-			pagination: 'صفحه بندی',
-			finish: 'ارسال اطلاعات',
-			next: 'مرحله بعد',
-			previous: 'مرحله قبل',
-			loading: 'در حال بارگذاری ...'
-		}
+        labels: {
+            cancel: 'انصراف',
+            current: 'قدم کنونی:',
+            pagination: 'صفحه بندی',
+            finish: 'پایان',
+            next: 'بعدی',
+            previous: 'قبلی',
+            loading: 'در حال بارگذاری ...'
+        }
     });
 
     $('#wizard2').steps({
         headerTag: 'h3',
         bodyTag: 'section',
         autoFocus: true,
-		titleTemplate: '#index# #title#',
-		labels: {
-			cancel: 'انصراف',
-			current: 'قدم کنونی:',
-			pagination: 'صفحه بندی',
-			finish: 'ارسال اطلاعات',
-			next: 'مرحله بعد',
-			previous: 'مرحله قبل',
-			loading: 'در حال بارگذاری ...'
-		},
+        titleTemplate: '#index# #title#',
+        labels: {
+            cancel: 'انصراف',
+            current: 'قدم کنونی:',
+            pagination: 'صفحه بندی',
+            finish: 'پایان',
+            next: 'بعدی',
+            previous: 'قبلی',
+            loading: 'در حال بارگذاری ...'
+        },
         onStepChanging: function (event, currentIndex, newIndex) {
             if (currentIndex < newIndex) {
                 var form = document.getElementById('form1'),
@@ -42,7 +42,9 @@ $(document).ready(function () {
                         event.stopPropagation();
                         form.classList.add('was-validated');
                     } else {
+
                         return true;
+
                     }
                 } else if (currentIndex === 1) {
                     if (form2.checkValidity() === false) {
@@ -50,7 +52,7 @@ $(document).ready(function () {
                         event.stopPropagation();
                         form2.classList.add('was-validated');
                     } else {
-                    
+                        return true;
                     }
                 } else {
                     return true;
@@ -58,13 +60,9 @@ $(document).ready(function () {
             } else {
                 return true;
             }
-        },
-        onFinished: function (event, currentIndex) {
-            $("#form1").submit();
-          }
+        }
     });
 
-    
-    
-
 });
+
+
