@@ -16,3 +16,6 @@ Route::post('/Students/Register','User\MainController@Register')->name('Student.
 Route::get('/Students/ImportData','User\MainController@ImportWithExcel')->name('Student.Excel');
 Route::get('/Students/UploadPhoto','User\MainController@UploadPhoto')->name('Student.Photo');
 Route::get('/Students/AlbumPhoto','User\MainController@AlbumPhoto')->name('Student.AlbumPhoto');
+Route::get('/Students/EditClass','User\MainController@EditClass')->name('Student.EditClass');
+Route::post('/Students/ImportExel','User\StudentsContorller@import')->name('Student.importEx');
+Route::post('/Students/Photo','User\StudentsContorller@setPhoto')->name('Student.setPhoto');

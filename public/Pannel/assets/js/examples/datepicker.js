@@ -1,13 +1,13 @@
 'use strict';
 $(document).ready(function () {
 
-	$('input[name="date-picker-shamsi"]').datepicker({
+	$('input.date-picker-shamsi').datepicker({
 		dateFormat: "yy/mm/dd",
 		showOtherMonths: true,
 		selectOtherMonths: false
 	});
 
-	$('input[name="date-picker-shamsi-list"]').datepicker({
+	$('input.date-picker-shamsi-list').datepicker({
 		dateFormat: "yy/mm/dd",
 		showOtherMonths: true,
 		selectOtherMonths: true,
@@ -16,7 +16,7 @@ $(document).ready(function () {
 		showButtonPanel: true
 	});
 
-	$('input[name="date-picker-shamsi-limited"]').datepicker({
+	$('input.date-picker-shamsi-limited').datepicker({
 		dateFormat: "yy/mm/dd",
 		showOtherMonths: true,
 		selectOtherMonths: true,
@@ -24,7 +24,7 @@ $(document).ready(function () {
 		maxDate: "+14D"
 	});
 
-    $('input[name="single-date-picker"]').daterangepicker({
+    $('input.single-date-picker').daterangepicker({
 		opens: 'left',
         singleDatePicker: true,
         showDropdowns: true,

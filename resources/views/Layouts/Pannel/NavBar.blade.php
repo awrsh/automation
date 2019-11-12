@@ -5,7 +5,7 @@
      <div class="header-logo">
          <a href="#">
          <img src="{{route('BaseUrl')}}/Pannel/assets/media/image/light-logo.png" alt="...">
-             <span class="logo-text d-none d-lg-block">پنل دانا</span>
+             <span class="logo-text d-none d-lg-block"> المینو</span>
          </a>
      </div>
 
@@ -44,7 +44,7 @@
                  </div>
              </li>
          </ul>
-         <form class="search">
+         {{-- <form class="search">
              <div class="input-group">
                  <input type="text" class="form-control" placeholder="جستجو ..." aria-label="Recipient's username" aria-describedby="button-addon2">
                  <div class="input-group-append">
@@ -53,14 +53,15 @@
                      </button>
                  </div>
              </div>
-         </form>
+         </form> --}}
          <ul class="navbar-nav">
              <li class="nav-item">
                  <a href="#" class="d-lg-none d-sm-block nav-link search-panel-open">
                      <i class="fa fa-search"></i>
                  </a>
              </li>
-             <li class="nav-item">
+             
+             {{-- <li class="nav-item">
                  <a href="#" class="nav-link nav-link-notify sidebar-open" data-sidebar-target="#messages">
                      <i class="fa fa-envelope"></i>
                  </a>
@@ -69,7 +70,8 @@
                  <a href="#" class="nav-link nav-link-notify sidebar-open" data-sidebar-target="#notifications">
                      <i class="fa fa-bell"></i>
                  </a>
-             </li>
+             </li> --}}
+
              <li class="nav-item dropdown">
                  <a href="#" data-toggle="dropdown">
                      <figure class="avatar avatar-sm avatar-state-success">
