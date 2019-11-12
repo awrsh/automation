@@ -12,17 +12,18 @@ class StudentsImport implements ToCollection
     {
 
         $data=session()->get('import_data');
-        $count =1;
-       
+       $array=[];
+       $input['school_id'] = 1;
         
-        foreach ($rows as $row) 
+        foreach ($rows as $key=>$row) 
         {
-\dd($row[$count]);
-            foreach($data as $item){
-               
-               $input[]=array(  $item => $row[$count] );
-               
-                }
+  
+                foreach($data as $key=>$item){
+                    $input[$item] = $row[$key];                   
+            }
+        array_push($array,$input);
+        
+
             // $aa=['cs','ca','sad'];
     //    $input=[
     //     'school_id'=>1,
@@ -36,9 +37,11 @@ class StudentsImport implements ToCollection
     //    ];
        
     //    Student::insert($input);
-    $count++;
+  
         }
-        dd($input);
+        unset($array[0]); 
+
+        dd($array);
     }
    
 }
