@@ -44,8 +44,6 @@ class MainController extends Controller
     'student_father_mobile' =>  $request->father_mobile,
     'student_mother_mobile' =>  $request->mother_mobile,
     'student_birthday' =>  $request->birthday,
-    'student_student_section' =>  $request->student_section,
-    'student_student_basic' =>  $request->student_basic,
     'student_student_class' =>  $request->student_class,
     'student_student_number' =>  $request->student_number,
     'student_home_tel' =>  $request->home_tel,
@@ -59,7 +57,7 @@ class MainController extends Controller
 
      public function ImportWithExcel()
      {
-         
+    
          return view('User.Students.ImportData');
      }
 

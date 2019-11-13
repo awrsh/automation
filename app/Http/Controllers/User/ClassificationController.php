@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Controllers\User;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\ClassModel;
+
+class ClassificationController extends Controller
+{
+ public function AddClass()
+ {
+     return view('User.Students.Classification.AddClass');
+ }
+
+ public function InsertClass(Request $request)
+ {
+
+    $Class = ClassModel::insert([
+        'class_name'=>$request->class_name,
+        'basic_id'=> $request->basic_id
+        ]);
+
+    if ($Class) {
+     return back()->with('success','مقطع با موفقیت افزوده شد');
+    }
+    return back()->with('errors','خطا در ارسال درخواست');
+ }
+}

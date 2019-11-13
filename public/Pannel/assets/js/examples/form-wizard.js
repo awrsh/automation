@@ -107,7 +107,8 @@ $(document).ready(function () {
         },
         onFinished: function (event, currentIndex)
         {
-            form.submit()
+
+            return form.submit()
         }
     });
 
