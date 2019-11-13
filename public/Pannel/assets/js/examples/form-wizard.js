@@ -86,14 +86,14 @@ $(document).ready(function () {
         bodyTag: "section",
         transitionEffect: "slideLeft",
         labels: {
-			cancel: 'انصراف',
-			current: 'قدم کنونی:',
-			pagination: 'صفحه بندی',
-			finish: 'ثبت اطلاعات',
-			next: 'ادامه',
-			previous: 'بازگشت',
-			loading: 'در حال بارگذاری ...'
-		},
+            cancel: 'انصراف',
+            current: 'قدم کنونی:',
+            pagination: 'صفحه بندی',
+            finish: 'ثبت اطلاعات',
+            next: 'ادامه',
+            previous: 'بازگشت',
+            loading: 'در حال بارگذاری ...'
+        },
         onStepChanging: function (event, currentIndex, newIndex)
         {
 
@@ -107,10 +107,9 @@ $(document).ready(function () {
         },
         onFinished: function (event, currentIndex)
         {
-           form.submit()
+            form.submit()
         }
     });
-
 
 
 

@@ -12,10 +12,10 @@
      <div class="header-body">
          <ul class="navbar-nav">
              <li class="nav-item dropdown d-none d-lg-block">
-                 <a href="#" class="nav-link" data-toggle="dropdown">
+                 {{-- <a href="#" class="nav-link" data-toggle="dropdown">
                      <i class="fa fa-th-large"></i>
-                 </a>
-                 <div class="dropdown-menu dropdown-menu-nav-grid">
+                 </a> --}}
+                 {{-- <div class="dropdown-menu dropdown-menu-nav-grid">
                      <div class="dropdown-menu-title">منوی سریع</div>
                      <div class="dropdown-menu-body">
                          <div class="nav-grid">
@@ -41,7 +41,7 @@
                              </div>
                          </div>
                      </div>
-                 </div>
+                 </div> --}}
              </li>
          </ul>
          {{-- <form class="search">
@@ -72,7 +72,7 @@
                  </a>
              </li> --}}
 
-             <li class="nav-item dropdown">
+             {{-- <li class="nav-item dropdown">
                  <a href="#" data-toggle="dropdown">
                      <figure class="avatar avatar-sm avatar-state-success">
                          <img class="rounded-circle" src="{{route('BaseUrl')}}/Pannel/assets/media/image/avatar.jpg" alt="...">
@@ -89,7 +89,7 @@
                  <a href="#" class="nav-link side-menu-open">
                      <i class="ti-menu"></i>
                  </a>
-             </li>
+             </li> --}}
          </ul>
      </div>
 

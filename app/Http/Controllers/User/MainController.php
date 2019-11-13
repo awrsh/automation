@@ -80,6 +80,19 @@ class MainController extends Controller
      {
          return view('User.Students.EditClass');
      }
+    
+     public function ListStudents()
+     {
+         $list =Student::get();
+         return view('User.Students.List',compact('list'));
+     }
 
 
+     public function Discipline()
+     {
+         return view('User.Discipline.AddDiscipline');
+     }
+
+
+    
 }
