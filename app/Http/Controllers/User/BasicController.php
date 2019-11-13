@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\BasicModel;
+use App\Models\ClassModel;
 
 class BasicController extends Controller
 {
@@ -25,5 +26,18 @@ class BasicController extends Controller
      return back()->with('success','مقطع با موفقیت افزوده شد');
     }
     return back()->with('errors','خطا در ارسال درخواست');
+ }
+
+
+ public function Ajax(Request $request)
+ {
+     $basic_id = $request->student_class;
+    $basics =  ClassModel::where('basic_id',$basic_id )->get();
+    $options='<option>انتخاب کنید </option>';
+   foreach ($basics as $item) {
+     $options .= ' <option value="'. $item->class_id .'">'.$item->class_name.'</option>';
+   }
+
+   return $options;
  }
 }

@@ -27,6 +27,9 @@ Route::get('/Students/deleteSes',function(){
  return redirect(route('Student.Excel'));
 })->name('deleteSes');
 
+Route::post('send_section','User\SectionController@Ajax')->name('section.ajax');
+
+Route::post('send_basic','User\BasicController@Ajax')->name('basic.ajax');
 
 
 /*  کلاس بندی   */

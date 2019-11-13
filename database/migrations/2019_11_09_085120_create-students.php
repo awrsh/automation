@@ -24,7 +24,7 @@ class CreateStudents extends Migration
             $table->text('student_father_mobile')->nullable();
             $table->text('student_mother_mobile')->nullable();
             $table->text('student_birthday')->nullable();
-            $table->text('student_student_class')->nullable();
+            $table->integer('student_student_class')->nullable();
             $table->text('student_student_number')->nullable();
             $table->text('student_home_tel')->nullable();
             $table->text('student_student_mobile')->nullable();

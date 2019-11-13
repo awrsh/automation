@@ -86,22 +86,40 @@
                 
                   
                 <div class="row">
+                   
+
+
+
+
                   <div class="form-group col-md-6 wd-xs-300">
                     <label> مقطع دانش آموز</label>
-                    <input type="text"  id="student_section" required name="student_section" class="form-control " >
-                    
+                   
+                        <select id="student_section" required name="student_section" class="custom-select mb-3">
+                          <option selected="">باز کردن فهرست انتخاب</option>
+                          @foreach (\App\models\SectionModel::all(); as $item)
+                          <option value=" {{$item->sections_id}} ">{{$item->sections_name}}</option>
+                          @endforeach
+                         
+                      </select>
                 </div><!-- form-group -->
                 <div class="form-group col-md-6 wd-xs-300">
                     <label>  پایه دانش آموز</label>
-                    <input type="text"  name="student_basic" required class="form-control text-right" dir="ltr" >
                     
+                    <select id="student_basic"  required name="student_basic" class="custom-select mb-3">
+                       
+                        
+                       
+                    </select>
                 </div><!-- form-group -->
                 </div>
                 <div class="row">
                   <div class="form-group col-md-6 wd-xs-300">
                     <label> کلاس دانش آموز</label>
-                    <input type="text"  name="student_class" id="student_class" class="form-control" required>
-                    
+                    <select required name="student_class" id="student_class" class="custom-select mb-3">
+                        <option selected="">باز کردن فهرست انتخاب</option>
+                       
+                       
+                    </select>
                 </div><!-- form-group -->
                 <div class="form-group col-md-6 wd-xs-300">
                     <label>  شماره دانش اموزی</label>
@@ -129,7 +147,7 @@
                 </div><!-- form-group -->
                 <div class="form-group col-md-6 wd-xs-300">
                     <label> اپلود عکس(3X4) </label>
-                    <input type="file" id="target"  name="student_photo" required class="form-control-file text-right" dir="rtl" >
+                    <input type="file" id="target"  name="student_photo"  class="form-control-file text-right" dir="rtl" >
                     
                 </div><!-- form-group -->
                 </div>
@@ -211,7 +229,69 @@
             }, false);
         });
     }, false);
+
+    $.ajaxSetup({
+
+headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+}
+});
+$("#student_section").change(function(e){
+e.preventDefault();
+var student_section = $(this).val();
+$.ajax({
+
+   type:'POST',
+   url:'send_section',
+   data:{student_section:student_section},
+   success:function(data){
+    if (data !== '') {
+      
+    $('#student_basic').html(data)
+    }else{
+      $('#student_basic').html('<option>برای مقطع مربوطه پایه ای وجود ندارد </option>')
+    }
+
+   }
+
+    });
+
+   });
+
+
+
+   $("#student_basic").change(function(e){
+e.preventDefault();
+var student_class = $(this).val();
+$.ajax({
+
+   type:'POST',
+   url:'send_basic',
+   data:{student_class:student_class},
+   success:function(data){
+     console.log(data)
+    if (data !== '<option>انتخاب کنید </option>') {
+      
+    $('#student_class').html(data)
+    }else{
+      $('#student_class').html('<option>برای مقطع مربوطه پایه ای وجود ندارد </option>')
+    }
+
+   }
+
+    });
+
+   });
+
+
+
+
+
+
+
 })();
+
+
     
     
     
