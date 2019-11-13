@@ -11,6 +11,8 @@
 |
 */
 
+
+
 Route::get('/','User\MainController@index')->name('BaseUrl');
 Route::post('/Students/Register','User\MainController@Register')->name('Student.Register');
 Route::get('/Students/ImportData','User\MainController@ImportWithExcel')->name('Student.Excel');
@@ -19,3 +21,23 @@ Route::get('/Students/AlbumPhoto','User\MainController@AlbumPhoto')->name('Stude
 Route::get('/Students/EditClass','User\MainController@EditClass')->name('Student.EditClass');
 Route::post('/Students/ImportExel','User\StudentsContorller@import')->name('Student.importEx');
 Route::post('/Students/Photo','User\StudentsContorller@setPhoto')->name('Student.setPhoto');
+Route::post('/Students/Excel/Export','User\StudentsContorller@export')->name('Excel.export');
+Route::get('/Students/deleteSes',function(){
+ session()->forget('import_data'); 
+ return redirect(route('Student.Excel'));
+})->name('deleteSes');
+
+
+
+/*  کلاس بندی   */
+Route::get('/Students/AddSection','User\SectionController@AddSection')->name('Student.AddSection');
+Route::post('/Students/SubmitSection','User\SectionController@InsertSection')->name('Student.SubmitSection');
+Route::get('/Students/AddBasic','User\BasicController@AddBasic')->name('Student.AddBasic');
+Route::post('/Students/SubmitBasic','User\BasicController@InsertBasic')->name('Student.SubmitBasic');
+Route::get('/Students/AddClass','User\classificationController@AddClass')->name('Student.AddClass');
+Route::post('/Students/SubmitClass','User\ClassificationController@InsertClass')->name('Student.SubmitClass');
+
+
+
+
+

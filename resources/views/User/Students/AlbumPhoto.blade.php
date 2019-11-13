@@ -35,100 +35,33 @@
         <div class="tab-content my-5" id="pills-tabContent2">
             <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
                 <div class="row">
-                    <div class=" col-md-2 my-2 text-center">
-                       <div class="flex__column">
-                        <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                        <span>
-                            رضا حسینی راد
-                        </span>
-                       </div>
-                    </div>
-                    <div class=" col-md-2 my-2 text-center">
-                        <div class="flex__column">
-                         <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                         <span>
-                             رضا حسینی راد
-                         </span>
+                        @foreach (\App\Models\Student::all() as $student)
+                        <div class=" col-md-2 my-2 text-center">
+                                <div class="flex__column">
+                                 <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
+                                 <span>
+                                     {{$student->student_firstname}} {{$student->student_lastname}}
+                                 </span>
+                                </div>
                         </div>
-                     </div>
-                    <div class=" col-md-2 my-2 text-center">
-                        <div class="flex__column">
-                            <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                            <span>
-                                رضا حسینی راد
-                            </span>
-                           </div>                    </div>
-                    <div class=" col-md-2 my-2 text-center">
-                        <div class="flex__column">
-                            <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                            <span>
-                                رضا حسینی راد
-                            </span>
-                           </div>                    </div>
-                    <div class=" col-md-2 my-2 text-center">
-                        <div class="flex__column">
-                            <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                            <span>
-                                رضا حسینی راد
-                            </span>
-                           </div>                    </div>
-                    <div class=" col-md-2 my-2 text-center">
-                        <div class="flex__column">
-                            <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                            <span>
-                                رضا حسینی راد
-                            </span>
-                           </div>                    </div>
-                    <div class=" col-md-2 my-2 text-center">
-                        <div class="flex__column">
-                            <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                            <span>
-                                رضا حسینی راد
-                            </span>
-                           </div>                    </div>
+                        @endforeach
 
                 </div>
             </div>
-            <div class="tab-pane fade" id="pills-eight1" role="tabpanel" aria-labelledby="pills-eight1-tab"><div class="row">
-                   
-                   
+            <div class="tab-pane fade" id="pills-eight1" role="tabpanel" aria-labelledby="pills-eight1-tab">
+                    @foreach (\App\Models\Student::where('student_student_class','هشت یک') as $student)
                     <div class=" col-md-2 my-2 text-center">
-                        <div class="flex__column">
-                            <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                            <span>
-                                رضا حسینی راد
-                            </span>
-                           </div>                    </div>
-                    <div class=" col-md-2 my-2 text-center">
-                        <div class="flex__column">
-                            <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                            <span>
-                                رضا حسینی راد
-                            </span>
-                           </div>                    </div>
-                    <div class=" col-md-2 my-2 text-center">
-                        <div class="flex__column">
-                            <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                            <span>
-                                رضا حسینی راد
-                            </span>
-                           </div>                    </div>
-                    <div class=" col-md-2 my-2 text-center">
-                        <div class="flex__column">
-                            <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                            <span>
-                                رضا حسینی راد
-                            </span>
-                           </div>                    </div>
-                    <div class=" col-md-2 my-2 text-center">
-                        <div class="flex__column">
-                            <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                            <span>
-                                رضا حسینی راد
-                            </span>
-                           </div>                    </div>
-
-                </div></div>
+                            <div class="flex__column">
+                             <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
+                             <span>
+                                 {{$student->student_firstname}} {{$student->student_lastname}}
+                             </span>
+                            </div>
+                    </div>
+                    @endforeach
+                    
+                </div>
+            </div>
             <div class="tab-pane fade" id="pills-eight2" role="tabpanel" aria-labelledby="pills-eight2-tab"><div class="row">
                    
                    

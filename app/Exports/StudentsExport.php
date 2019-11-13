@@ -3,15 +3,19 @@
 namespace App\Exports;
 
 use App\Models\Student;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromArray;
 
-class StudentsExport implements FromCollection
+class StudentsExport implements FromArray
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    protected $invoices;
+
+    public function __construct(array $invoices)
     {
-        return Student::all();
+        $this->invoices = $invoices;
+    }
+
+    public function array(): array
+    {
+        return $this->invoices;
     }
 }

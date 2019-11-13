@@ -25,21 +25,21 @@
     <div class="card">
       <div class="card-body">
           <h5 class="card-title"> ثبت نام دانش اموز</h5>
-          <form id="form1" method="post" action=" {{route('Student.Register')}} " enctype="multipart/form-data">
+          <form id="form1" method="post" action=" {{route('Student.Register')}} " enctype="multipart/form-data" class="needs-validation" novalidate>
               <div id="wizard2">
               @csrf
-              <h3>اطلاعات شخصی</h3>
+          
               <section>
-                  <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با</p>
+                
                       <div class="row">
                         <div class="form-group col-md-6 wd-xs-300">
                           <label>نام</label>
-                          <input type="text" class="form-control" value=" {{old('firstname')}} " name="firstname"  >
+                          <input type="text" class="form-control"  id="firstname" name="firstname"  required>
                           
                       </div><!-- form-group -->
                       <div class="form-group col-md-6 wd-xs-300">
                           <label>نام خانوادگی</label>
-                          <input type="text" class="form-control" value=" {{old('lastname')}} "  name="lastname"  >
+                          <input type="text" class="form-control"  name="lastname"  required>
                          
                       </div><!-- form-group -->
                       </div>
@@ -47,93 +47,97 @@
                       <div class="row">
                         <div class="form-group col-md-6 wd-xs-300">
                           <label>شماره شناسنامه</label>
-                          <input type="text" class="form-control" value=" {{old('certificate_number')}} " name="certificate_number"  >
+                          <input type="text" class="form-control"  name="certificate_number"  required>
                           
                       </div><!-- form-group -->
                       <div class="form-group col-md-6 wd-xs-300">
                           <label> کد ملی</label>
-                          <input type="text" class="form-control" value=" {{old('national_number')}} "  name="national_number"  >
+                          <input type="text" class="form-control"  name="national_number"  required>
                          
                       </div><!-- form-group -->
                       </div>
                       <div class="row">
                         <div class="form-group col-md-6 wd-xs-300">
                           <label>نام پدر</label>
-                          <input type="text" class="form-control" value=" {{old('father_name')}} " name="father_name"  >
+                          <input type="text" class="form-control"  name="father_name"  required>
                           
                       </div><!-- form-group -->
                       <div class="form-group col-md-6 wd-xs-300">
                           <label>  موبایل پدر</label>
-                          <input type="text" name="father_mobile" id="father_mobile" value="{{old('father_mobile')}}" class="form-control text-right" >
+                          <input type="text" name="father_mobile" id="father_mobile" required class="form-control text-right" >
                           
                       </div><!-- form-group -->
                       </div>
                       <div class="row">
                         <div class="form-group col-md-6 wd-xs-300">
                           <label> موبایل مادر</label>
-                          <input type="text" class="form-control" value=" {{old('mother_mobile')}} " id="mother_mobile" name="mother_mobile"  >
+                          <input type="text" class="form-control"  id="mother_mobile" required name="mother_mobile"  >
                           
                       </div><!-- form-group -->
                       <div class="form-group col-md-6 wd-xs-300">
                           <label> تاریخ تولد</label>
-                          <input type="text" id="" name="birthday" value=" {{old('birthday')}}" class="form-control text-right date-picker-shamsi-list" dir="ltr" >
+                          <input type="text" id="" name="birthday"  required class="form-control text-right date-picker-shamsi-list" dir="ltr" >
                           
                       </div><!-- form-group -->
                       </div>
                   
               </section>
-
-              <h3>اطلاعات دانش اموزی</h3>
               <section>
                 
                   
                 <div class="row">
                   <div class="form-group col-md-6 wd-xs-300">
                     <label> مقطع دانش آموز</label>
-                    <input type="text" value=" {{old('student_section')}}" name="student_section" class="form-control" >
+                    <input type="text"  id="student_section" required name="student_section" class="form-control " >
                     
                 </div><!-- form-group -->
                 <div class="form-group col-md-6 wd-xs-300">
                     <label>  پایه دانش آموز</label>
-                    <input type="text" value=" {{old('student_basic')}}" name="student_basic" class="form-control text-right" dir="ltr" >
+                    <input type="text"  name="student_basic" required class="form-control text-right" dir="ltr" >
                     
                 </div><!-- form-group -->
                 </div>
                 <div class="row">
                   <div class="form-group col-md-6 wd-xs-300">
                     <label> کلاس دانش آموز</label>
-                    <input type="text" value=" {{old('student_class')}}" name="student_class" class="form-control" >
+                    <input type="text"  name="student_class" id="student_class" class="form-control" required>
                     
                 </div><!-- form-group -->
                 <div class="form-group col-md-6 wd-xs-300">
                     <label>  شماره دانش اموزی</label>
-                    <input type="text" value=" {{old('student_number')}}" name="student_number" class="form-control text-right" dir="ltr" >
+                    <input type="text"  name="student_number" required class="form-control text-right" dir="ltr" >
                     
                 </div><!-- form-group -->
                 </div>
                 <div class="row">
                   <div class="form-group col-md-6 wd-xs-300">
                     <label> تلفن منزل</label>
-                    <input type="text" value=" {{old('home_tel')}}" name="home_tel" class="form-control" >
+                    <input type="text"  name="home_tel" required class="form-control" >
                     
                 </div><!-- form-group -->
                 <div class="form-group col-md-6 wd-xs-300">
                     <label>   موبایل دانش اموز</label>
-                    <input type="text" value=" {{old('student_mobile')}}" name="student_mobile" class="form-control text-right" dir="ltr" >
+                    <input type="text" name="student_mobile" required class="form-control text-right" dir="ltr" >
                     
                 </div><!-- form-group -->
                 </div>
                 <div class="row">
                   <div class="form-group col-md-6 wd-xs-300">
                     <label> نام مدرسه قبلی</label>
-                    <input type="text" value=" {{old('prev_school')}}" name="prev_school" class="form-control" >
+                    <input type="text"  name="prev_school" class="form-control" required >
                     
                 </div><!-- form-group -->
                 <div class="form-group col-md-6 wd-xs-300">
                     <label> اپلود عکس(3X4) </label>
-                    <input type="file" id="target"  name="student_photo" class="form-control-file text-right" dir="rtl" >
+                    <input type="file" id="target"  name="student_photo" required class="form-control-file text-right" dir="rtl" >
                     
                 </div><!-- form-group -->
+                </div>
+
+                <div class="row">
+                  <div class=" form-group col-md-6">
+                    <button type="submit" class="btn btn-primary">ارسال</button>
+                  </div>
                 </div>
               </section>
               
@@ -162,6 +166,14 @@
     border: 1px solid #ff5368 !important;
     color: #ed1636 !important;
     }
+    .border-top { border-top: 1px solid #e5e5e5; }
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+.border-top-gray { border-top-color: #adb5bd; }
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+.lh-condensed { line-height: 1.25; }
+
    </style>
     <!-- end::form wizard -->
     
@@ -177,7 +189,33 @@
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.js"></script>
-    <script src="{{route('BaseUrl')}}/Pannel/assets/js/examples/form-wizard.js"></script>
+    {{-- <script src="{{route('BaseUrl')}}/Pannel/assets/js/examples/form-wizard.js"></script> --}}
+    <script>
+    
+    (function () {
+    'use strict';
+    window.addEventListener('load', function () {
+        var massage = " ورودی ها را کامل کنید";
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    alert(massage);
+                }
+                form.classList.add('was-validated');
+
+            }, false);
+        });
+    }, false);
+})();
+    
+    
+    
+    </script>
     <script src="{{route('BaseUrl')}}/Pannel/assets/js/examples/toast.js"></script>
     <!-- end::form wizard -->
 
