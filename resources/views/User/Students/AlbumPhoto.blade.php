@@ -10,12 +10,16 @@
     <div class="card-body">
 
        <div >
-            <form action="" method="post">
+            <form id="form" action=" {{route('Allbum.Classes')}} " method="post">
                     @csrf
                     <div class=" form-group row">
                             <label for="" class=" col-md-1 pt-3"> <span class="text-danger">*</span> مقطع </label>
-                            <select id="basic" name="basic" class="col-md-4 custom-select custom-select-lg mb-3">
-                              <option selected="">باز کردن فهرست انتخاب</option>                   
+                            <select id="section" name="section" class="col-md-4 custom-select custom-select-lg mb-3">
+                                    <option selected="">باز کردن فهرست انتخاب</option>
+                                    @foreach (\App\Models\SectionModel::all(); as $item)
+                                    <option value=" {{$item->sections_id}} ">{{$item->sections_name}}</option>
+                                    
+                                    @endforeach                   
                             </select>
                     </div>
         
@@ -35,6 +39,7 @@
         
                 </form>
        </div>
+<hr>
 
 
 
@@ -51,65 +56,9 @@
 
 
 
-
-        <h5 class="card-title">  آلبوم عکس دانش آموزی </h5>
-
-        <ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">
-
-            @foreach (\App\Models\ClassModel::all(); as $key=>$item)
-            
-            @if ($key == 0)
-            <li class="nav-item">
-                    <a class="nav-link active" id="pills-{{$item->class_id}}-tab" data-toggle="pill" href="#pills-{{$item->class_id}}" role="tab" aria-controls="pills-home" aria-selected="true"> {{$item->class_name}}</a>
-            </li>
-            @else
-            <li class="nav-item">
-                   <a class="nav-link " id="pills-{{$item->class_id}}-tab" data-toggle="pill" href="#pills-{{$item->class_id}}" role="tab" aria-controls="pills-home" aria-selected="true"> {{$item->class_name}}</a>
-            </li>
-            @endif
-            @endforeach
-        </ul>
-        
-<div class="tab-content my-5" id="pills-tabContent2">
-
-  @foreach (\App\Models\ClassModel::all(); as $key=>$item)
-            @if ($key == 0)
-            <div class="tab-pane fade show active" id="pills-{{$item->class_id}}" role="tabpanel" aria-labelledby="pills-all-tab">
-                    <div class="row">
-            
-                            @foreach (\App\Models\Student::where('student_student_class',$item->class_id)->get(); as $student)
-                                <div class=" col-md-2 my-2 text-center">
-                                        <div class="flex__column">
-                                        <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                                        <span>
-                                            {{$student->student_firstname}} {{$student->student_lastname}}
-                                        </span>
-                                        </div>
-                                </div>
-                            @endforeach
-                    </div>
-                </div>
-            @else
-
-    <div class="tab-pane fade" id="pills-{{$item->class_id}}" role="tabpanel" aria-labelledby="pills-all-tab">
-        <div class="row">
-
-                @foreach (\App\Models\Student::where('student_student_class',$item->class_id)->get(); as $student)
-                    <div class=" col-md-2 my-2 text-center">
-                            <div class="flex__column">
-                            <img src=" {{route('BaseUrl')}}/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                            <span>
-                                {{$student->student_firstname}} {{$student->student_lastname}}
-                            </span>
-                            </div>
-                    </div>
-                @endforeach
-        </div>
-    </div>
-    @endif
- @endforeach
-
-</div>
+     <div id="content">
+          
+     </div>
     </div>
 </div>
   </div>
@@ -120,6 +69,78 @@
 
 
 
+@endsection
+
+@section('js')
+    <script >
+        $.ajaxSetup({
+
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+
+        $("#section").change(function(e){
+        e.preventDefault();
+        var section_id = $(this).val();
+
+        $.ajax({
+
+        type:'POST',
+        url:'get_basics',
+        data:{section_id:section_id},
+        success:function(data){
+            if (data !== '') {
+            
+            $('#basic').html(data)
+            }else{
+            $('#basic').html('<option>برای مقطع مربوطه پایه ای وجود ندارد </option>')
+            }
+
+        }
+
+            });
+
+        });
+
+
+
+        $("#form").submit(function(e){
+        e.preventDefault();
+        var section_id = $(this).find('#section').val();
+        var basic_id = $(this).find('#basic').val();
+
+        $.ajax({
+
+        type:'POST',
+        url:'Allbum_getClasses',
+        data:{section_id:section_id,basic_id:basic_id},
+        success:function(data){
+            console.log(data.length)
+            if (data.length <= 183 ) {
+                $('#content').html('در حال حاظر کلاسی وجود ندارد')
+            
+            
+            }else{
+                $('#content').html(data)
+            }
+
+        }
+
+            });
+
+        });
+
+
+
+
+
+
+
+
+
+
+    </script>
 @endsection
 
 

@@ -14,7 +14,24 @@
       <a href="" class=" btn btn-info btn-rounded">راهنمایی</a>
       <a href="" class=" btn btn-info btn-rounded">دبیرستان</a>
     --}}
+@if(\Session::has('success'))
+<div class="alert alert-success">
+<p>
+  {{\Session::get('success')}}
+</p>
+</div>
+@endif
 
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
     
     <form action=" {{route('Student.SubmitClass')}} " method="post">
@@ -22,21 +39,19 @@
     <div class=" row mt-2">
         <div class=" form-group col-md-4">
             <label for="">مقطع</label>
-            <select name="basic_id" class="custom-select mb-3">
+            <select id="section" name="section" class="custom-select mb-3">
               <option selected="">باز کردن فهرست انتخاب</option>
               @foreach (\App\models\SectionModel::all(); as $item)
-              <option value=" {{$item->sections_id}} ">{{$item->sections_name}}</option>
+                 <option value=" {{$item->sections_id}} ">{{$item->sections_name}}</option>
               @endforeach
              
           </select>
           </div>
       <div class=" form-group col-md-4">
         <label for="">پایه</label>
-        <select name="basic_id" class="custom-select mb-3">
-          <option selected="">باز کردن فهرست انتخاب</option>
-          @foreach (\App\models\BasicModel::all(); as $item)
-          <option value=" {{$item->basic_id}} ">{{$item->basic_name}}</option>
-          @endforeach
+        <select id="basic" name="basic" class="custom-select mb-3">
+          <option value="" selected="">باز کردن فهرست انتخاب</option>
+         
          
       </select>
       </div>
@@ -60,6 +75,46 @@
 
 
 
+
+
+@endsection
+
+
+
+@section('js')
+    
+ <script>
+ 
+ $.ajaxSetup({
+
+headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+}
+});
+
+$("#section").change(function(e){
+e.preventDefault();
+var section_id = $(this).val();
+
+$.ajax({
+
+  type:'POST',
+  url:'get_basics',
+  data:{section_id:section_id},
+  success:function(data){
+    if (data !== '') {
+      
+    $('#basic').html(data)
+    }else{
+      $('#basic').html('<option>برای مقطع مربوطه پایه ای وجود ندارد </option>')
+    }
+
+  }
+
+    });
+
+  });
+ </script>
 
 
 @endsection

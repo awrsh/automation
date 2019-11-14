@@ -64,3 +64,12 @@ Route::get('/AddDiscipline','User\MainController@Discipline')->name('Discipline.
 
 
 
+
+
+Route::post('Students/Allbum_getClasses','User\AllbumController@getClasses')->name('Allbum.Classes');
+
+
+
+
+
+

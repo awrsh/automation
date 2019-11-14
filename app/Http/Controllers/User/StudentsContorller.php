@@ -95,6 +95,7 @@ class StudentsContorller extends Controller
     public function import(Request $request)
     {
         $result =  Excel::import(new StudentsImport, request()->file('file'));
+      
         if($result){
             return view('User.Students.ImportData')->with('success','اطلاعات با موفقیت ثبت شد');
         }else{

@@ -16,9 +16,20 @@ class ClassificationController extends Controller
  public function InsertClass(Request $request)
  {
 
+
+    $validatedData = $request->validate([
+        'class_name' => 'required|unique:class',
+        'basic_id' => 'required',
+    ],[
+        'class_name.required' => 'نام کلاس الزامی است',
+        'class_name.unique' => 'نام کلاس از قبل وجود دارد',
+        'basic_id.required' => 'پایه را انتخاب کنید',
+    ]);
+
+
     $Class = ClassModel::insert([
         'class_name'=>$request->class_name,
-        'basic_id'=> $request->basic_id
+        'basic_id'=> $request->basic
         ]);
 
     if ($Class) {
