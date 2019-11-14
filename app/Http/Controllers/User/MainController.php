@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\BasicModel;
+use App\Models\ClassModel;
 use App\Models\School;
 use App\Models\Student;
 
@@ -78,6 +80,38 @@ class MainController extends Controller
      {
          return view('User.Students.EditClass');
      }
+
+     public function GetBasics(Request $request)
+     {
+      $basics = BasicModel::where('section_id',$request->section_id)->get();
+      $options=' <option selected="">باز کردن فهرست انتخاب</option>';
+      foreach ($basics as $item) {
+        $options .= ' <option value="'. $item->basic_id .'">'.$item->basic_name.'</option>';
+      }
+
+      return $options;
+      
+     }
+
+
+     public function GetClasses(Request $request)
+     {
+      $classes = ClassModel::where('basic_id',$request->basic_id)->get();
+      $options=' <option selected="">باز کردن فهرست انتخاب</option>';
+      foreach ($classes as $item) {
+        $options .= ' <option value="'. $item->basic_id .'">'.$item->basic_name.'</option>';
+      }
+
+      return $options;
+      
+     }
+
+
+     public function showClasses(Request $request)
+     {
+         dd($request->all());
+     }
+
 
 
 }
