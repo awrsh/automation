@@ -8,7 +8,52 @@
     
    <div class="card">
     <div class="card-body">
+
+       <div >
+            <form action="" method="post">
+                    @csrf
+                    <div class=" form-group row">
+                            <label for="" class=" col-md-1 pt-3"> <span class="text-danger">*</span> مقطع </label>
+                            <select id="basic" name="basic" class="col-md-4 custom-select custom-select-lg mb-3">
+                              <option selected="">باز کردن فهرست انتخاب</option>                   
+                            </select>
+                    </div>
+        
+                    <div class=" form-group row">
+                            <label for="" class=" col-md-1 pt-3"> <span class="text-danger">*</span> پایه </label>
+                            <select id="basic" name="basic" class="col-md-4 custom-select custom-select-lg mb-3">
+                              <option selected="">باز کردن فهرست انتخاب</option>                   
+                            </select>
+                    </div>
+        
+                    
+                    <div class=" form-group">
+                            <button type="submit" class=" btn btn-primary">مشاهده</button>
+                    </div>
+        
+        
+        
+                </form>
+       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <h5 class="card-title">  آلبوم عکس دانش آموزی </h5>
+
         <ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">
 
             @foreach (\App\Models\ClassModel::all(); as $key=>$item)
