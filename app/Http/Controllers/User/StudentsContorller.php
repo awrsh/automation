@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\User;
 
 use App\Exports\StudentsExport;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Imports\StudentsImport;
 use App\Models\Student;
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 class StudentsContorller extends Controller
 {
@@ -92,11 +93,12 @@ class StudentsContorller extends Controller
 
     public function import(Request $request)
     {
-        $result = Excel::import(new StudentsImport, request()->file('file'));
-        if ($result) {
-            return view('User.Students.ImportData')->with('success', 'اطلاعات با موفقیت ثبت شد');
-        } else {
-            return view('User.Students.ImportData')->with('errors', 'خطا در ثبت اطلاعات');
+        $result =  Excel::import(new StudentsImport, request()->file('file'));
+
+        if($result){
+            return view('User.Students.ImportData')->with('success','اطلاعات با موفقیت ثبت شد');
+        }else{
+            return view('User.Students.ImportData')->with('errors','خطا در ثبت اطلاعات');
         }
         return back();
     }

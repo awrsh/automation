@@ -16,9 +16,17 @@ class SectionController extends Controller
 
     public function InsertSection(Request $request)
     {
+      
+        $validatedData =    $request->validate([
+            'sections_name' => 'unique:section',
+         
+        ],[
+           
+            'sections_name.unique' => 'نام مقطع از قبل وجود دارد'
+        ]);
 
        $section = SectionModel::insert([
-           'sections_name'=>$request->section,
+           'sections_name'=>$request->section_name,
            'school_id'=> 1
            ]);
 

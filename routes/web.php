@@ -65,3 +65,12 @@ Route::get('/AddDiscipline','User\MainController@Discipline')->name('Discipline.
 
 Route::get('/EditInfo','User\StudentsContorller@EditInfo')->name('Student.EditInfo');
 
+
+
+Route::post('Students/Allbum_getClasses','User\AllbumController@getClasses')->name('Allbum.Classes');
+
+
+
+
+
+
