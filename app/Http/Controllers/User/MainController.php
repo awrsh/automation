@@ -10,7 +10,7 @@ use App\Models\School;
 use App\Models\Student;
 
 class MainController extends Controller
-{ 
+{
      public function index()
      {
          return view('User.Students.Register');
@@ -18,7 +18,7 @@ class MainController extends Controller
 
      public function Register(Request $request)
      {
-      
+
         $request->validate([
             'student_photo' => 'mimes:jpeg,png,jpg|dimensions:max_width=75,max_height=100',
             'national_number' => 'numeric',
@@ -30,12 +30,12 @@ class MainController extends Controller
            'national_number.between' => 'تعداد ارقام شماره ملی تایید نشد',
 
         ]);
-      
 
-       
-  
-  
-   
+
+
+
+
+
    Student::create([
     'school_id' => 1,
     'student_firstname' =>  $request->firstname,
@@ -59,12 +59,12 @@ class MainController extends Controller
 
      public function ImportWithExcel()
      {
-    
+
          return view('User.Students.ImportData');
      }
 
 
-     
+
      public function UploadPhoto()
      {
          return view('User.Students.UploadPhoto');
@@ -81,6 +81,12 @@ class MainController extends Controller
          return view('User.Students.EditClass');
      }
 
+     public function ListStudents()
+     {
+         $list =Student::get();
+         return view('User.Students.List',compact('list'));
+     }
+
      public function GetBasics(Request $request)
      {
       $basics = BasicModel::where('section_id',$request->section_id)->get();
@@ -90,7 +96,7 @@ class MainController extends Controller
       }
 
       return $options;
-      
+
      }
 
 
@@ -103,13 +109,20 @@ class MainController extends Controller
       }
 
       return $options;
-      
+
      }
 
 
      public function showClasses(Request $request)
      {
          dd($request->all());
+     }
+
+
+
+     public function Discipline()
+     {
+         return view('User.Discipline.AddDiscipline');
      }
 
 

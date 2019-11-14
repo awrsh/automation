@@ -1,67 +1,67 @@
 'use strict';
 $(document).ready(function () {
 
-  
+
     var form = $("#form1");
     form.validate({
         errorPlacement: function errorPlacement(error, element) {element.before(error);  },
-        
-        
+
+
         rules: {
             certificate_number:{
-                
+
                 required: true,
                 rangelength: [10,15]
             },
             father_mobile:{
-                
+
                 required:true,
                 digits: true,
                 minlength:11
             },
-            firstname:{           
+            firstname:{
                 required: true,
                 minlength: 3
             },lastname:{
-                
+
                 required:true,
                 minlength: 3
             },
-            father_name:{           
+            father_name:{
                 required: true,
                 minlength: 3
             },
-            mother_name:{           
+            mother_name:{
                 required: true,
                 minlength: 3
             },
-            birthday:{           
+            birthday:{
                 required: true,
-               
+
             },
-            student_section:{           
+            student_section:{
                 required: true,
-               
+
             },
 
-            student_basic:{           
+            student_basic:{
                 required: true,
-               
+
             },
-            student_class:{           
+            student_class:{
                 required: true,
-               
+
             },
-            student_number:{           
+            student_number:{
                 required: true,
-               
+
             },
             home_tel:{
                 required:true
             }
-           
-            
-           
+
+
+
         }
         ,messages:{
 
@@ -77,26 +77,26 @@ $(document).ready(function () {
             student_class:{required:"وارد کردن کلاس الزامیست"},
             student_number:{required:" شماره دانش اموزی الزامیست"},
             home_tel:{required:"شماره منزل الزامیست"},
-          
+
         }
     });
-    
+
     form.children("div").steps({
         headerTag: "h3",
         bodyTag: "section",
         transitionEffect: "slideLeft",
         labels: {
-			cancel: 'انصراف',
-			current: 'قدم کنونی:',
-			pagination: 'صفحه بندی',
-			finish: 'ثبت اطلاعات',
-			next: 'ادامه',
-			previous: 'بازگشت',
-			loading: 'در حال بارگذاری ...'
-		},
+            cancel: 'انصراف',
+            current: 'قدم کنونی:',
+            pagination: 'صفحه بندی',
+            finish: 'ثبت اطلاعات',
+            next: 'ادامه',
+            previous: 'بازگشت',
+            loading: 'در حال بارگذاری ...'
+        },
         onStepChanging: function (event, currentIndex, newIndex)
         {
-           
+
             form.validate().settings.ignore = ":disabled,:hidden";
             return form.valid();
         },
@@ -107,11 +107,11 @@ $(document).ready(function () {
         },
         onFinished: function (event, currentIndex)
         {
-            
-          return form.submit()
+
+            return form.submit()
         }
     });
-    
-    
+
+
 
 });

@@ -10,13 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-
-Route::get('/','User\MainController@index')->name('BaseUrl');
-
-
-// Register Routes
+Route::get('/','LoginController@index')->name('BaseUrl');
+Route::post('/login','LoginController@login')->name('login');
+Route::get('/Dashboard','User\MainController@index')->name('Dashboard');
 Route::post('/Students/Register','User\MainController@Register')->name('Student.Register');
 Route::post('send_section','User\SectionController@Ajax')->name('section.ajax');
 Route::post('send_basic','User\BasicController@Ajax')->name('basic.ajax');
@@ -25,10 +21,8 @@ Route::post('send_basic','User\BasicController@Ajax')->name('basic.ajax');
 Route::get('/Students/ImportData','User\MainController@ImportWithExcel')->name('Student.Excel');
 Route::get('/Students/UploadPhoto','User\MainController@UploadPhoto')->name('Student.Photo');
 Route::get('/Students/AlbumPhoto','User\MainController@AlbumPhoto')->name('Student.AlbumPhoto');
-
-
-
-// EditClasses Routes
+Route::get('/Students/List','User\MainController@ListStudents')->name('Student.List');
+Route::get('/Students/EditStudent/{id?}','User\StudentsContorller@Student')->name('Student.EditStudent');
 Route::get('/Students/EditClass','User\MainController@EditClass')->name('Student.EditClass');
 Route::post('/Students/get_basics','User\MainController@GetBasics');
 Route::post('/Students/get_classes','User\MainController@getClasses');
@@ -41,10 +35,13 @@ Route::post('/Students/ImportExel','User\StudentsContorller@import')->name('Stud
 Route::post('/Students/Photo','User\StudentsContorller@setPhoto')->name('Student.setPhoto');
 Route::post('/Students/Excel/Export','User\StudentsContorller@export')->name('Excel.export');
 Route::get('/Students/deleteSes',function(){
- session()->forget('import_data'); 
+ session()->forget('import_data');
  return redirect(route('Student.Excel'));
 })->name('deleteSes');
 
+Route::post('send_section','User\SectionController@Ajax')->name('section.ajax');
+
+Route::post('send_basic','User\BasicController@Ajax')->name('basic.ajax');
 
 
 /*  کلاس بندی   */
@@ -58,6 +55,12 @@ Route::post('/Students/SubmitClass','User\ClassificationController@InsertClass')
 
 
 
+
+
+
+
+
+Route::get('/AddDiscipline','User\MainController@Discipline')->name('Discipline.Add');
 
 
 

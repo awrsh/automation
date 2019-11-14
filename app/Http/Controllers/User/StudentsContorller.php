@@ -34,6 +34,7 @@ class StudentsContorller extends Controller
                     'student_student_photo' => 'uploads/students/' . $fileName
                 ]);
             }
+
         }
 
         return back();
@@ -70,7 +71,7 @@ class StudentsContorller extends Controller
                 case 'birthday':
                     $header[] = 'تاریخ تولد ';
                     break;
-              
+
                 case 'student_number':
                     $header[] = 'شماره دانش آموزی ';
                     break;
@@ -86,7 +87,7 @@ class StudentsContorller extends Controller
             }
         }
         $export = new StudentsExport([$header]);
-       
+
         return Excel::download($export, 'invoices.xlsx');
 
     }
@@ -97,10 +98,17 @@ class StudentsContorller extends Controller
         if($result){
             return view('User.Students.ImportData')->with('success','اطلاعات با موفقیت ثبت شد');
         }else{
-            return view('User.Students.ImportData')->with('errors','خطا در ثبت اطلاعات');   
+            return view('User.Students.ImportData')->with('errors','خطا در ثبت اطلاعات');
         }
         return back();
     }
 
-  
+
+
+    public function Student($id)
+    {
+        $data = Student::where('student_id', $id)->get()->first();
+        return view('User.Students.student', compact('data'));
+    }
+
 }

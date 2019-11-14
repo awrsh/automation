@@ -29,21 +29,20 @@ $(document).ready(function () {
     });
 
     $('#example2').DataTable({
-        "scrollY": "400px",
-        "scrollCollapse": true,
-		"paging": false,
+        
+		"paging": true,
 		"language": {
-			"sEmptyTable":     "هیچ داده ای در جدول وجود ندارد",
+			"sEmptyTable":     "هیچ موردی وجود ندارد",
 			"sInfo":           "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
 			"sInfoEmpty":      "نمایش 0 تا 0 از 0 رکورد",
 			"sInfoFiltered":   "(فیلتر شده از _MAX_ رکورد)",
 			"sInfoPostFix":    "",
 			"sInfoThousands":  ",",
-			"sLengthMenu":     "نمایش _MENU_ رکورد",
+			"sLengthMenu":     "نمایش _MENU_ ",
 			"sLoadingRecords": "در حال بارگزاری...",
 			"sProcessing":     "در حال پردازش...",
 			"sSearch":         "جستجو:",
-			"sZeroRecords":    "رکوردی با این مشخصات پیدا نشد",
+			"sZeroRecords":    "موردی با این مشخصات پیدا نشد",
 			"oPaginate": {
 				"sFirst":    "ابتدا",
 				"sLast":     "انتها",
