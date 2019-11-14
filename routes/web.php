@@ -14,12 +14,23 @@ Route::get('/','LoginController@index')->name('BaseUrl');
 Route::post('/login','LoginController@login')->name('login');
 Route::get('/Dashboard','User\MainController@index')->name('Dashboard');
 Route::post('/Students/Register','User\MainController@Register')->name('Student.Register');
+Route::post('send_section','User\SectionController@Ajax')->name('section.ajax');
+Route::post('send_basic','User\BasicController@Ajax')->name('basic.ajax');
+// End Register Routes
+
 Route::get('/Students/ImportData','User\MainController@ImportWithExcel')->name('Student.Excel');
 Route::get('/Students/UploadPhoto','User\MainController@UploadPhoto')->name('Student.Photo');
 Route::get('/Students/AlbumPhoto','User\MainController@AlbumPhoto')->name('Student.AlbumPhoto');
 Route::get('/Students/List','User\MainController@ListStudents')->name('Student.List');
 Route::get('/Students/EditStudent/{id?}','User\StudentsContorller@Student')->name('Student.EditStudent');
 Route::get('/Students/EditClass','User\MainController@EditClass')->name('Student.EditClass');
+Route::post('/Students/get_basics','User\MainController@GetBasics');
+Route::post('/Students/get_classes','User\MainController@getClasses');
+Route::post('Students/EditClass/ShowClasses','User\MainController@showClasses')->name('Student.EditClassShow');
+// End EditClasses Routes
+
+
+
 Route::post('/Students/ImportExel','User\StudentsContorller@import')->name('Student.importEx');
 Route::post('/Students/Photo','User\StudentsContorller@setPhoto')->name('Student.setPhoto');
 Route::post('/Students/Excel/Export','User\StudentsContorller@export')->name('Excel.export');
