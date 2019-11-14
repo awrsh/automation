@@ -63,4 +63,5 @@ Route::post('/Students/SubmitClass','User\ClassificationController@InsertClass')
 Route::get('/AddDiscipline','User\MainController@Discipline')->name('Discipline.Add');
 
 
+Route::get('/EditInfo','User\StudentsContorller@EditInfo')->name('Student.EditInfo');
 

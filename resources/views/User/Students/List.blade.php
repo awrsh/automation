@@ -39,17 +39,24 @@
                 <tbody>
                     @php
                     $i=1;
+
                     @endphp
                     @foreach ($list as $item)
+                    @php
+                    $class_ob = \App\Models\ClassModel::where('class_id',$item->student_student_class)->first();
+                    $class= $class_ob->class_name;
+                    $basic =\App\Models\BasicModel::where('basic_id',$class_ob->basic_id)->first()->basic_name;
+                    @endphp
                     <tr>
                         <td>{{$i}}</td>
                         <td>{{$item->student_firstname}}</td>
                         <td>{{$item->student_lastname}}</td>
                         <td>{{$item->student_national_number}}</td>
                         <td>{{$item->student_certificate_number}}</td>
-                        <td>{{$item->student_student_basic}}</td>
-                        <td>{{$item->student_student_class}}</td>
-                    <td class="text-center"><a href="{{route('Student.EditStudent')}}/{{$item->student_id}}"><i style="font-size:22px" class="icon ti-pencil"></a></td>
+                        <td>{{$basic}}</td>
+                        <td>{{$class}}</td>
+                        <td class="text-center"><a href="{{route('Student.EditStudent')}}/{{$item->student_id}}"><i
+                                    style="font-size:22px" class="icon ti-pencil"></a></td>
                     </tr>
                     @php
                     $i++;

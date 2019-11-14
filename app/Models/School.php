@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class School extends Model
 {
     protected $table = 'schools';
-    protected $guarded = ['school_id'];
-    protected $primaryKey = ['school_id'];
+    protected $guarded = [];
+    protected $primaryKey = 'school_id';
 
 
     public function Students()
