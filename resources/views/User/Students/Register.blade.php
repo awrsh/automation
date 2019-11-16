@@ -105,7 +105,7 @@
                                         <select id="student_section" required name="student_section"
                                             class="custom-select mb-3">
                                             <option selected="">باز کردن فهرست انتخاب</option>
-                                            @foreach (\App\models\SectionModel::all(); as $item)
+                                            @foreach (\App\Models\SectionModel::all(); as $item)
                                             <option value=" {{$item->sections_id}} ">{{$item->sections_name}}</option>
                                             @endforeach
 

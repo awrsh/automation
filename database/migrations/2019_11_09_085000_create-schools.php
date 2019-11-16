@@ -24,6 +24,7 @@ class CreateSchools extends Migration
             $table->text('school_count_students');
             $table->text('school_address')->nullable();
             $table->text('school_profile')->nullable();
+            $table->integer('school_sections');
             $table->text('school_status');
             $table->timestamps();
         });
