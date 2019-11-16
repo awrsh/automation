@@ -1,4 +1,4 @@
-@extends('Layouts.Pannel.Template');
+@extends('Layouts.Pannel.Template')
 
 @section('content')
 <div class="container-fluid">

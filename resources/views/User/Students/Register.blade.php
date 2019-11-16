@@ -1,4 +1,4 @@
-@extends('Layouts.Pannel.Template');
+@extends('Layouts.Pannel.Template')
 
 @section('content')
 
@@ -312,7 +312,7 @@
             });
 
 
-          $('#certificate_number').on('input',function(e){
+          $('#certificate_number').on('change',function(e){
             if($(this).val().length>12 || $(this).val().length <4)
             {
                 $("#massage-certificate_number").html('شماره شناسنامه وارد شده اشتباه است');
@@ -324,7 +324,7 @@
             }
           });
 
-          $('#national_number').on('input',function(e){
+          $('#national_number').on('change',function(e){
             if($(this).val().length>10 || $(this).val().length <10)
             {
                 $("#massage-national_number").html('کد ملی وارد شده اشتباه است');
@@ -338,7 +338,7 @@
 
 
 
-          $('#father_mobile').on('input',function(e){
+          $('#father_mobile').on('change',function(e){
             if($(this).val().length>11 || $(this).val().length <11)
             {
                 $("#massage-father_name").html('شماره موبایل وارد شده اشتباه است');
@@ -351,7 +351,7 @@
           });
 
 
-          $("#father_mobile").keyup(function () {
+          $("#father_mobile").change(function () {
         var VAL = this.value;
         var rgx = /(\+98|0)?9\d{9}/;
         var mobile = new RegExp(rgx);
@@ -368,7 +368,7 @@
 
 
 
-    $('#mother_mobile').on('input',function(e){
+    $('#mother_mobile').on('change',function(e){
             if($(this).val().length>11 || $(this).val().length <11)
             {
                 $("#massage-mother_mobile").html('شماره موبایل وارد شده اشتباه است');
@@ -381,7 +381,7 @@
           });
 
 
-          $("#mother_mobile").keyup(function () {
+          $("#mother_mobile").change(function () {
         var VAL = this.value;
         var rgx = /(\+98|0)?9\d{9}/;
         var mobile = new RegExp(rgx);
@@ -397,7 +397,7 @@
 
 
     
-    $('#student_mobile').on('input',function(e){
+    $('#student_mobile').on('change',function(e){
             if($(this).val().length>11 || $(this).val().length <11)
             {
                 $("#massage-student_mobile").html('شماره موبایل وارد شده اشتباه است');
@@ -410,7 +410,7 @@
           });
 
 
-          $("#student_mobile").keyup(function () {
+          $("#student_mobile").change(function () {
         var VAL = this.value;
         var rgx = /(\+98|0)?9\d{9}/;
         var mobile = new RegExp(rgx);

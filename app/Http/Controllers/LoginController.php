@@ -15,7 +15,7 @@ class LoginController extends Controller
 
         $res = School::where([
             'school_username' => request()->post('username'),
-            'school_password' => request()->post('password'),
+            'school_password' =>md5(request()->post('password')),
         ])->get();
         if (count($res) > 0) {
            return \redirect(\route('Dashboard'));

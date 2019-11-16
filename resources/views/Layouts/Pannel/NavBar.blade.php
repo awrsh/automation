@@ -84,12 +84,12 @@
                      <div class="dropdown-divider"></div>
                      <a href="login.html" class="text-danger dropdown-item">خروج</a>
                  </div>
-             </li>
+             </li>--}}
              <li class="nav-item d-lg-none d-sm-block">
                  <a href="#" class="nav-link side-menu-open">
                      <i class="ti-menu"></i>
                  </a>
-             </li> --}}
+             </li> 
          </ul>
      </div>
 

@@ -4,17 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token()}}">
     <title> پنل کاری </title>
-
-    <!-- begin::global styles -->
-    <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/bundle.css" type="text/css">
-    <!-- end::global styles -->
-
-    {{-- <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/swiper/swiper.min.css"> --}}
-
-
-    
+    <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/bundle.css" type="text/css"> 
     @yield('css')
     <!-- begin::custom styles -->
     <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/css/app.css" type="text/css">
@@ -40,15 +32,15 @@
 <!-- end::page loader -->
 
 <!-- Setting Pannel SideBar -->
-{{-- @include('Layouts.Pannel.SettingSideBar'); --}}
+{{-- @include('Layouts.Pannel.SettingSideBar') --}}
 <!-- End Setting Pannel SideBar -->
 
 <!-- Pannel SideBar -->
-@include('Layouts.Pannel.SideBar');
+@include('Layouts.Pannel.SideBar')
 <!-- End Pannel SideBar -->
 
 <!-- Pannel NavBar -->
-@include('Layouts.Pannel.NavBar');
+@include('Layouts.Pannel.NavBar')
 <!-- End Pannel NavBar -->
 
 <!-- Main -->

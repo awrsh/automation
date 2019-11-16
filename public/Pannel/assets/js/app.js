@@ -15,7 +15,7 @@
         }
     };
     /*------------- create overlay -------------*/
-
+    body_.addClass('layout-container icon-side-menu');
     if (body_.hasClass('layout-container')) {
         // body_.addClass('hidden-side-menu');
         $('.container-fluid').addClass('container').removeClass('container-fluid');
