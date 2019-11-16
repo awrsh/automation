@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateSectionModelsTable extends Migration
 {
@@ -16,9 +17,16 @@ class CreateSectionModelsTable extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->bigIncrements('sections_id');
             $table->text('sections_name');
-            $table->bigInteger('school_id');
             $table->timestamps();
         });
+
+
+
+        DB::table('sections')->insert([
+            ['sections_name' => 'ابتدایی'],
+            ['sections_name' => 'دوره اول متوسطه'],
+            ['sections_name' => 'دوره دوم متوسطه'],
+        ]);
     }
 
     /**
