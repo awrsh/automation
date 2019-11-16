@@ -28,7 +28,7 @@ $(document).ready(function () {
 		}
     });
 
-    $('#example2').DataTable({
+    $('.example2').DataTable({
         
 		"paging": true,
 		"language": {

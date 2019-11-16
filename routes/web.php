@@ -70,6 +70,10 @@ Route::get('/EditInfo','User\StudentsContorller@EditInfo')->name('Student.EditIn
 Route::post('Students/Allbum_getClasses','User\AllbumController@getClasses')->name('Allbum.Classes');
 
 
+//انظباطی
+Route::post('Discipline/AddItem','User\Discipline\DisciplineController@AddCase')->name('Discipline.AddCase');
+
+
 
 
 
