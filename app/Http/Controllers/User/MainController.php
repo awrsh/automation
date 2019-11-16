@@ -28,7 +28,7 @@ class MainController extends Controller
 
         ], [
             'student_photo.mimes' => 'فرمت فایل صحیح نیست',
-          
+
             'national_number.digits' => 'شماره ملی بایستی شامل اعداد باشد',
             'national_number.between' => 'تعداد ارقام شماره ملی تایید نشد',
 
@@ -105,7 +105,7 @@ class MainController extends Controller
         $classes = ClassModel::where('basic_id', $request->basic_id)->get();
         $options = ' <option selected="">باز کردن فهرست انتخاب</option>';
         foreach ($classes as $item) {
-            $options .= ' <option value="' . $item->basic_id . '">' . $item->basic_name . '</option>';
+            $options .= ' <option value="' . $item->class_id . '">' . $item->class_name . '</option>';
         }
 
         return $options;
@@ -114,7 +114,14 @@ class MainController extends Controller
 
     public function showClasses(Request $request)
     {
-        dd($request->all());
+        $id = $request->class_id;
+        $classes = Student::where('student_student_class', $id)->get();
+        $options = '';
+        foreach ($classes as $item) {
+            $options .= ' <option value="' . $item->student_id . '">' . $item->student_firstname .' - '. $item->student_lastname.'</option>';
+        }
+
+        return $options;
     }
 
     public function Discipline()

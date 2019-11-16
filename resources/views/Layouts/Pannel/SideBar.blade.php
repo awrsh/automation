@@ -19,7 +19,7 @@
                             <li><a href="{{route('Student.AddSection')}} ">تعریف مقطع</a></li>
                             <li><a href="{{route('Student.AddBasic')}}"> تعریف پایه</a></li>
                             <li><a href=" {{route('Student.AddClass')}} ">تعریف کلاس</a></li>
-                            <li><a href="">ویرایش کلاس بندی</a></li>
+                        <li><a href="{{route('Student.EditClass')}}">ویرایش کلاس بندی</a></li>
                         </ul>
                     </li>
                    
