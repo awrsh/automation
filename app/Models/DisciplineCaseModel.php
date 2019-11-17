@@ -8,10 +8,10 @@ class DisciplineCaseModel extends Model
 {
     protected $table = 'discipline_case';
     protected $primaryKey = 'case_id';
-    protected $guarded = [];
+    protected $guarded = 'case_id';
 
     public function relatedLow()
     {
-        // return $this->hasOne(DisciplineLawsModel::class,'low_id','low_id');
+        return $this->belongsTo(DisciplineLawsModel::class,'law_id','law_id');
     }
 }

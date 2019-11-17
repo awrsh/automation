@@ -8,4 +8,5 @@ class DisciplineLawsModel extends Model
 {
     protected $table = 'discipline_laws';
     protected $primaryKey = 'law_id';
+    protected $guarded = 'law_id';
 }

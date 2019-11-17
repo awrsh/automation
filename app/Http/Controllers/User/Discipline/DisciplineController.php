@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Discipline;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\DisciplineCaseModel;
+use App\Models\DisciplineLawsModel;
 
 class DisciplineController extends Controller
 {
