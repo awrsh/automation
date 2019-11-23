@@ -42,11 +42,11 @@
             <div class="col-lg-4 offset-lg-1 p-t-b-25">
                 <div class="d-flex align-items-center m-b-20">
                     <img src="assets/media/image/dark-logo.png" class="m-l-15" width="40" alt="">
-                    <h3 class="m-0">مدیریت المینو</h3>
+                    <h3 class="m-0">پنل مدیریت</h3>
                 </div>
                 <p>برای ادامه وارد شوید.</p>
                 @include('Form.errors')
-                <form action="{{route('login')}}" method="post">
+                <form action="{{route('login.checkAdmin')}}" method="post">
                     @csrf
                     <div class="form-group mb-4">
                         <input type="text" class="form-control form-control-lg" name="username" autofocus

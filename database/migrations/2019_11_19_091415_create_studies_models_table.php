@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePasswordListSchoolModelsTable extends Migration
+class CreateStudiesModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreatePasswordListSchoolModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('password_list_school', function (Blueprint $table) {
-            $table->bigIncrements('pass_id');
-            $table->integer('school_id');
-            $table->text('pass_txt');
+        Schema::create('studies', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->text('studies_name');
+            $table->text('studies_date');
+            $table->text('studies_count');
+            $table->integer('class_id');
+            $table->integer('lesson_id');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreatePasswordListSchoolModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_list_school');
+        Schema::dropIfExists('studies');
     }
 }

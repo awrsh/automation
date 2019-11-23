@@ -20,7 +20,7 @@ Route::post('send_basic', 'User\BasicController@Ajax')->name('basic.ajax');
 
 Route::get('/Students/ImportData', 'User\MainController@ImportWithExcel')->name('Student.Excel');
 Route::get('/Students/UploadPhoto', 'User\MainController@UploadPhoto')->name('Student.Photo');
-Route::get('/Students/AlbumPhoto', 'User\MainController@AlbumPhoto')->name('Student.AlbumPhoto');
+Route::get('/Students/AlbumPhoto', 'User\MainController@AlbumPhoto')->name('Student.AlbumPhoto')->middleware('AdminL');
 Route::get('/Students/List', 'User\MainController@ListStudents')->name('Student.List');
 Route::get('/Students/EditStudent/{id?}', 'User\StudentsContorller@Student')->name('Student.EditStudent');
 Route::get('/Students/EditClass', 'User\MainController@EditClass')->name('Student.EditClass');
@@ -55,9 +55,19 @@ Route::get('/EditInfo', 'User\StudentsContorller@EditInfo')->name('Student.EditI
 
 Route::post('Students/Allbum_getClasses', 'User\AllbumController@getClasses')->name('Allbum.Classes');
 
-Route::prefix('/Admin')->group(function () {
+
+
+
+
+Route::get('/Admin/Login', 'LoginController@Admin')->name('login.Admin');
+Route::post('/Admin/Login', 'LoginController@loginAdmin')->name('login.checkAdmin');
+Route::prefix('/Admin',)->middleware('AdminL')->group(function () {
     Route::get('/', 'Admin\MainController@index')->name('Admin.SchoolAdd');
     Route::get('/AddSchool', 'Admin\MainController@index')->name('Admin.SchoolAdd');
     Route::get('/ListSchool', 'Admin\MainController@ListSchool')->name('Admin.SchoolsList');
     Route::post('/School', 'Admin\Schools@AddSchool')->name('Admin.RegisterSchool');
 });
+
+
+Route::get('/Exercise/HomeWorksResponsible', 'User\ExerciseDailyController@AddResponsible')->name('Exercise.AddResponsible');
+Route::get('/Exercise/HomeWorksResponsible', 'User\ExerciseDailyController@AddResponsible')->name('Exercise.AddResponsible');

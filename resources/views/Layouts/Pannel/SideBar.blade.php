@@ -35,6 +35,14 @@
                     <li><a href=""> لیست غیبت و تاخیر </a></li>
                 </ul>
             </li>
+
+
+
+            <li><a href="#"><i class="icon ti-file"></i> <span>تکالیف</span> </a>
+                <ul>
+                    <li><a href="{{route('Exercise.AddResponsible')}}">ثبت مسئول تکالیف </a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>
