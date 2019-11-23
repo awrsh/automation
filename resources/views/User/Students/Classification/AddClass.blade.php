@@ -37,7 +37,7 @@
     <form action=" {{route('Student.SubmitClass')}} " method="post">
      @csrf
     <div class=" row mt-2">
-        <div class=" form-group col-md-4">
+        {{-- <div class=" form-group col-md-4">
             <label for="">مقطع</label>
             <select id="section" name="section" class="custom-select mb-3">
               <option selected="">باز کردن فهرست انتخاب</option>
@@ -46,12 +46,15 @@
               @endforeach
              
           </select>
-          </div>
+          </div> --}}
       <div class=" form-group col-md-4">
         <label for="">پایه</label>
         <select id="basic" name="basic" class="custom-select mb-3">
           <option value="" selected="">باز کردن فهرست انتخاب</option>
-         
+        
+     @foreach (\App\Models\BasicModel::where('section_id',1)->get() as $item)
+     <option value="{{$item->basic_id}}" selected="  ">{{$item->basic_name}}</option>
+     @endforeach
          
       </select>
       </div>

@@ -21,9 +21,13 @@ class CreatePermissionsModelsTable extends Migration
         });
 
         DB::table('permissions')->insert([
-            'permission_name' => 'مطالعات',
-            'permission_name' => 'فعالیت کلاسی'
-        ]);
+            'permission_name' => 'ثبت مطالعاتی',
+
+        ],[
+            'permission_name' => 'ثبت انظباط',
+
+        ]
+    );
     }
 
     /**

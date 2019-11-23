@@ -17,7 +17,7 @@ class CreateStudiesModelsTable extends Migration
             $table->bigIncrements('id');
             $table->text('studies_name');
             $table->text('studies_date');
-            $table->text('studies_count');
+            $table->integer('studies_count');
             $table->integer('class_id');
             $table->integer('lesson_id');
             $table->timestamps();

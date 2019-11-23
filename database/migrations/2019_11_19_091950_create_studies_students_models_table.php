@@ -16,8 +16,9 @@ class CreateStudiesStudentsModelsTable extends Migration
         Schema::create('studies_students', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('studies_students_date');
-            $table->text('studies_students_count');
+            $table->integer('studies_students_count');
             $table->integer('studies_id');
+            $table->integer('lesson_id');
             $table->integer('student_id');
             $table->timestamps();
         });

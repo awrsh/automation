@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\LessonModel;
 use App\Models\BasicModel;
 use App\Models\ClassModel;
 use App\Models\School;
@@ -24,22 +25,24 @@ class MainController extends Controller
 
         $request->validate([
             'student_photo' => 'mimes:jpeg,png,jpg',
-            'national_number' => 'numeric',
+            'national_number' => 'required | numeric',
+            'student_number' => 'unique:students'
 
         ], [
             'student_photo.mimes' => 'فرمت فایل صحیح نیست',
-
+            'national_number.required'=>'کد ملی الزامی است',
             'national_number.digits' => 'شماره ملی بایستی شامل اعداد باشد',
             'national_number.between' => 'تعداد ارقام شماره ملی تایید نشد',
+            'student_number.unique' => 'شماره دانش اموزی از قبل وجود دارد'
 
         ]);
 
         if ($request->has('student_photo')) {
-            $fileName = $request->student_photo->getClientOriginalName();
+            $fileName = $request->national_number .'.'. $request->student_photo->getClientOriginalExtension();
             $fileNameWithoutEx = pathinfo($fileName, PATHINFO_FILENAME);
-            $request->student_photo->move(public_path('uploads/students/'), $fileName);
-
+            $request->student_photo->move(public_path('uploads/students/'.$request->national_number), $fileName);
         }
+
         Student::create([
             'school_id' => 1,
             'student_firstname' => $request->firstname,
@@ -79,7 +82,8 @@ class MainController extends Controller
 
     public function EditClass()
     {
-        return view('User.Students.EditClass');
+        $list_ul = Student::where('student_student_class', null)->get();
+        return view('User.Students.EditClass', compact('list_ul'));
     }
 
     public function ListStudents()
@@ -97,7 +101,6 @@ class MainController extends Controller
         }
 
         return $options;
-
     }
 
     public function GetClasses(Request $request)
@@ -109,8 +112,9 @@ class MainController extends Controller
         }
 
         return $options;
-
     }
+
+
 
     public function showClasses(Request $request)
     {
@@ -118,15 +122,16 @@ class MainController extends Controller
         $classes = Student::where('student_student_class', $id)->get();
         $options = '';
         foreach ($classes as $item) {
-            $options .= ' <option value="' . $item->student_id . '">' . $item->student_firstname .' - '. $item->student_lastname.'</option>';
+            $options .= ' <option value="' . $item->student_id . '">' . $item->student_firstname . ' - ' . $item->student_lastname . '</option>';
         }
+            return $options;
 
-        return $options;
+
+
     }
 
     public function Discipline()
     {
         return view('User.Discipline.AddDiscipline');
     }
-
 }
