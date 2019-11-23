@@ -64,7 +64,7 @@ $(document).ready(function () {
 		}
     });
 
-    $('input[name="simple-date-range-picker"]').daterangepicker({
+    $('.simple-date-range-picker').daterangepicker({
 		opens: 'left',
 		"locale": {
 			"format": "YYYY/MM/DD",

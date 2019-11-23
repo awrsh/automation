@@ -99,7 +99,7 @@
 
 
 
-                                    <div class="form-group col-md-6 wd-xs-300">
+                                    {{-- <div class="form-group col-md-6 wd-xs-300">
                                         <label> مقطع دانش آموز</label>
 
                                         <select id="student_section" required name="student_section"
@@ -110,19 +110,25 @@
                                             @endforeach
 
                                         </select>
-                                    </div><!-- form-group -->
+                                    </div><!-- form-group --> --}}
                                     <div class="form-group col-md-6 wd-xs-300">
                                         <label> پایه دانش آموز</label>
 
                                         <select id="student_basic" required name="student_basic"
                                             class="custom-select mb-3">
-
-
-
+                                            @php
+                                                $sis = 1;   
+                                                if ($sis==4) {
+                                                  $basics =  \App\Models\BasicModel::where('section_id',2)->Orwhere('section_id',3)->get();
+                                                }else{
+                                                  $basics =  \App\Models\BasicModel::where('section_id', $sis )->get();
+                                                }
+                                            @endphp
+                                            @foreach ($basics as $item)
+                                            <option value=" {{$item->basic_id}} ">{{$item->basic_name}}</option>
+                                            @endforeach
                                         </select>
                                     </div><!-- form-group -->
-                                </div>
-                                <div class="row">
                                     <div class="form-group col-md-6 wd-xs-300">
                                         <label> کلاس دانش آموز</label>
                                         <select required name="student_class" id="student_class"
@@ -132,10 +138,18 @@
 
                                         </select>
                                     </div><!-- form-group -->
+                                </div>
+                                <div class="row">
+                               
                                     <div class="form-group col-md-6 wd-xs-300">
                                         <label> شماره دانش اموزی</label>
                                         <input type="text" name="student_number" required
                                             class="form-control text-right" dir="ltr">
+
+                                    </div><!-- form-group -->
+                                    <div class="form-group col-md-6 wd-xs-300">
+                                        <label> نام مدرسه قبلی</label>
+                                        <input type="text" name="prev_school" class="form-control" required>
 
                                     </div><!-- form-group -->
                                 </div>
@@ -153,11 +167,7 @@
                                     </div><!-- form-group -->
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-md-6 wd-xs-300">
-                                        <label> نام مدرسه قبلی</label>
-                                        <input type="text" name="prev_school" class="form-control" required>
-
-                                    </div><!-- form-group -->
+                               
                                     <div class="form-group col-md-6 wd-xs-300">
                                         <label> اپلود عکس(3X4) </label>
                                         <input type="file" id="target" name="student_photo"
@@ -233,10 +243,10 @@
 
 @section('js')
 <!-- begin::form wizard -->
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.js"></script> --}}
 {{-- <script src="{{route('BaseUrl')}}/Pannel/assets/js/examples/form-wizard.js"></script> --}}
 <script>
     (function () {
@@ -302,7 +312,7 @@
 
                             $('#student_class').html(data)
                         }else{
-                            $('#student_class').html('<option>برای مقطع مربوطه پایه ای وجود ندارد </option>')
+                            $('#student_class').html('<option>برای پایه مربوطه پایه ای وجود ندارد </option>')
                         }
 
                     }
@@ -312,7 +322,7 @@
             });
 
 
-          $('#certificate_number').on('input',function(e){
+          $('#certificate_number').on('change',function(e){
             if($(this).val().length>12 || $(this).val().length <4)
             {
                 $("#massage-certificate_number").html('شماره شناسنامه وارد شده اشتباه است');
@@ -324,7 +334,7 @@
             }
           });
 
-          $('#national_number').on('input',function(e){
+          $('#national_number').on('change',function(e){
             if($(this).val().length>10 || $(this).val().length <10)
             {
                 $("#massage-national_number").html('کد ملی وارد شده اشتباه است');
@@ -338,7 +348,7 @@
 
 
 
-          $('#father_mobile').on('input',function(e){
+          $('#father_mobile').on('change',function(e){
             if($(this).val().length>11 || $(this).val().length <11)
             {
                 $("#massage-father_name").html('شماره موبایل وارد شده اشتباه است');
@@ -351,7 +361,7 @@
           });
 
 
-          $("#father_mobile").keyup(function () {
+          $("#father_mobile").change(function () {
         var VAL = this.value;
         var rgx = /(\+98|0)?9\d{9}/;
         var mobile = new RegExp(rgx);
@@ -368,7 +378,7 @@
 
 
 
-    $('#mother_mobile').on('input',function(e){
+    $('#mother_mobile').on('change',function(e){
             if($(this).val().length>11 || $(this).val().length <11)
             {
                 $("#massage-mother_mobile").html('شماره موبایل وارد شده اشتباه است');
@@ -381,7 +391,7 @@
           });
 
 
-          $("#mother_mobile").keyup(function () {
+          $("#mother_mobile").change(function () {
         var VAL = this.value;
         var rgx = /(\+98|0)?9\d{9}/;
         var mobile = new RegExp(rgx);
@@ -397,7 +407,7 @@
 
 
     
-    $('#student_mobile').on('input',function(e){
+    $('#student_mobile').on('change',function(e){
             if($(this).val().length>11 || $(this).val().length <11)
             {
                 $("#massage-student_mobile").html('شماره موبایل وارد شده اشتباه است');
@@ -410,7 +420,7 @@
           });
 
 
-          $("#student_mobile").keyup(function () {
+          $("#student_mobile").change(function () {
         var VAL = this.value;
         var rgx = /(\+98|0)?9\d{9}/;
         var mobile = new RegExp(rgx);

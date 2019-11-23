@@ -128,8 +128,10 @@ class StudentsContorller extends Controller
             $fileNameWithoutEx = pathinfo($fileName, PATHINFO_FILENAME);
             $request->student_photo->move(public_path('uploads/students/'), $fileName);
 
+        }else{
+            $fileName ="";
         }
-        Student::whrer('student_id', $request->id_student)->update([
+        Student::where('student_id', $request->id_student)->update([
 
             'student_firstname' => $request->firstname,
             'student_lastname' => $request->lastname,
@@ -139,7 +141,6 @@ class StudentsContorller extends Controller
             'student_father_mobile' => $request->father_mobile,
             'student_mother_mobile' => $request->mother_mobile,
             'student_birthday' => $request->birthday,
-            'student_student_class' => $request->student_class,
             'student_student_number' => $request->student_number,
             'student_home_tel' => $request->home_tel,
             'student_student_mobile' => $request->student_mobile,

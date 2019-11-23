@@ -80,42 +80,40 @@
                                             </thead>
                                             <tbody>
 
-                                                @foreach (\App\Models\Student::where('student_student_class',$item->class_id)->get() as $students)
+                                                @foreach (\App\Models\Student::where('student_student_class',$item->class_id)->get() as $key=>$students)
 
                                                 <tr>
-                                                        <td>1</td>
-                                                        <td>علی رضایی</td>
-                                                        <td>رضا</td>
-                                                        <td>7856436752</td>
-                                                        <td>هشتم</td>
-                                                        <td>هشت دو</td>
+                                                        <td> {{$key+1}} </td>
+                                                        <td>{{$students->student_firstname .' '.$students->student_lastname }}</td>
+                                                        <td>{{$students->student_father_name}}</td>
+                                                        <td>{{$students->student_student_number}}</td>
+                                                        <td> {{$students->getBasic()}}</td>
+                                                        <td>{{$students->getClass->class_name}}</td>
 
                                                         <td><a href="" class="btn btn-info btn-sm"  data-toggle="modal" data-target=".bd-example-modal-lg" data-id=" {{$students->student_id}} "><i style="font-size:22px" class="icon ti-pencil"></i> </a></td>
-                                                        <td class="text-center"><a href=""><i style="font-size:22px" class="icon ti-menu-alt"></i></a>
+                                                        <td class="text-center"><a href="" data-toggle="modal" data-target=".bd-modal-lg" data-id=" {{$students->student_id}} "><i style="font-size:22px" class="icon ti-menu-alt"></i></a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
-                                               
-                                              
-                            
+                
                             
                                             </tbody>
                             
                                         </table>
-                            
-                            
-                            
+    
                             </div>
                             @endforeach
                         </div>
-                               
-            
         </div>
     </div>
 
-
-
-
+    <div class="modal fade bd-modal-lg"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div id="chart" class="modal-content p-15">
+           
+        </div>
+    </div>
+</div>
 
     <div class="modal fade bd-example-modal-lg"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -127,7 +125,7 @@
                             <div class="row">
                                     <div class="col-md-6">
                                         <label for="">تاریخ</label>
-                                        <input type="text"  name="case_date" class="form-control text-right date-picker-shamsi-list" dir="ltr">
+                                        <input type="text"  name="case_date" class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">
                                     </div>
                                 </div>
                                 <input type="hidden" name="student_id" id="student_id" value="">
@@ -211,6 +209,39 @@
       var id = button.data('id') // Extract info from data-* attributes
      $('#form').find('input[name=student_id]').val(id)
     })
+
+
+    $('.bd-modal-lg').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+      var id = button.data('id') // Extract info from data-* attributes
+      $.ajaxSetup({
+
+headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+}
+});
+
+
+$.ajax({
+
+type:'get',
+url:'discipline/student_chart',
+data:{id:id},
+success:function(data){
+    if (data.length == 110) {
+        $('#chart').html('<h4>موردی برای نمایش وجود ندارد</h4>')
+    }else{
+
+   $('#chart').html(data)
+    }
+
+}
+
+        })
+
+        })  
+
+
         })
         </script>
 @endsection

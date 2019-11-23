@@ -9,12 +9,12 @@ use App\Models\SectionModel;
 
 class AllbumController extends Controller
 {
+
+   
     
     function getClasses(Request $request)
     {
-        $classes=ClassModel::where('basic_id',$request->basic_id)->whereHas('basics',function($q) use ($request){
-                $q->where('section_id',$request->section_id);
-        })->get();
+        $classes=ClassModel::where('basic_id',$request->basic_id)->get();
         
 
         $class_lists = ' <h5 class="card-title">  آلبوم عکس دانش آموزی </h5>';
@@ -40,7 +40,8 @@ class AllbumController extends Controller
     ';
 
 
-
+   
+      
 
       
     $class_lists .='<div class="tab-content my-5" id="pills-tabContent2">';
@@ -51,34 +52,60 @@ foreach ($classes as $key=>$item){
                   <div class="row">';
           
                           foreach (\App\Models\Student::where('student_student_class',$item->class_id)->get() as $student){
+                            if($student->student_student_photo!=""){
                             $class_lists .=' <div class=" col-md-2 my-2 text-center">
                                       <div class="flex__column">
-                                      <img src="' .route('BaseUrl').'/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
+                                      <img src="' .route('BaseUrl').'/uploads/students/'.$student->student_student_photo.' " height="100" width="75" alt="">
                                       <span>
                                           '.$student->student_firstname . $student->student_lastname.'
                                       </span>
                                       </div>
                               </div>';
                           }
+                        else{
+                            $class_lists .=' <div class=" col-md-2 my-2 text-center">
+                            <div class="flex__column">
+                            <img src="' .route('BaseUrl').'/Pannel/img/avatar.jpg " height="100" width="75" alt="">
+                            <span>
+                                '.$student->student_firstname . $student->student_lastname.'
+                            </span>
+                            </div>
+                    </div>';
+                        
+                           }
+                        }
                           $class_lists .='  </div>
               </div>';
           }else{
 
             $class_lists .='<div class="tab-pane fade" id="pills-'.$item->class_id.'" role="tabpanel" aria-labelledby="pills-all-tab">
-      <div class="row">';
-
-              foreach (\App\Models\Student::where('student_student_class',$item->class_id)->get() as $student){
-                $class_lists .='  <div class=" col-md-2 my-2 text-center">
-                          <div class="flex__column">
-                          <img src="' .route('BaseUrl').'/Pannel/assets/images/0150784058.jpg " height="100" width="75" alt="">
-                          <span>
-                          '.$student->student_firstname . $student->student_lastname.'
-                          </span>
-                          </div>
-                  </div>';
-              }
-              $class_lists .='  </div>
-  </div>';
+            <div class="row">';
+          
+            foreach (\App\Models\Student::where('student_student_class',$item->class_id)->get() as $student){
+              if($student->student_student_photo!=""){
+              $class_lists .=' <div class=" col-md-2 my-2 text-center">
+                        <div class="flex__column">
+                        <img src="' .route('BaseUrl').'/uploads/students/'.$student->student_student_photo.' " height="100" width="75" alt="">
+                        <span>
+                            '.$student->student_firstname . $student->student_lastname.'
+                        </span>
+                        </div>
+                </div>';
+            }
+          else{
+              $class_lists .=' <div class=" col-md-2 my-2 text-center">
+              <div class="flex__column">
+              <img src="' .route('BaseUrl').'/Pannel/img/avatar.jpg " height="100" width="75" alt="">
+              <span>
+                  '.$student->student_firstname . $student->student_lastname.'
+              </span>
+              </div>
+      </div>';
+          
+             }
+          }
+            $class_lists .='  </div>
+</div>';
           }
 }
 

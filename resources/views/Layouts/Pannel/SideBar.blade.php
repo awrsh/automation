@@ -19,7 +19,7 @@
                             {{-- <li><a href="{{route('Student.AddSection')}} ">تعریف مقطع</a></li>
                             <li><a href="{{route('Student.AddBasic')}}"> تعریف پایه</a></li> --}}
                             <li><a href=" {{route('Student.AddClass')}} ">تعریف کلاس</a></li>
-                            <li><a href="">ویرایش کلاس بندی</a></li>
+                            <li><a href=" {{route('Student.EditClass')}} ">ویرایش کلاس بندی</a></li>
                         </ul>
                     </li>
                    
@@ -28,13 +28,27 @@
             <li><a href="#"><i class="icon ti-alert"></i> <span>انضباطی</span> </a>
                 <ul>
                     <li><a href="{{route('Discipline.Add')}}">ثبت مورد دانش آموز </a></li>
-                    <li><a href="">ثبت مورد دسته جمعی</a></li>
-                    <li><a href="">ثبت نمره انضباط</a> </li>
-                    <li><a href="">تعریف آیین نامه انضباظی </a></li>
-                    <li><a href="">لیست گزارش انضباطی</a></li>
-                    <li><a href=""> لیست غیبت و تاخیر </a></li>
+                    <li><a href=" {{route('Discipline.AddCases')}} ">ثبت مورد دسته جمعی</a></li>
+                    <li><a href="{{route('Discipline.AddPoints')}} ">ثبت نمره انضباط</a> </li>
+                    <li><a href=" {{route('Discipline.defineLow')}} ">تعریف آیین نامه انضباظی </a></li>
+                    <li><a href="{{route('Discipline.lists')}}">لیست گزارش انضباطی</a></li>
+                    <li><a href=" {{route('Discipline.AbsenceAndDelayList')}} "> لیست غیبت و تاخیر </a></li>
                 </ul>
             </li>
+
+
+            <li><a href="#"><i class="icon ti-book"></i> <span>مطالعات</span> </a>
+                <ul>
+                    <li><a href="{{route('Studing.StudyingModels')}}">تعریف الگوی مطالعه </a></li>
+                    <li><a href=" {{route('Studing.StudyingReport')}} ">گزارش مطالعات دانش اموزان</a></li>
+                    <li><a href=" {{route('Studing.StudyingLessonsReport')}} ">  میانگین مطالعه کلاس ها به تفکیک دروس</a></li>
+
+                    <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعات کلاسی</a></li>
+                    <li><a href="{{route('Discipline.lists')}}">لیست گزارش انضباطی</a></li>
+                    <li><a href=" {{route('Discipline.AbsenceAndDelayList')}} "> لیست غیبت و تاخیر </a></li>
+                </ul>
+            </li>
+
         </ul>
     </div>
 </div>

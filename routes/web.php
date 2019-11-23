@@ -52,7 +52,8 @@ Route::post('/Students/SubmitBasic','User\BasicController@InsertBasic')->name('S
 Route::get('/Students/AddClass','User\classificationController@AddClass')->name('Student.AddClass');
 Route::post('/Students/SubmitClass','User\ClassificationController@InsertClass')->name('Student.SubmitClass');
 
-
+Route::post('/Students/ExitClass','User\ClassificationController@ExitClass')->name('Student.ExitClass');
+Route::post('/Students/EnterClass','User\ClassificationController@EnterClass')->name('Student.EnterClass');
 
 
 
@@ -63,7 +64,7 @@ Route::post('/Students/SubmitClass','User\ClassificationController@InsertClass')
 Route::get('/AddDiscipline','User\MainController@Discipline')->name('Discipline.Add');
 
 
-Route::get('/EditInfo','User\StudentsContorller@EditInfo')->name('Student.EditInfo');
+Route::post('/EditInfo','User\StudentsContorller@EditInfo')->name('Student.EditInfo');
 
 
 
@@ -73,8 +74,47 @@ Route::post('Students/Allbum_getClasses','User\AllbumController@getClasses')->na
 //انظباطی
 Route::post('Discipline/AddItem','User\Discipline\DisciplineController@AddCase')->name('Discipline.AddCase');
 
+Route::get('discipline/student_chart','User\Discipline\DisciplineController@getChart');
 
 
 
 
 
+Route::get('discipline/AddItems','User\Discipline\DisciplineController@AddCases')->name('Discipline.AddCases');
+Route::post('discipline/AddItems','User\Discipline\DisciplineController@InsertCases')->name('Discipline.AddCases');
+
+
+Route::get('discipline/AddPoints','User\Discipline\DisciplineController@AddPoints')->name('Discipline.AddPoints');
+
+
+Route::post('discipline/InsertPoints','User\Discipline\DisciplineController@InsertPoints')->name('Discipline.InsertPoints');
+
+
+Route::get('discipline/lists','User\Discipline\DisciplineController@DisciplineLists')->name('Discipline.lists');
+Route::get('discipline/show/{id}','User\Discipline\DisciplineController@DisciplineShow')->name('Discipline.student.Show');
+
+Route::get('discipline/DefineLow','User\Discipline\DisciplineController@DefineLow')->name('Discipline.defineLow');
+Route::post('discipline/InsertLow','User\Discipline\DisciplineController@InsertLow')->name('Discipline.InsertLow');
+
+Route::get('discipline/AbsenceAndDelayList','User\Discipline\DisciplineController@AbsenceAndDelayList')->name('Discipline.AbsenceAndDelayList');
+Route::post('discipline/get_absenceAndDelayList','User\Discipline\DisciplineController@getAbsenceAndDelayList')->name('Discipline.get_absenceAndDelayList');
+
+
+/*  مطالعات   */
+Route::get('/Studing/StudyingModels','User\Studing\StudingController@StudyingModels')->name('Studing.StudyingModels');
+Route::post('Studing/getStudyClasses','User\Studing\StudingController@getStudyClasses')->name('Studing.getStudyClasses');
+Route::post('Studing/InsertStudy','User\Studing\StudingController@InsertStudy')->name('Studing.InsertStudy');
+
+Route::get('/Studing/StudyingReport','User\Studing\StudingController@StudyingReport')->name('Studing.StudyingReport');
+Route::post('Studing/getStudyingReport','User\Studing\StudingController@getStudyingReport')->name('Studing.getStudyingReport');
+
+Route::get('/Studing/StudyingLessonsReport','User\Studing\StudingLessonController@StudyingLessonsReport')->name('Studing.StudyingLessonsReport');
+Route::post('/Studing/StudyingLessonsReportList','User\Studing\StudingLessonController@StudyingLessonsReportList')->name('Studing.StudyingLessonsReportList');
+
+Route::get('/Studing/StudyingReportList','User\Studing\StudingClassListController@StudyingReportList')->name('Studing.StudyingReportList');
+Route::post('Studing/getStudyingReportList','User\Studing\StudingClassListController@getStudyingReportList')->name('Studing.getStudyingReportList');
+Route::get('/Studing/StudyingReportList/{student}','User\Studing\StudingClassListController@StudyingReportListStudent')->name('Studing.StudyingReportListStudent');
+
+
+
+/*  انتهای مطالعات    */

@@ -12,21 +12,28 @@
        <div >
             <form id="form" action=" {{route('Allbum.Classes')}} " method="post">
                     @csrf
-                    <div class=" form-group row">
+                    {{-- <div class=" form-group row">
                             <label for="" class=" col-md-1 pt-3"> <span class="text-danger">*</span> مقطع </label>
                             <select id="section" name="section" class="col-md-4 custom-select custom-select-lg mb-3">
                                     <option selected="">باز کردن فهرست انتخاب</option>
-                                    @foreach (\App\Models\SectionModel::all(); as $item)
-                                    <option value=" {{$item->sections_id}} ">{{$item->sections_name}}</option>
-                                    
-                                    @endforeach                   
+                                                   
                             </select>
                     </div>
-        
+         --}}
                     <div class=" form-group row">
                             <label for="" class=" col-md-1 pt-3"> <span class="text-danger">*</span> پایه </label>
                             <select id="basic" name="basic" class="col-md-4 custom-select custom-select-lg mb-3">
-                              <option selected="">باز کردن فهرست انتخاب</option>                   
+                                @php
+                                $sis = 1;   
+                                if ($sis==4) {
+                                  $basics =  \App\Models\BasicModel::where('section_id',2)->Orwhere('section_id',3)->get();
+                                }else{
+                                  $basics =  \App\Models\BasicModel::where('section_id', $sis )->get();
+                                }
+                            @endphp
+                            @foreach ($basics as $item)
+                            <option value=" {{$item->basic_id}} ">{{$item->basic_name}}</option>
+                            @endforeach              
                             </select>
                     </div>
         

@@ -8,7 +8,7 @@ class DisciplineCaseModel extends Model
 {
     protected $table = 'discipline_case';
     protected $primaryKey = 'case_id';
-    protected $guarded = 'case_id';
+    protected $guarded = [];
 
     public function relatedLow()
     {
