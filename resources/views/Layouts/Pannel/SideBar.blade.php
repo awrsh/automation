@@ -40,12 +40,10 @@
             <li><a href="#"><i class="icon ti-book"></i> <span>مطالعات</span> </a>
                 <ul>
                     <li><a href="{{route('Studing.StudyingModels')}}">تعریف الگوی مطالعه </a></li>
-                    <li><a href=" {{route('Studing.StudyingReport')}} ">گزارش مطالعات دانش اموزان</a></li>
+                    <li><a href=" {{route('Studing.StudyingReport')}} ">وضعیت مطالعه دانش اموزان</a></li>
                     <li><a href=" {{route('Studing.StudyingLessonsReport')}} ">  میانگین مطالعه کلاس ها به تفکیک دروس</a></li>
 
-                    <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعات کلاسی</a></li>
-                    <li><a href="{{route('Discipline.lists')}}">لیست گزارش انضباطی</a></li>
-                    <li><a href=" {{route('Discipline.AbsenceAndDelayList')}} "> لیست غیبت و تاخیر </a></li>
+                    <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
                 </ul>
             </li>
 

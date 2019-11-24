@@ -89,7 +89,7 @@ class StudingController extends Controller
       $classes=ClassModel::where('basic_id',$request->basic)->get();
         
 
-      $class_lists = ' <h5 class="card-title">  لیست مطالعات دانش آموزی </h5>';
+      $class_lists = ' <h5 class="card-title">     وضعیت مطالعاتی دروس به تفکیک کلاس </h5>';
 
 
       $class_lists .='<ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">';
@@ -130,10 +130,7 @@ foreach ($classes as $key=>$item){
                     <th> نام و نام خانوادگی </th>
                     <th class="text-success">  بیش از حد مطلوب</th>
                     <th> مطابق الگو  </th>
-                    <th class="text-danger">     کمتر از حد مطلوب  </th>
-                    <th>جزئیات دروس</th>
-            
-                     
+                    <th class="text-danger">     کمتر از حد مطلوب  </th>      
                     </tr>
                 </thead>
                 <tbody>
@@ -159,12 +156,18 @@ foreach ($classes as $key=>$item){
            }
                           $class_lists .=' <tr>
                           <td> '.($key+1).' </td>
-                          <td>'.$student->student_firstname.' '.$student->student_lastname.'</td>
+                          
+                          <td>
+                          <a href="'.route('Studing.StudyingReportListStudent',$student).'?basic='.$request->basic.'" >
+                          '.$student->student_firstname.' '.$student->student_lastname.' 
+                           </a>
+                          
+                          </td>
                           <td>'. $excelentStudy .'</td>
                           <td>'.$normalStudy.'</td>
                         
                           <td >'.$badStudy.'</td>
-                          <td><a class="text-info"><i class="fa fa-list fa-2x"></i></a></td>
+                        
 
         
                    </tr>';
@@ -187,10 +190,6 @@ foreach ($classes as $key=>$item){
         <th>  بیش از حد مطلوب</th>
         <th> مطابق الگو  </th>
         <th>     کمتر از حد مطلوب  </th>
-        <th>جزئیات دروس</th>
-
-            
-         
         </tr>
     </thead>
     <tbody>
@@ -216,12 +215,16 @@ foreach ($classes as $key=>$item){
             }
                            $class_lists .=' <tr>
                            <td> '.($key+1).' </td>
-                           <td>'.$student->student_firstname.' '.$student->student_lastname.'</td>
+                           <td>
+                            <a href="'.route('Studing.StudyingReportListStudent',$student).'?basic='.$request->basic.'" >
+                            '.$student->student_firstname.' '.$student->student_lastname.' 
+                            </a>           
+                          </td>
                            <td>'. $excelentStudy .'</td>
                            <td>'.$normalStudy.'</td>
                          
                            <td >'.$badStudy.'</td>
-                           <td><a class="text-info"><i class="fa fa-list fa-2x"></i></a></td>
+                          
          
           
                    </tr>';

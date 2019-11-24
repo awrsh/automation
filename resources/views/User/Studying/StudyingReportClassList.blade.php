@@ -13,7 +13,7 @@
             <h3> کارنامه مطالعاتی </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
+                    {{-- <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li> --}}
                     <li class="breadcrumb-item"><a href="#">مطالعاتی</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><a href="#">کارنامه مطالعاتی</a>
                     </li>
@@ -52,7 +52,7 @@
                         </div>
                         @endif
         
-            <form id="form" action=" {{route('Studing.InsertStudy')}} " method="post">
+            <form id="form" action=" " method="post">
                 @csrf
                                
                              <div class="row">

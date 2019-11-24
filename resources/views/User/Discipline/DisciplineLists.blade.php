@@ -10,12 +10,12 @@
     <!-- begin::page header -->
     <div class="page-header">
         <div>
-            <h3>گزارش دانش آموزی</h3>
+            <h3>گزارش انضباطی دانش آموزان</h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
+                    {{-- <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li> --}}
                     <li class="breadcrumb-item"><a href="#">انضباطی</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="#">گزارش دانش آموزی</a>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">گزارش انضباطی دانش آموزان</a>
                     </li>
 
                 </ol>

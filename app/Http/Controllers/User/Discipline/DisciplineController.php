@@ -141,33 +141,30 @@ class DisciplineController extends Controller
         $students = $request->discipline_points;
 
 
-        $group = DisciplineNumberModel::where('number_group', $request->examin_group)->count();
-        if ($group) {
-            foreach ($students as $key => $student) {
-                if ($student == null) {
-                    $student = 0;
+       
+  
+            foreach ($students as $key => $student ) {
+               
+              if ($student != null) {
+                if ( DisciplineNumberModel::where(['student_id'=> $key,'number_group'=>$request->examin_group])->count()) {
+                    DisciplineNumberModel::where(['number_group'=>$request->examin_group,'student_id'=>$key])->update([
+                        'number_score' => $student,
+                        'number_date_start' => $request->start_time,
+                        'number_date_end' => $request->expire_time,
+                    ]);
+                }else{
+                    DisciplineNumberModel::create([
+                        'number_group' => $request->examin_group,
+                        'student_id' => $key,
+                        'number_score' => $student,
+                        'number_date_start' => $request->start_time,
+                        'number_date_end' => $request->expire_time,
+                    ]);  
                 }
-                DisciplineNumberModel::where(['number_group'=>$request->examin_group,'student_id'=>$key])->update([
-                    'number_score' => $student,
-                    'number_date_start' => $request->start_time,
-                    'number_date_end' => $request->expire_time,
-                ]);
+               }
+              
             }
-        } else {
-            foreach ($students as $key => $student) {
-                if ($student == null) {
-                    $student = 0;
-                }
-                DisciplineNumberModel::create([
-                    'number_group' => $request->examin_group,
-                    'student_id' => $key,
-                    'number_score' => $student,
-                    'number_date_start' => $request->start_time,
-                    'number_date_end' => $request->expire_time,
-                ]);
-            }
-        }
-
+       
         return back()->with('success', 'نمرات با موفقیت ثبت شد');
     }
 
