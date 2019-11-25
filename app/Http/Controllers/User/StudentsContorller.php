@@ -19,24 +19,24 @@ class StudentsContorller extends Controller
             $fileName = $request->file->getClientOriginalName();
             $fileNameWithoutEx = pathinfo($fileName, PATHINFO_FILENAME);
 
-            $request->file->move(public_path('uploads/students/'), $fileName);
+            $request->file->move(public_path('uploads/students/'. $fileNameWithoutEx), $fileName);
 
             if ($request->fileName == 'نام فايل ها بر اساس كد ملي') {
 
                 $student = Student::where('student_national_number', $fileNameWithoutEx)->update([
-                    'student_student_photo' => 'uploads/students/' . $fileName,
+                    'student_student_photo' =>  $fileName,
                 ]);
             }
             if ($request->fileName == 'نام فايل ها بر اساس شماره دانش آموزي') {
 
                 $student = Student::where('student_student_number', $fileNameWithoutEx)->update([
-                    'student_student_photo' => 'uploads/students/' . $fileName,
+                    'student_student_photo' =>  $fileName,
                 ]);
             }
 
         }
 
-        return back();
+        return back()->with('success', 'عکس باموفقیت افزوده شد');
     }
 
     public function export(Request $request)

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     protected $table = 'students';
-    protected $guarded = ['student_id'];
+    protected $guarded = [];
     protected $primaryKey = 'student_id';
 
     public function getClass()

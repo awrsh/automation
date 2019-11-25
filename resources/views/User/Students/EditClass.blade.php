@@ -42,7 +42,7 @@
                 <option value="" selected="">باز کردن فهرست انتخاب</option>
 
                 @foreach (\App\Models\BasicModel::where('section_id',1)->get() as $item)
-                <option value="{{$item->basic_id}}" selected="  ">{{$item->basic_name}}</option>
+                <option value="{{$item->basic_id}}" >{{$item->basic_name}}</option>
                 @endforeach
 
               </select>
@@ -51,23 +51,24 @@
             <div class=" form-group row">
               <label for="" class=" col-md-1 pt-3"> <span class="text-danger">*</span> کلاس </label>
               <select id="class" name="class" class="col-md-4 classid custom-select custom-select-lg mb-3">
-                <option selected="">باز کردن فهرست انتخاب</option>
+                <option selected="">ابتدا پایه را انتخاب کنید</option>
 
               </select>
             </div>
 
 
-            <div class=" form-group">
-              <button type="submit" class=" btn btn-primary">مشاهده</button>
+            <div class=" form-group button__wrapper">
+              <button type="submit" class=" btn btn-primary">انتخاب کلاس</button>
             </div>
           </form>
 
 
 
           <div class="table-responsive my-5" tabindex="7" style="overflow: hidden; outline: none;">
-
-
+            
             <div class=" container">
+              <span class=" text-muted">راهنما: </span>
+              <span class=" text-muted">لطفا پس از  انتخاب کلاس مورد نظر , دانش اموزان کلاس بندی نشده را به کلاس اضافه کنید</span>
               <div class="row">
                 <div class=" col-md-5">
                   <form id="form2" action="" method="post">
@@ -84,12 +85,12 @@
                 <div class=" col-md-2">
                   <div>
                     <button type="submit" class="btn btn-primary" style="margin-top: 150px;
-              margin-right: 30px;">انتخاب</button>
+              margin-right: 30px;"> <i class=" fa fa-angle-left fa-2x"></i> </button>
                   </div>
                   </form>
                   <form action="" id="form3" method="post">
                     <button type="submit" class="btn btn-primary" style="margin-right: 30px;
-            margin-top: 20px;">افزودن</button>
+            margin-top: 20px;"><i class=" fa fa-angle-right fa-2x"></i></button>
                 </div>
                 <div class=" col-md-5">
                   <div class=" form-group ">
@@ -106,7 +107,7 @@
               </div>
             </div>
 
-            <table class="table text-center">
+            <!-- <table class="table text-center">
               <thead class=" bg-success">
                 <tr>
                   <th scope="col">کلاس</th>
@@ -140,7 +141,7 @@
 
                 </tr>
               </tbody>
-            </table>
+            </table> -->
 
             <br><br>
           </div>
@@ -221,6 +222,7 @@
 
       $("#form").submit(function(e){
         e.preventDefault();
+        $('.button__wrapper').html('<button class="btn btn-primary" type="button" disabled> <span class="spinner-border spinner-border-sm m-l-5" role="status" aria-hidden="true"></span> در حال بارگذاری ... </button>')
         var class_id = $(this).find('.classid').val();
 
         $.ajax({
@@ -231,7 +233,7 @@
         success:function(data){
 
                 $('#content').html(data)
-
+                $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
 
         }
 

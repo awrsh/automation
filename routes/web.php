@@ -101,6 +101,8 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::post('/EditInfo', 'User\StudentsContorller@EditInfo')->name('Student.EditInfo');
 
     Route::post('Students/Allbum_getClasses', 'User\AllbumController@getClasses')->name('Allbum.Classes');
+    
+    Route::get('/Students/Class/getPDF/{id}', 'User\AllbumController@getPDF')->name('Allbum.getPDF');
 
     Route::get('/AddDiscipline', 'User\MainController@Discipline')->name('Discipline.Add');
 

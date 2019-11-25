@@ -25,15 +25,13 @@ class MainController extends Controller
 
         $request->validate([
             'student_photo' => 'mimes:jpeg,png,jpg',
-            'national_number' => 'required | numeric',
+            'student_national_number' => 'unique:students',
             'student_student_number' => 'unique:students',
             'student_certificate_number' => 'unique:students'
 
         ], [
-            'student_photo.mimes' => 'فرمت فایل صحیح نیست',
-            'national_number.required'=>'کد ملی الزامی است',
-            'national_number.digits' => 'شماره ملی بایستی شامل اعداد باشد',
-            'national_number.between' => 'تعداد ارقام شماره ملی تایید نشد',
+            'student_photo.mimes' => 'فرمت فایل صحیح نیست',    
+            'student_national_number.unique' => 'دانش اموز دیگری با این کد ملی وجود دارد',
             'student_student_number.unique' => 'شماره دانش اموزی از قبل وجود دارد',
             'student_certificate_number.unique' => 'دانش اموز دیگری با این شماره شناسنامه وجود دارد'
 
@@ -44,27 +42,31 @@ class MainController extends Controller
             $fileName = $request->national_number .'.'. $request->student_photo->getClientOriginalExtension();
             $fileNameWithoutEx = pathinfo($fileName, PATHINFO_FILENAME);
             $request->student_photo->move(public_path('uploads/students/'.$request->national_number), $fileName);
+        }else{
+            $fileName ='';
         }
 
-        Student::create([
+       $insert_status= Student::create([
             'school_id' => 1,
             'student_firstname' => $request->firstname,
             'student_lastname' => $request->lastname,
-            'student_certificate_number' => $request->certificate_number,
-            'student_national_number' => $request->national_number,
+            'student_certificate_number' => $request->student_certificate_number,
+            'student_national_number' => $request->student_national_number,
             'student_father_name' => $request->father_name,
             'student_father_mobile' => $request->father_mobile,
             'student_mother_mobile' => $request->mother_mobile,
             'student_birthday' => $request->birthday,
-            'student_student_class' => $request->student_class,
-            'student_student_number' => $request->student_number,
+        
+            'student_student_number' => $request->student_student_number,
             'student_home_tel' => $request->home_tel,
             'student_student_mobile' => $request->student_mobile,
             'student_prev_school' => $request->prev_school,
             'student_student_photo' => $fileName,
+            
         ]);
         School::find(1)->decrement('school_count_students', 1);
-        return back()->with('success', 'دانش اموز با موفقیت ثبت شد');
+        
+        return redirect()->route('Student.EditClass')->with('success', 'دانش اموز با موفقیت ثبت شد');
     }
 
     public function ImportWithExcel()
@@ -125,7 +127,8 @@ class MainController extends Controller
         foreach ($classes as $item) {
 
 
-            $options .= ' <span class="badge badge-info">'.$item->class_name.'</span> ';
+            $options .= ' <span class="badge badge-info" style="font-size: 15px;
+            word-spacing: 5px;">'.$item->class_name.'</span> ';
                 }
         return $options;
     }

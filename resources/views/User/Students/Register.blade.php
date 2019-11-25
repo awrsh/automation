@@ -51,13 +51,13 @@
                                     <div class="form-group col-md-6 wd-xs-300">
                                         <label>شماره شناسنامه</label>
                                         <input type="number" class="form-control" id="certificate_number"
-                                            name="certificate_number" required>
+                                            name="student_certificate_number" required>
                                         <p class="errorMassage" id="massage-certificate_number"></p>
                                     </div><!-- form-group -->
                                     <div class="form-group col-md-6 wd-xs-300">
                                         <label> کد ملی</label>
                                         <input type="number" class="form-control" id="national_number"
-                                            name="national_number" required>
+                                            name="student_national_number" required>
                                         <p class="errorMassage" id="massage-national_number"></p>
                                     </div><!-- form-group -->
                                 </div>
@@ -84,7 +84,7 @@
                                     <div class="form-group col-md-6 wd-xs-300">
                                         <label> تاریخ تولد</label>
                                         <input type="text" id="" name="birthday" required
-                                            class="form-control text-right date-picker-shamsi-list" dir="ltr">
+                                            class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">
 
                                     </div><!-- form-group -->
                                 </div>
@@ -111,7 +111,7 @@
 
                                         </select>
                                     </div><!-- form-group --> --}}
-                                    <div class="form-group col-md-6 wd-xs-300">
+                                    {{-- <div class="form-group col-md-6 wd-xs-300">
                                         <label> پایه دانش آموز</label>
 
                                         <select id="student_basic" required name="student_basic"
@@ -128,8 +128,8 @@
                                             <option value=" {{$item->basic_id}} ">{{$item->basic_name}}</option>
                                             @endforeach
                                         </select>
-                                    </div><!-- form-group -->
-                                    <div class="form-group col-md-6 wd-xs-300">
+                                    </div><!-- form-group --> --}}
+                                    {{-- <div class="form-group col-md-6 wd-xs-300">
                                         <label> کلاس دانش آموز</label>
                                         <select required name="student_class" id="student_class"
                                             class="custom-select mb-3">
@@ -137,13 +137,13 @@
 
 
                                         </select>
-                                    </div><!-- form-group -->
+                                    </div><!-- form-group --> --}}
                                 </div>
                                 <div class="row">
                                
                                     <div class="form-group col-md-6 wd-xs-300">
                                         <label> شماره دانش اموزی</label>
-                                        <input type="text" name="student_number" required
+                                        <input type="number" name="student_student_number" required
                                             class="form-control text-right" dir="ltr">
 
                                     </div><!-- form-group -->
@@ -166,6 +166,20 @@
                                             <p class="errorMassage" id="massage-student_mobile"></p>
                                     </div><!-- form-group -->
                                 </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 wd-xs-300">
+                                        <label>  سریال شناسنامه</label>
+                                        <input type="number" name="serial_certificate_number" required class="form-control">
+
+                                    </div><!-- form-group -->
+                                    <div class="form-group col-md-6 wd-xs-300">
+                                        <label>محل تولد</label>
+                                        <input type="text" name="place_of_birth" id="place_of_birth" required
+                                            class="form-control text-right" dir="ltr">
+                                            <p class="errorMassage" id=""></p>
+                                    </div><!-- form-group -->
+                                </div>
+
                                 <div class="row">
                                
                                     <div class="form-group col-md-6 wd-xs-300">
