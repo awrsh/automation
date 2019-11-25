@@ -123,7 +123,7 @@
                     
                 </tr>
                 </thead>
-                <tbody class=" tbody">
+                <tbody class="tbody">
                 @foreach (\App\Models\DisciplineLawsModel::latest()->get() as $item)
                     <tr>
                         <td>{{$item->law_title}}</td>

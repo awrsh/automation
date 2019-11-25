@@ -26,14 +26,14 @@ class MainController extends Controller
         $request->validate([
             'student_photo' => 'mimes:jpeg,png,jpg',
             'national_number' => 'required | numeric',
-            'student_number' => 'unique:students'
+            'student_student_number' => 'unique:students'
 
         ], [
             'student_photo.mimes' => 'فرمت فایل صحیح نیست',
             'national_number.required'=>'کد ملی الزامی است',
             'national_number.digits' => 'شماره ملی بایستی شامل اعداد باشد',
             'national_number.between' => 'تعداد ارقام شماره ملی تایید نشد',
-            'student_number.unique' => 'شماره دانش اموزی از قبل وجود دارد'
+            'student_student_number.unique' => 'شماره دانش اموزی از قبل وجود دارد'
 
         ]);
 

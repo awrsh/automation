@@ -19,7 +19,7 @@ class Admin
     {
         $sis=session()->get('admin');
         
-       $res = AppAdmin::where(['admin_username'=>$sis['Uasrname'],'admin_rol'=>'!*^%$'])->get();
+       $res = AppAdmin::where(['username_admin'=>$sis['Uasrname'],'status_admin'=>'on'])->get();
         if (count($res)>0) {
             return $next($request);
         }else

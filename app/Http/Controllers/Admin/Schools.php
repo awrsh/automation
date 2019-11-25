@@ -32,4 +32,15 @@ class Schools extends Controller
 
             return back()->with('success', 'مدرسه  با موفقیت ثبت شد');
     }
+
+    public function ChangeStatusSchool()
+    {
+       $id_school = request()->post('id_school');
+       $status = request()->post('status');
+       School::where('school_id',$id_school)->update([
+        'school_status'=>$status
+       ]);
+
+       return 'true';
+    }
 }
