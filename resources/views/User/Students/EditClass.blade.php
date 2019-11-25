@@ -40,11 +40,11 @@
               <label for="" class=" col-md-1 pt-3"> <span class="text-danger">*</span> پایه </label>
               <select id="basic" name="basic" class="col-md-4 custom-select custom-select-lg mb-3">
                 <option value="" selected="">باز کردن فهرست انتخاب</option>
-        
+
                 @foreach (\App\Models\BasicModel::where('section_id',1)->get() as $item)
                 <option value="{{$item->basic_id}}" selected="  ">{{$item->basic_name}}</option>
                 @endforeach
-                
+
               </select>
             </div>
 
@@ -65,7 +65,7 @@
 
 
           <div class="table-responsive my-5" tabindex="7" style="overflow: hidden; outline: none;">
-          
+
 
             <div class=" container">
               <div class="row">
@@ -95,7 +95,7 @@
                   <div class=" form-group ">
                     <label for="" class=" pt-3"> <span class="text-danger">*</span> کلاس بندی نشده </label>
                     <select id="content2" class=" custom-select student_list_ul custom-select-lg mb-3" size="10" multiple>
-                 
+
                       @foreach ($list_ul as $li)
                     <option value="{{$li->student_id}}">{{$li->student_firstname}} - {{$li->student_lastname}}</option>
                       @endforeach
@@ -159,7 +159,7 @@
 @section('js')
 <script>
   $(document).ready(function(){
-    
+
     $.ajaxSetup({
 
     headers: {
@@ -178,7 +178,7 @@
       data:{section_id:section_id},
       success:function(data){
         if (data !== '') {
-          
+
         $('#basic').html(data)
         }else{
           $('#basic').html('<option>برای مقطع مربوطه پایه ای وجود ندارد </option>')
@@ -206,7 +206,7 @@
       data:{basic_id:basic_id},
       success:function(data){
         if (data !== '') {
-          
+
         $('#class').html(data)
         }else{
           $('#class').html('<option>برای مقطع مربوطه پایه ای وجود ندارد </option>')
@@ -218,20 +218,20 @@
 
       });
 
-      
+
       $("#form").submit(function(e){
         e.preventDefault();
         var class_id = $(this).find('.classid').val();
-       
+
         $.ajax({
 
         type:'POST',
         url:'EditClass/ShowClasses',
         data:{class_id:class_id},
         success:function(data){
-           
+
                 $('#content').html(data)
-            
+
 
         }
 
@@ -241,22 +241,22 @@
 
 
 
-   
+
 
         $("#form2").submit(function(e){
         e.preventDefault();
         var student_list_ol = $(this).find('.student_list_ol').val();
-        
+
         $.ajax({
 
         type:'POST',
         url:'ExitClass',
         data:{student_list_ol:student_list_ol},
         success:function(data){
-           
+
                 $('#content2').html(data);
                 $('#form').submit();
-            
+
 
         }
 
@@ -267,7 +267,7 @@
 
 
         $("#form3").submit(function(e){
-        e.preventDefault();      
+        e.preventDefault();
         var id_students = $('.student_list_ul').val();
         var class_id = $("#form").find('.classid').val();
         console.log(id_students);
@@ -277,7 +277,7 @@
         url:'EnterClass',
         data:{class_id:class_id,id_students:id_students},
         success:function(data){
-                
+
                 $('#content').html(data[0])
                 $('#content2').html(data[1]);
 

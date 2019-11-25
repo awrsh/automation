@@ -25,8 +25,8 @@ class MainController extends Controller
 
         $request->validate([
             'student_photo' => 'mimes:jpeg,png,jpg',
-            'national_number' => 'required | unique:students | numeric',
-            'student_number' => 'unique:students',
+            'national_number' => 'required | numeric',
+            'student_student_number' => 'unique:students',
             'student_certificate_number' => 'unique:students'
 
         ], [
@@ -34,7 +34,7 @@ class MainController extends Controller
             'national_number.required'=>'کد ملی الزامی است',
             'national_number.digits' => 'شماره ملی بایستی شامل اعداد باشد',
             'national_number.between' => 'تعداد ارقام شماره ملی تایید نشد',
-            'student_number.unique' => 'شماره دانش اموزی از قبل وجود دارد',
+            'student_student_number.unique' => 'شماره دانش اموزی از قبل وجود دارد',
             'student_certificate_number.unique' => 'دانش اموز دیگری با این شماره شناسنامه وجود دارد'
 
 
@@ -130,7 +130,7 @@ class MainController extends Controller
         return $options;
     }
 
-   
+
 
     public function showClasses(Request $request)
     {
@@ -141,7 +141,7 @@ class MainController extends Controller
             $options .= ' <option value="' . $item->student_id . '">' . $item->student_firstname . ' - ' . $item->student_lastname . '</option>';
         }
             return $options;
-        
+
 
 
     }

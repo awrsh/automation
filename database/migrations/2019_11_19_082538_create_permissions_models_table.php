@@ -22,10 +22,10 @@ class CreatePermissionsModelsTable extends Migration
 
         DB::table('permissions')->insert([
             'permission_name' => 'ثبت مطالعاتی',
-            
+
         ],[
             'permission_name' => 'ثبت انظباط',
-            
+
         ]
     );
     }

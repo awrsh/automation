@@ -55,7 +55,7 @@ foreach ($classes as $key=>$item){
                             if($student->student_student_photo!=""){
                             $class_lists .=' <div class=" col-md-2 my-2 text-center">
                                       <div class="flex__column">
-                                      <img src="' .route('BaseUrl').'/uploads/students/'.$student->student_student_photo.' " height="100" width="75" alt="">
+                                      <img src="' .route('BaseUrl').'/uploads/students/'.$student->student_national_number.'/'.$student->student_student_photo.' " height="100" width="75" alt="">
                                       <span>
                                           '.$student->student_firstname . $student->student_lastname.'
                                       </span>

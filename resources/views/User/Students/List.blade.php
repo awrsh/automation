@@ -24,14 +24,14 @@
                 </ol>
             </nav>
         </div>
-        
+
 
 
     </div>
 
 
     <div class="card">
-       
+
         <div class="card-body">
 
                 @if(\Session::has('success'))
@@ -58,32 +58,32 @@
                                   <a class="nav-link {{$key == 0 ? ' active':''}}" id="pills-{{$item->class_id}}-tab" data-toggle="pill" href="#pills-{{$item->class_id}} " role="tab" aria-controls="pills-{{$item->class_id}}" aria-selected="false">{{$item->class_name}}</a>
                                  </li>
                                 @endforeach
-                               
-                                
+
+
                             </ul>
 
 
                             <div class="tab-content" id="pills-tabContent2">
                                 @foreach (\App\Models\ClassModel::all() as $key=>$item)
                                  <div class="tab-pane fade {{$key == 0 ? 'show active':''}}" id="pills-{{$item->class_id}}" role="tabpanel" aria-labelledby="pills-{{$item->class_id}}-tab">
-                                
-                                
-                                
+
+
+
                                         <table class="table table-striped table-bordered example2">
                                                 <thead>
                                                     <tr>
                                                         <th>ردیف</th>
-                                                        <th>نام</th>
-                                                        <th>نام خانوادگی</th>
+                                                          <th>نام</th>
                                                           <th>کد ملی</th>
-                                                          <th>شماره شناسنامه</th>                             
+                                                          <th>نام خانوادگی</th>
                                                           <th> پایه</th>
                                                           <th>کلاس</th>
                                                           <th>ویرایش</th>
+                                                          <th>شماره شناسنامه</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-    
+
                                                     @foreach (\App\Models\Student::where('student_student_class',$item->class_id)->get() as $key=>$students)
 
                                                     <tr>
@@ -103,8 +103,8 @@
                                                         @else
                                                         <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>ثبت کد ملی</a></td>
                                                         @endif
-                                                        @if ($students->student_student_number)
-                                                        <td>{{ $students->student_student_number}}</td>
+                                                        @if ($students->student_certificate_number)
+                                                        <td>{{ $students->student_certificate_number}}</td>
                                                         @else
                                                         <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'> ثبت شماره شناسنامه</a></td>
                                                         @endif
@@ -113,34 +113,34 @@
                                                            $class_ob = \App\Models\ClassModel::where('class_id',$students->student_student_class)->first();
                                                            $class= $class_ob->class_name;
                                                            $basic =\App\Models\BasicModel::where('basic_id',$class_ob->basic_id)->first()->basic_name;
-                                                       @endphp   
+                                                       @endphp
                                                        <td>{{$basic}}</td>
-                                                       <td>{{$class}}</td>   
+                                                       <td>{{$class}}</td>
                                                        @else
                                                        <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>تعیین پایه</a></td>
                                                        <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>تعیین کلاس</a></td>
                                                         @endif
                                                         <td class="text-center"><a class='btn btn-outline-primary ' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'> <i class="icon ti-pencil"></i>&nbsp;  ویرایش  </a> </td>
                                                     </tr>
-                                                    
+
                                                     @endforeach
-                            
-                    
-                                
+
+
+
                                                 </tbody>
-                                
+
                                             </table>
-        
+
                                 </div>
                                 @endforeach
                             </div>
 
-                        
+
         </div>
     </div>
 
 </div>
-    
+
 @endsection
 
 @section('js')
@@ -157,7 +157,7 @@
 
 <script>
         $(document).ready(function(e){
-    
+
     $('.bd-example-modal-lg').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
       var id = button.data('id') // Extract info from data-* attributes
@@ -193,7 +193,7 @@ success:function(data){
 
         })
 
-        })  
+        })
 
 
         })
@@ -202,7 +202,7 @@ success:function(data){
 @section('css')
 <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/dataTable/responsive.bootstrap.min.css"
     type="text/css">
-    
+
     <!-- begin::datepicker -->
     <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker-jalali/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker/daterangepicker.css">
@@ -212,7 +212,7 @@ success:function(data){
 
 
 
-{{-- 
+{{--
 <div class="tab-content" id="pills-tabContent2">
     @foreach (\App\Models\ClassModel::all() as $key=>$item)
     <div class="tab-pane fade {{$key == 0 ? 'show active':''}}" id="pills-{{$item->class_id}}" role="tabpanel" aria-labelledby="pills-{{$item->class_id}}-tab">
@@ -227,15 +227,15 @@ success:function(data){
                             <th> پایه</th>
                             <th>کلاس</th>
                             <td>ویرایش</td>
-                         
+
                         </tr>
                     </thead>
                     <tbody>
 
-                   
-    
+
+
                     </tbody>
-    
+
                 </table>
 
     </div>

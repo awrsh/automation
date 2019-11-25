@@ -1,4 +1,4 @@
-@extends('Layouts.Pannel.Template');
+@extends('Layouts.Pannel.Template')
 
 @section('content')
 
@@ -30,7 +30,7 @@
                                     <div class="flex__column">
                                         @php
                                             if($data->student_student_photo!=""){
-                                            $img = route('BaseUrl').'/uploads/students/'.$data->student_student_photo;
+                                            $img = route('BaseUrl').'/uploads/students/'.$data->student_national_number.'/'.$data->student_student_photo;
                                             }else{
                                              $img = route('BaseUrl').'/Pannel/img/avatar.jpg';
                                             }

@@ -1,121 +1,155 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-Route::get('/','LoginController@index')->name('BaseUrl');
-Route::post('/login','LoginController@login')->name('login');
-Route::get('/Dashboard','User\MainController@index')->name('Dashboard');
-Route::post('/Students/Register','User\MainController@Register')->name('Student.Register');
-Route::post('send_section','User\SectionController@Ajax')->name('section.ajax');
-Route::post('send_basic','User\BasicController@Ajax')->name('basic.ajax');
-// End Register Routes
+// ------------------ M A I N - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
 
-Route::get('/Students/ImportData','User\MainController@ImportWithExcel')->name('Student.Excel');
-Route::get('/Students/UploadPhoto','User\MainController@UploadPhoto')->name('Student.Photo');
-Route::get('/Students/AlbumPhoto','User\MainController@AlbumPhoto')->name('Student.AlbumPhoto');
-Route::get('/Students/List','User\MainController@ListStudents')->name('Student.List');
-Route::get('/Students/EditStudent/{id?}','User\StudentsContorller@Student')->name('Student.EditStudent');
-Route::get('/Students/EditClass','User\MainController@EditClass')->name('Student.EditClass');
-Route::post('/Students/get_basics','User\MainController@GetBasics');
-Route::post('/Students/get_classes','User\MainController@getClasses');
-Route::post('/Students/view_classes','User\MainController@GetClassesForView');
-Route::post('Students/EditClass/ShowClasses','User\MainController@showClasses')->name('Student.EditClassShow');
-// End EditClasses Routes
+Route::get('/', 'LoginController@index')->name('BaseUrl');
 
+Route::post('/Login', 'LoginController@login')->name('login');
 
+Route::get('/CreateAcount', 'LoginController@CreateAccount')->name('CreateAccount');
 
-Route::post('/Students/ImportExel','User\StudentsContorller@import')->name('Student.importEx');
-Route::post('/Students/Photo','User\StudentsContorller@setPhoto')->name('Student.setPhoto');
-Route::post('/Students/Excel/Export','User\StudentsContorller@export')->name('Excel.export');
-Route::get('/Students/deleteSes',function(){
- session()->forget('import_data');
- return redirect(route('Student.Excel'));
-})->name('deleteSes');
+Route::post('/CreateAcount', 'LoginController@SubmitAccount')->name('AddAccount');
 
-Route::post('send_section','User\SectionController@Ajax')->name('section.ajax');
+Route::get('/ForgetPassword', 'LoginController@ForgetPassword')->name('ForgetPassword');
 
-Route::post('send_basic','User\BasicController@Ajax')->name('basic.ajax');
+Route::get('/LogoutManager', function () {
+    session()->forget('ManagerSis');
+    return redirect(route('BaseUrl'));})->name('logout.manager');
 
+//-------------A D M I N ----------------------------------------------------------------------------------------------------------------------------------------------------
+Route::get('/Admin/Login', 'LoginController@Admin')->name('login.Admin');
 
-/*  کلاس بندی   */
-Route::get('/Students/AddSection','User\SectionController@AddSection')->name('Student.AddSection');
-Route::post('/Students/SubmitSection','User\SectionController@InsertSection')->name('Student.SubmitSection');
-Route::get('/Students/AddBasic','User\BasicController@AddBasic')->name('Student.AddBasic');
-Route::post('/Students/SubmitBasic','User\BasicController@InsertBasic')->name('Student.SubmitBasic');
-Route::get('/Students/AddClass','User\classificationController@AddClass')->name('Student.AddClass');
-Route::post('/Students/SubmitClass','User\ClassificationController@InsertClass')->name('Student.SubmitClass');
+Route::post('/Admin/Login', 'LoginController@loginAdmin')->name('login.checkAdmin');
 
-Route::post('/Students/ExitClass','User\ClassificationController@ExitClass')->name('Student.ExitClass');
-Route::post('/Students/EnterClass','User\ClassificationController@EnterClass')->name('Student.EnterClass');
+Route::prefix('/Admin')->middleware('AdminL')->group(function () {
 
+    Route::get('/', 'Admin\MainController@index')->name('Admin.SchoolAdd');
 
+    Route::get('/AddSchool', 'Admin\MainController@index')->name('Admin.SchoolAdd');
 
+    Route::get('/ListSchool', 'Admin\MainController@ListSchool')->name('Admin.SchoolsList');
 
+    Route::post('/School', 'Admin\Schools@AddSchool')->name('Admin.RegisterSchool');
 
+    Route::post('/ChangeStatusSchool', 'Admin\Schools@ChangeStatusSchool')->name('Admin.ChangeStatusSchool');
 
+});
 
-Route::get('/AddDiscipline','User\MainController@Discipline')->name('Discipline.Add');
+// ------------------ M A N A G E R - S C H O O l - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
 
+Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
-Route::post('/EditInfo','User\StudentsContorller@EditInfo')->name('Student.EditInfo');
+    Route::get('/Dashboard', 'User\MainController@index')->name('Dashboard');
 
+    Route::post('/Students/Register', 'User\MainController@Register')->name('Student.Register');
 
+    Route::post('send_section', 'User\SectionController@Ajax')->name('section.ajax');
 
-Route::post('Students/Allbum_getClasses','User\AllbumController@getClasses')->name('Allbum.Classes');
+    Route::post('send_basic', 'User\BasicController@Ajax')->name('basic.ajax');
 
+    Route::get('/Students/ImportData', 'User\MainController@ImportWithExcel')->name('Student.Excel');
 
-//انظباطی
-Route::post('Discipline/AddItem','User\Discipline\DisciplineController@AddCase')->name('Discipline.AddCase');
+    Route::post('/Students/view_classes','User\MainController@GetClassesForView');
 
-Route::get('discipline/student_chart','User\Discipline\DisciplineController@getChart');
+    Route::get('/Students/UploadPhoto', 'User\MainController@UploadPhoto')->name('Student.Photo');
 
+    Route::get('/Students/AlbumPhoto', 'User\MainController@AlbumPhoto')->name('Student.AlbumPhoto');
 
+    Route::get('/Students/List', 'User\MainController@ListStudents')->name('Student.List');
 
+    Route::get('/Students/EditStudent/{id?}', 'User\StudentsContorller@Student')->name('Student.EditStudent');
 
+    Route::get('/Students/EditClass', 'User\MainController@EditClass')->name('Student.EditClass');
 
-Route::get('discipline/AddItems','User\Discipline\DisciplineController@AddCases')->name('Discipline.AddCases');
-Route::post('discipline/AddItems','User\Discipline\DisciplineController@InsertCases')->name('Discipline.AddCases');
+    Route::post('/Students/get_basics', 'User\MainController@GetBasics');
 
+    Route::post('/Students/get_classes', 'User\MainController@getClasses');
 
-Route::get('discipline/AddPoints','User\Discipline\DisciplineController@AddPoints')->name('Discipline.AddPoints');
+    Route::post('Students/EditClass/ShowClasses', 'User\MainController@showClasses')->name('Student.EditClassShow');
 
+    Route::post('/Students/ImportExel', 'User\StudentsContorller@import')->name('Student.importEx');
 
-Route::post('discipline/InsertPoints','User\Discipline\DisciplineController@InsertPoints')->name('Discipline.InsertPoints');
+    Route::post('/Students/Photo', 'User\StudentsContorller@setPhoto')->name('Student.setPhoto');
 
+    Route::post('/Students/Excel/Export', 'User\StudentsContorller@export')->name('Excel.export');
 
-Route::get('discipline/lists','User\Discipline\DisciplineController@DisciplineLists')->name('Discipline.lists');
-Route::get('discipline/show/{id}','User\Discipline\DisciplineController@DisciplineShow')->name('Discipline.student.Show');
+    Route::get('/Students/deleteSes', function () {
+        session()->forget('import_data');
+        return redirect(route('Student.Excel'));
+    })->name('deleteSes');
 
-Route::get('discipline/DefineLow','User\Discipline\DisciplineController@DefineLow')->name('Discipline.defineLow');
-Route::post('discipline/InsertLow','User\Discipline\DisciplineController@InsertLow')->name('Discipline.InsertLow');
+    Route::post('send_section', 'User\SectionController@Ajax')->name('section.ajax');
 
-Route::get('discipline/AbsenceAndDelayList','User\Discipline\DisciplineController@AbsenceAndDelayList')->name('Discipline.AbsenceAndDelayList');
-Route::post('discipline/get_absenceAndDelayList','User\Discipline\DisciplineController@getAbsenceAndDelayList')->name('Discipline.get_absenceAndDelayList');
+    Route::post('send_basic', 'User\BasicController@Ajax')->name('basic.ajax');
 
+    Route::get('/Students/AddSection', 'User\SectionController@AddSection')->name('Student.AddSection');
 
-/*  مطالعات   */
-Route::get('/Studing/StudyingModels','User\Studing\StudingController@StudyingModels')->name('Studing.StudyingModels');
-Route::post('Studing/getStudyClasses','User\Studing\StudingController@getStudyClasses')->name('Studing.getStudyClasses');
-Route::post('Studing/InsertStudy','User\Studing\StudingController@InsertStudy')->name('Studing.InsertStudy');
+    Route::post('/Students/SubmitSection', 'User\SectionController@InsertSection')->name('Student.SubmitSection');
 
-Route::get('/Studing/StudyingReport','User\Studing\StudingController@StudyingReport')->name('Studing.StudyingReport');
-Route::post('Studing/getStudyingReport','User\Studing\StudingController@getStudyingReport')->name('Studing.getStudyingReport');
+    Route::get('/Students/AddBasic', 'User\BasicController@AddBasic')->name('Student.AddBasic');
 
-Route::get('/Studing/StudyingLessonsReport','User\Studing\StudingLessonController@StudyingLessonsReport')->name('Studing.StudyingLessonsReport');
-Route::post('/Studing/StudyingLessonsReportList','User\Studing\StudingLessonController@StudyingLessonsReportList')->name('Studing.StudyingLessonsReportList');
+    Route::post('/Students/SubmitBasic', 'User\BasicController@InsertBasic')->name('Student.SubmitBasic');
 
-Route::get('/Studing/StudyingReportList','User\Studing\StudingClassListController@StudyingReportList')->name('Studing.StudyingReportList');
-Route::post('Studing/getStudyingReportList','User\Studing\StudingClassListController@getStudyingReportList')->name('Studing.getStudyingReportList');
-Route::get('/Studing/StudyingReportList/{student}','User\Studing\StudingClassListController@StudyingReportListStudent')->name('Studing.StudyingReportListStudent');
+    Route::get('/Students/AddClass', 'User\classificationController@AddClass')->name('Student.AddClass');
 
+    Route::post('/Students/SubmitClass', 'User\ClassificationController@InsertClass')->name('Student.SubmitClass');
 
+    Route::post('/Students/ExitClass', 'User\ClassificationController@ExitClass')->name('Student.ExitClass');
 
-/*  انتهای مطالعات    */
+    Route::post('/Students/EnterClass', 'User\ClassificationController@EnterClass')->name('Student.EnterClass');
+
+    Route::post('/EditInfo', 'User\StudentsContorller@EditInfo')->name('Student.EditInfo');
+
+    Route::post('Students/Allbum_getClasses', 'User\AllbumController@getClasses')->name('Allbum.Classes');
+
+    Route::get('/AddDiscipline', 'User\MainController@Discipline')->name('Discipline.Add');
+
+    Route::post('Discipline/AddItem', 'User\Discipline\DisciplineController@AddCase')->name('Discipline.AddCase');
+
+    Route::get('discipline/student_chart', 'User\Discipline\DisciplineController@getChart');
+
+    Route::get('discipline/AddItems', 'User\Discipline\DisciplineController@AddCases')->name('Discipline.AddCases');
+
+    Route::post('discipline/AddItems', 'User\Discipline\DisciplineController@InsertCases')->name('Discipline.AddCases');
+
+    Route::get('discipline/AddPoints', 'User\Discipline\DisciplineController@AddPoints')->name('Discipline.AddPoints');
+
+    Route::post('discipline/InsertPoints', 'User\Discipline\DisciplineController@InsertPoints')->name('Discipline.InsertPoints');
+
+    Route::get('discipline/lists', 'User\Discipline\DisciplineController@DisciplineLists')->name('Discipline.lists');
+
+    Route::get('discipline/show/{id}', 'User\Discipline\DisciplineController@DisciplineShow')->name('Discipline.student.Show');
+
+    Route::get('discipline/DefineLow', 'User\Discipline\DisciplineController@DefineLow')->name('Discipline.defineLow');
+
+    Route::post('discipline/InsertLow', 'User\Discipline\DisciplineController@InsertLow')->name('Discipline.InsertLow');
+
+    Route::get('discipline/AbsenceAndDelayList', 'User\Discipline\DisciplineController@AbsenceAndDelayList')->name('Discipline.AbsenceAndDelayList');
+
+    Route::post('discipline/get_absenceAndDelayList', 'User\Discipline\DisciplineController@getAbsenceAndDelayList')->name('Discipline.get_absenceAndDelayList');
+
+    Route::get('/Studing/StudyingModels', 'User\Studing\StudingController@StudyingModels')->name('Studing.StudyingModels');
+
+    Route::post('Studing/getStudyClasses', 'User\Studing\StudingController@getStudyClasses')->name('Studing.getStudyClasses');
+
+    Route::post('Studing/InsertStudy', 'User\Studing\StudingController@InsertStudy')->name('Studing.InsertStudy');
+
+    Route::get('/Studing/StudyingReport', 'User\Studing\StudingController@StudyingReport')->name('Studing.StudyingReport');
+
+    Route::post('Studing/getStudyingReport', 'User\Studing\StudingController@getStudyingReport')->name('Studing.getStudyingReport');
+
+    Route::get('/Studing/StudyingLessonsReport', 'User\Studing\StudingLessonController@StudyingLessonsReport')->name('Studing.StudyingLessonsReport');
+
+    Route::post('/Studing/StudyingLessonsReportList', 'User\Studing\StudingLessonController@StudyingLessonsReportList')->name('Studing.StudyingLessonsReportList');
+
+    Route::get('/Studing/StudyingReportList', 'User\Studing\StudingClassListController@StudyingReportList')->name('Studing.StudyingReportList');
+
+    Route::post('Studing/getStudyingReportList', 'User\Studing\StudingClassListController@getStudyingReportList')->name('Studing.getStudyingReportList');
+
+    Route::get('/Studing/StudyingReportList/{student}', 'User\Studing\StudingClassListController@StudyingReportListStudent')->name('Studing.StudyingReportListStudent');
+
+});
+
+// ------------------ P E S R O N A L S - S C H O O l - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
+
+// ------------------ S T U D E N T - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
