@@ -73,13 +73,13 @@
                                                 <thead>
                                                     <tr>
                                                         <th>ردیف</th>
-                                                          <th>نام</th>
+                                                        <th>نام</th>
+                                                        <th>نام خانوادگی</th>
                                                           <th>کد ملی</th>
-                                                          <th>نام خانوادگی</th>
+                                                          <th>شماره شناسنامه</th>                             
                                                           <th> پایه</th>
                                                           <th>کلاس</th>
                                                           <th>ویرایش</th>
-                                                          <th>شماره شناسنامه</th>                             
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -103,8 +103,8 @@
                                                         @else
                                                         <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>ثبت کد ملی</a></td>
                                                         @endif
-                                                        @if ($students->student_certificate_number)
-                                                        <td>{{ $students->student_certificate_number}}</td>
+                                                        @if ($students->student_student_number)
+                                                        <td>{{ $students->student_student_number}}</td>
                                                         @else
                                                         <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'> ثبت شماره شناسنامه</a></td>
                                                         @endif

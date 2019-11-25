@@ -53,7 +53,7 @@
           <option value="" selected="">باز کردن فهرست انتخاب</option>
         
      @foreach (\App\Models\BasicModel::where('section_id',1)->get() as $item)
-     <option value="{{$item->basic_id}}" selected="  ">{{$item->basic_name}}</option>
+     <option value="{{$item->basic_id}}" >{{$item->basic_name}}</option>
      @endforeach
          
       </select>
@@ -65,6 +65,16 @@
         <div class="form-group col-md-6">
           <button type="submit" class=" btn btn-primary mt-3">افزودن</button>
         </div>
+      </div>
+
+
+      <div class="row">
+          <div class="col-md-12">
+            <div class="basic__classes ">
+
+            </div>
+
+          </div>
       </div>
     </div>
 
@@ -95,28 +105,30 @@ headers: {
 }
 });
 
-$("#section").change(function(e){
+$("#basic").change(function(e){
 e.preventDefault();
-var section_id = $(this).val();
+var basic_id = $(this).val();
 
 $.ajax({
 
   type:'POST',
-  url:'get_basics',
-  data:{section_id:section_id},
+  url:'view_classes',
+  data:{basic_id:basic_id},
   success:function(data){
-    if (data !== '') {
-      
-    $('#basic').html(data)
-    }else{
-      $('#basic').html('<option>برای مقطع مربوطه پایه ای وجود ندارد </option>')
+    
+      $('.basic__classes').html(data)
+    // $('#basic').html(data)
+  
+      // $('#basic').html('<option>برای مقطع مربوطه پایه ای وجود ندارد </option>')
     }
 
-  }
+  
 
-    });
+   
 
   });
+
+})
  </script>
 
 

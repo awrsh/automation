@@ -129,7 +129,10 @@ class StudentsContorller extends Controller
             $request->student_photo->move(public_path('uploads/students/'), $fileName);
 
         }else{
-            $fileName ="";
+
+
+            $fileName =Student::where('student_id', $request->id_student)->first()->student_student_photo;
+            
         }
         Student::where('student_id', $request->id_student)->update([
 

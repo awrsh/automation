@@ -26,6 +26,7 @@ Route::get('/Students/EditStudent/{id?}','User\StudentsContorller@Student')->nam
 Route::get('/Students/EditClass','User\MainController@EditClass')->name('Student.EditClass');
 Route::post('/Students/get_basics','User\MainController@GetBasics');
 Route::post('/Students/get_classes','User\MainController@getClasses');
+Route::post('/Students/view_classes','User\MainController@GetClassesForView');
 Route::post('Students/EditClass/ShowClasses','User\MainController@showClasses')->name('Student.EditClassShow');
 // End EditClasses Routes
 
