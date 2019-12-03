@@ -4,7 +4,8 @@ $(document).ready(function () {
 	$('input.date-picker-shamsi').datepicker({
 		dateFormat: "yy/mm/dd",
 		showOtherMonths: true,
-		selectOtherMonths: false
+		selectOtherMonths: false,
+		showWeek: true
 	});
 
 	$('input.date-picker-shamsi-list').datepicker({

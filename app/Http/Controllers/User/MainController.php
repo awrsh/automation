@@ -14,6 +14,7 @@ class MainController extends Controller
 {
     public function index()
     {
+        $s='';
         $school = School::where('school_id', 1)->first();
         $count = $school->school_count_students;
 
@@ -91,10 +92,22 @@ class MainController extends Controller
         return view('User.Students.EditClass', compact('list_ul'));
     }
 
+    public function changeBasicForStudent(Request $request)
+    {
+        if($request->basic_id == null) $request->basic_id = 1;
+        $classes = ClassModel::where('basic_id',$request->basic_id)->get();
+       
+            
+        
+        return view('User.Students.List',compact('classes'));
+    }
     public function ListStudents()
     {
-        $list = Student::get();
-        return view('User.Students.List', compact('list'));
+        $session_id= \App\Models\School::where('school_name',session()->get('ManagerSis')['name'])->first()->school_sections;
+        $basic_id =  \App\Models\BasicModel::where('section_id', $session_id )->first()->basic_id;
+                                         
+        $classes = ClassModel::where('basic_id',$basic_id)->get();
+        return view('User.Students.List', compact('classes'));
     }
 
     public function GetBasics(Request $request)
@@ -123,14 +136,47 @@ class MainController extends Controller
     public function GetClassesForView(Request $request)
     {
         $classes = ClassModel::where('basic_id', $request->basic_id)->get();
-        $options = ' ';
-        foreach ($classes as $item) {
+        $class_lists = '
+        <table class="table table-striped table-bordered example2">
+        <thead>
+            <tr>
+            <th>ردیف</th>
+            <th> نام کلاس </th>
+           
+            <th>  حذف</th>
+         
+    
+             
+            </tr>
+        </thead>
+        <tbody>
+        ';
+        foreach ($classes as $key=>$item) {
 
 
-            $options .= ' <span class="badge badge-info" style="font-size: 15px;
-            word-spacing: 5px;">'.$item->class_name.'</span> ';
+            $class_lists .=' <tr>
+            <td> '.($key+1).' </td>
+            <td>'.$item->class_name.'</td>
+            <td>
+               <a
+               title="توجه در صورت حذف کلاس  , دانش اموزان در کلاس بندی نشده ها قرار میگیرند "
+               href="DeleteClass/'.$item->class_id.'" class=" text-danger">
+                <i class="fa fa-trash-o fa-2x"></i> 
+                </a>
+            </td>
+          
+          
+            
+
+     </tr>';
                 }
-        return $options;
+                $class_lists .='  </tbody>
+                          
+                </table></div>
+    ';
+        return $class_lists;
+
+ 
     }
 
 

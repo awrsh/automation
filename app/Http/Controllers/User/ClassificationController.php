@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ClassModel;
 use App\Models\School;
 use App\Models\Student;
+use App\StudiesModel;
 
 class ClassificationController extends Controller
 {
@@ -16,7 +17,17 @@ class ClassificationController extends Controller
 
         return view('User.Students.Classification.AddClass');
     }
+    public function DeleteClass(Request $request)
+    {
+       ClassModel::where('class_id',$request->item)->delete();
+       Student::where('student_student_class',$request->item)->update([
+            'student_student_class' => null
+       ]);
 
+        StudiesModel::where('class_id',$request->item)->delete();
+
+       return back()->with('success','کلاس حذف شد');
+    }
     public function InsertClass(Request $request)
     {
 
@@ -41,6 +52,7 @@ class ClassificationController extends Controller
         }
         return back()->with('errors', 'خطا در ارسال درخواست');
     }
+
 
 
     public function ExitClass(Request $request)

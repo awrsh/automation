@@ -31,7 +31,8 @@
     <div class="row">
         <div class=" col-md-12">
     
-            <div class="card">
+            <div class="card print">
+              
                 <div class="card-body">
                   <div class="card-header">
                      <h4 class=" text-center">لیست دانش اموزان</h4>
@@ -77,6 +78,18 @@
             </div>
         </div>
     </div>
-</div>                   
+</div>      
+
+
+<script >
+// window.addEventListener('load',function(){
+
+//   window.print()
+// })
+
+</script>
 </body>
 </html>
+
+
+

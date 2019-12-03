@@ -17,7 +17,7 @@ class CreateDisciplineCaseModelsTable extends Migration
             $table->bigIncrements('case_id');
             $table->text('case_date');
             $table->integer('law_id');
-            $table->text('case_descriotion');
+            $table->text('case_descriotion')->nullable();
             $table->integer('case_effect');
             $table->integer('student_id');
             $table->timestamps();

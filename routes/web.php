@@ -57,6 +57,8 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::get('/Students/List', 'User\MainController@ListStudents')->name('Student.List');
 
+    Route::post('Students/changeBasicForStudent', 'User\MainController@changeBasicForStudent')->name('Student.changeBasicForStudent');
+
     Route::get('/Students/EditStudent/{id?}', 'User\StudentsContorller@Student')->name('Student.EditStudent');
 
     Route::get('/Students/EditClass', 'User\MainController@EditClass')->name('Student.EditClass');
@@ -90,7 +92,8 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::post('/Students/SubmitBasic', 'User\BasicController@InsertBasic')->name('Student.SubmitBasic');
 
-    Route::get('/Students/AddClass', 'User\classificationController@AddClass')->name('Student.AddClass');
+    Route::get('/Students/AddClass', 'User\ClassificationController@AddClass')->name('Student.AddClass');
+    Route::get('/Students/DeleteClass/{item}', 'User\ClassificationController@DeleteClass')->name('Class.Delete');
 
     Route::post('/Students/SubmitClass', 'User\ClassificationController@InsertClass')->name('Student.SubmitClass');
 
@@ -115,17 +118,20 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::post('discipline/AddItems', 'User\Discipline\DisciplineController@InsertCases')->name('Discipline.AddCases');
 
     Route::get('discipline/AddPoints', 'User\Discipline\DisciplineController@AddPoints')->name('Discipline.AddPoints');
+    Route::post('discipline/changeBasicForLaw', 'User\Discipline\DisciplineController@changeBasicForLaw')->name('Discipline.changeBasicForLaw');
 
     Route::post('discipline/InsertPoints', 'User\Discipline\DisciplineController@InsertPoints')->name('Discipline.InsertPoints');
+    Route::post('discipline/changeBasic', 'User\Discipline\DisciplineController@changeBasic')->name('Discipline.changeBasic');
 
     Route::get('discipline/lists', 'User\Discipline\DisciplineController@DisciplineLists')->name('Discipline.lists');
 
-    Route::get('discipline/show/{id}', 'User\Discipline\DisciplineController@DisciplineShow')->name('Discipline.student.Show');
+    Route::get('discipline/show/{student}', 'User\Discipline\DisciplineController@DisciplineShow')->name('Discipline.student.Show');
+    
 
     Route::get('discipline/DefineLow', 'User\Discipline\DisciplineController@DefineLow')->name('Discipline.defineLow');
 
     Route::post('discipline/InsertLow', 'User\Discipline\DisciplineController@InsertLow')->name('Discipline.InsertLow');
-
+    Route::get('discipline/DeleteLow/{item}', 'User\Discipline\DisciplineController@DeleteLow')->name('Discipline.DeleteLow');
     Route::get('discipline/AbsenceAndDelayList', 'User\Discipline\DisciplineController@AbsenceAndDelayList')->name('Discipline.AbsenceAndDelayList');
 
     Route::post('discipline/get_absenceAndDelayList', 'User\Discipline\DisciplineController@getAbsenceAndDelayList')->name('Discipline.get_absenceAndDelayList');

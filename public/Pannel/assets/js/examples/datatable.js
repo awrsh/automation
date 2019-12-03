@@ -64,7 +64,7 @@ $(document).ready(function () {
 					"scrollCollapse": true,
 "paging": false,
 "language": {
-"sEmptyTable":     "هیچ داده ای در جدول وجود ندارد",
+
 "sInfo":           "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
 "sInfoEmpty":      "نمایش 0 تا 0 از 0 رکورد",
 "sInfoFiltered":   "(فیلتر شده از _MAX_ رکورد)",

@@ -167,6 +167,7 @@
 
 $("#form").submit(function(e){
 e.preventDefault();
+
 $('.button__wrapper').html('<button class="btn btn-primary" type="button" disabled> <span class="spinner-border spinner-border-sm m-l-5" role="status" aria-hidden="true"></span> در حال بارگذاری ... </button>')
 var basic = $(this).find('#basic').val();
 var start_date = $(this).find('#case_start_date').val();
@@ -188,7 +189,12 @@ success:function(data){
     $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
    
 
-}
+},
+        error:function(data){
+    
+            $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
+       alert('لطفا ورودی ها را تکمیل کنید')
+        }
 
        });
 

@@ -77,19 +77,7 @@
                              </div>       
 
                       
-                                            <div class="row date__picker" >
-                                              <div class="col-md-5  ">
-                                             
-                                                <label for="">از تاریخ</label>
-                                                <input type="text" id="case_start_date"  name="case_start_date" class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">                              
-                                               </div>
-                                               <div class="col-md-5  ">
-                                                <label for="">تا تاریخ</label>
-                                                <input type="text" id="case_end_date" name="case_end_date" class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">
-                                          
-                                               </div>
-                                               
-                                            </div>
+                                            
 
                     
                                                 <div class="row">
@@ -167,6 +155,7 @@
 
 $("#form").submit(function(e){
 e.preventDefault();
+
 $('.button__wrapper').html('<button class="btn btn-primary" type="button" disabled> <span class="spinner-border spinner-border-sm m-l-5" role="status" aria-hidden="true"></span> در حال بارگذاری ... </button>')
 var basic = $(this).find('#basic').val();
 var start_date = $(this).find('#case_start_date').val();
@@ -183,12 +172,25 @@ data:{
   end_date:end_date
 },
 success:function(data){
- 
-    $('#content').html(data)
+ console.log()
+
+ if (data.length == 180) {
+    $('#content').html('<p>موردی برای نمایش وجود ندارد</p>')
     $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
    
+ }else{
 
-}
+    $('#content').html(data)
+    $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
+ }
+   
+
+},
+        error:function(data){
+    
+            $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
+       alert('لطفا ورودی ها را تکمیل کنید')
+        }
 
        });
 

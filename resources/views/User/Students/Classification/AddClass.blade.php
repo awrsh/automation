@@ -69,7 +69,7 @@
 
 
       <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <div class="basic__classes ">
 
             </div>
@@ -92,12 +92,16 @@
 
 @endsection
 
-
+@section('css')
+    <style>
+    
+    </style>
+@endsection
 
 @section('js')
     
  <script>
- 
+ $(".popover").popover({ trigger: "hover" });
  $.ajaxSetup({
 
 headers: {
@@ -116,7 +120,11 @@ $.ajax({
   data:{basic_id:basic_id},
   success:function(data){
     
+     if (data.length > 360) {
       $('.basic__classes').html(data)
+     }else{
+       $('.basic__classes').html('<p>برای این پایه هنوز کلاسی ثبت نشده است</p>')
+     }
     // $('#basic').html(data)
   
       // $('#basic').html('<option>برای مقطع مربوطه پایه ای وجود ندارد </option>')

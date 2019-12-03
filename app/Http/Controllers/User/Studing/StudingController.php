@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\LessonModel;
 use App\Models\ClassModel;
 use App\StudiesModel;
+use Carbon\Carbon;
+use Morilog\Jalali\Jalalian;
 
 class StudingController extends Controller
 {
@@ -39,7 +41,9 @@ class StudingController extends Controller
 
         public function InsertStudy(Request $request)
         {
-            
+         
+
+
             $validatedData = $request->validate([
                 'studies_name' => 'required',
                 'studies_count' => 'required | numeric',
@@ -57,13 +61,31 @@ class StudingController extends Controller
                 // 'basic_id.required' => 'پایه را انتخاب کنید',
             ]);
 
+            
+            if ($request->studies_date == 'شش ماه') {
+                $request->case_start_date = Carbon::now();
+                $request->case_end_date = Carbon::now()->addMonths(6);
+            }
+
+            if ($request->studies_date == 'یک سال') {
+                $request->case_start_date = Carbon::now();
+                $request->case_end_date = Carbon::now()->addYear();
+            }
+
+            if ($request->studies_date == 'انتخاب بازه زمانی') {
+                $request->case_start_date = $this->convertDate($request->case_start_date);
+                $request->case_end_date = $this->convertDate($request->case_end_date);
+            }
+            
+
 
 
 
             StudiesModel::create([
                 'studies_name' => $request->studies_name,
                 'studies_count' => $request->studies_count,
-                'studies_date' => $request->studies_date == 'انتخاب بازه زمانی' ? $request->case_start_date.'-'.$request->case_end_date : $request->studies_date,
+                'studies_start_date' => $request->case_start_date,
+                'studies_end_date' => $request->case_end_date,
                 'lesson_id' => $request->lesson,
                 'class_id' => $request->class
 
@@ -83,7 +105,7 @@ class StudingController extends Controller
 
         public function getStudyingReport(Request $request)
         {
-           
+          
 
         
       $classes=ClassModel::where('basic_id',$request->basic)->get();
@@ -135,11 +157,15 @@ foreach ($classes as $key=>$item){
                 </thead>
                 <tbody>
                 ';
-               
+         if(\App\Models\Student::where('student_student_class',$item->class_id)->count()){      
           foreach ( \App\Models\Student::where('student_student_class',$item->class_id)->get() as $student){
-           $studeis=  $student->getStudies;
+        //    $studeis=  $student->getStudies;
         //   برحسب تاریخ اضافه شود
-        //    $studeis=  $student->getStudies->where('studies_students_date',);
+        $studeis = $student->whereHas('getStudies',function($query) use($request){
+                $query->where('studies_students_date', '>', $this->convertDate($request->start_date))
+                ->where('studies_students_date', '<', $this->convertDate($request->end_date));
+        })->get();
+       
            $excelentStudy =0;
            $badStudy=0;
            $normalStudy =0;
@@ -172,6 +198,10 @@ foreach ($classes as $key=>$item){
         
                    </tr>';
                         }
+                    }else{
+                        $class_lists .='  <td>دانش اموزی برای این کلاس ثبت نشده است</td>
+            ';
+                    }
                       
                         $class_lists .='  </tbody>
                                   
@@ -194,6 +224,7 @@ foreach ($classes as $key=>$item){
     </thead>
     <tbody>
     ';
+    if(\App\Models\Student::where('student_student_class',$item->class_id)->count()){      
 
           foreach ( \App\Models\Student::where('student_student_class',$item->class_id)->get() as $student){
             $studeis=  $student->getStudies;
@@ -229,6 +260,11 @@ foreach ($classes as $key=>$item){
           
                    </tr>';
             }
+        }else{
+            $class_lists .='  <td>دانش اموزی برای این کلاس ثبت نشده است</td>
+';
+        }
+          
             $class_lists .='  </tbody>
                                   
             </table></div>

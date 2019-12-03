@@ -10,12 +10,12 @@
     <!-- begin::page header -->
     <div class="page-header">
         <div>
-            <h3>تعریف مورد انضباطی</h3>
+            <h3>تعریف مورد انظباطی</h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
-                    <li class="breadcrumb-item"><a href="#">انضباطی</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="#">تعریف مورد انضباطی</a>
+                    <li class="breadcrumb-item"><a href="#">انظباطی</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">تعریف مورد انظباطی</a>
                     </li>
 
                 </ol>
@@ -57,8 +57,8 @@
                                  <div class="row">
                                        <div class=" form-group col-md-3">
                                                 <label for="">پایه</label>
-                                                <select id="basic" name="basic_id" class="custom-select mb-3">
-                                                  <option value="10" selected="">همه پایه ها</option>
+                                                <select id="basic" name="basic_id" class="custom-select mb-3" required>
+                                                  <option value="" selected="">  باز کردن فهرست انتخاب</option>
                                                 
                                              @foreach (\App\Models\BasicModel::where('section_id',1)->get() as $item)
                                              <option value="{{$item->basic_id}}" >{{$item->basic_name}}</option>
@@ -69,7 +69,8 @@
                                           
                                               <div class=" form-group col-md-5">
                                                 <label for="">عنوان</label>
-                                                <input name="law_title" id="law_title" type="text" class="form-control"  placeholder="">
+                                                <input name="law_title" id="law_title" type="text" class="form-control"  placeholder="" required>
+                                                <span class="law_title__error text-danger"></span>
                                               </div>
                                             
 
@@ -78,7 +79,7 @@
                                               <div class="col-md-4">
                                                 <h6 class="card-title mt-2 mb-2"> نوع مورد</h6>
                                                               <div class="custom-control custom-radio custom-control-inline">
-                                                                      <input checked type="radio" value="تنبیهی"  id="customRadioInline1" name="law_type" class="custom-control-input">
+                                                                      <input checked="" type="radio" value="تنبیهی"  id="customRadioInline1" name="law_type" class="custom-control-input">
                                                                       <label class="custom-control-label" for="customRadioInline1"> تنبیهی </label>
                                                                   </div>
                                                                   <div class="custom-control custom-radio custom-control-inline">
@@ -92,9 +93,9 @@
 
                                             <div class=" row form-group">
                                             <label for="" class="col-md-2"> تاثیر به اضای هر</label>
-                                             <input type="text" id="low_count" name="low_count" class=" col-md-1 form-control form-inline">
+                                             <input type="text" id="low_count" name="low_count" class=" col-md-1 form-control form-inline" required>
                                              <label for="" class=" col-md-1"> بار </label>
-                                              <input type="text" id="law_num" name="law_num" class=" form-control col-md-1">
+                                              <input type="text" id="law_num" name="law_num" class=" form-control col-md-1" required>
                                               <label for="" class=" col-md-1"> نمره </label>
                                             </div>
 
@@ -112,7 +113,7 @@
                    
  
 
-        <table  class="table table-striped table-bordered example3">
+        <table  class="table table-striped table-bordered example2">
                 <thead>
                 <tr>
                     <th>نام</th>
@@ -120,6 +121,7 @@
                     <th>ضریب تاثیر گذاری</th>
                     <th>تاثیر روی نمره</th>
                     <th> پایه</th>
+                    <th>حذف</th>
                     
                 </tr>
                 </thead>
@@ -131,6 +133,7 @@
                         <td>{{$item->law_count}}</td>
                         <td>{{$item->law_num}}</td>
                         <td>{{$item->basic_id}}</td>
+                        <td> <a href=" {{route('Discipline.DeleteLow',$item)}} " class=" text-danger"> <i class=" fa fa-trash fa-2x"></i> </a> </td>
                    
                     </tr>
                 @endforeach
@@ -168,7 +171,10 @@ $(document).ready(function(e){
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
    });
-   
+   $('#law_title').focus(function(){
+
+       $('.law_title__error').text('')
+   })
 
    
    $("#form").submit(function(e){
@@ -195,12 +201,12 @@ $(document).ready(function(e){
    success:function(data){
        $('.tbody').append(data)
        $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
-       $('input').val('') 
+      
         },
         error:function(data){
-       $('.tbody').append(data)
+    
        $('.button__wrapper').html(' <button type="submit" class=" btn btn-danger">موارد را کامل کنید</button>')
-      
+       $('.law_title__error').text(data.responseJSON.errors.law_title)
         }
           });
    

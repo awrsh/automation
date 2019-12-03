@@ -26,13 +26,13 @@
 
         </ul>
         </li>
-        <li><a href="#"><i class="icon ti-alert"></i> <span>انضباطی</span> </a>
+        <li><a href="#"><i class="icon ti-alert"></i> <span>انظباطی</span> </a>
             <ul>
                 <li><a href="{{route('Discipline.Add')}}">ثبت مورد دانش آموز </a></li>
                 <li><a href=" {{route('Discipline.AddCases')}} ">ثبت مورد دسته جمعی</a></li>
-                <li><a href="{{route('Discipline.AddPoints')}} ">ثبت نمره انضباط</a> </li>
-                <li><a href=" {{route('Discipline.defineLow')}} ">تعریف آیین نامه انضباظی </a></li>
-                <li><a href="{{route('Discipline.lists')}}">لیست گزارش انضباطی</a></li>
+                <li><a href="{{route('Discipline.AddPoints')}} ">ثبت نمره انظباط</a> </li>
+                <li><a href=" {{route('Discipline.defineLow')}} ">تعریف آیین نامه انظباطی </a></li>
+                <li><a href="{{route('Discipline.lists')}}">لیست گزارش انظباطی</a></li>
                 <li><a href=" {{route('Discipline.AbsenceAndDelayList')}} "> لیست غیبت و تاخیر </a></li>
             </ul>
         </li>
@@ -50,13 +50,24 @@
 
             <li><a href="#"><i class="icon ti-book"></i> <span>فعالیت های کلاسی</span> </a>
                 <ul>
-                    <li><a href="{{route('Studing.StudyingModels')}}">ثبت نمرات کلاسی </a></li>
+                    <li><a href="{{route('Studing.StudyingModels')}}"> </a></li>
                     <li><a href=" {{route('Studing.StudyingReport')}} ">وضعیت مطالعه دانش اموزان</a></li>
                     <li><a href=" {{route('Studing.StudyingLessonsReport')}} ">  میانگین مطالعه کلاس ها به تفکیک دروس</a></li>
 
                     <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
                 </ul>
             </li>
+
+
+
+            {{-- <li><a href="#"><i class="icon ti-book"></i> <span>فعالیت های کلاسی</span> </a>
+                <ul>
+                    <li><a href="{{route('Studing.StudyingModels')}}">ثبت نمرات کلاسی </a></li>
+                    <li><a href=" {{route('Studing.StudyingReport')}} ">وضعیت مطالعه دانش اموزان</a></li>
+                    <li><a href=" {{route('Studing.StudyingLessonsReport')}} ">  میانگین مطالعه کلاس ها به تفکیک دروس</a></li>
+                    <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
+                </ul>
+            </li> --}}
             <li><a href="{{route('logout.manager')}}"><i class="icon ti-close"></i> <span>خروج</span> </a></li>
         </ul>
     </div>

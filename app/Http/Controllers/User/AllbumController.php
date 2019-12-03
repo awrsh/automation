@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ClassModel;
 use App\Models\SectionModel;
 use App\Models\Student;
+use PDF;
 
 class AllbumController extends Controller
 {
@@ -15,7 +16,11 @@ class AllbumController extends Controller
     
     function getClasses(Request $request)
     {
+        
         $classes=ClassModel::where('basic_id',$request->basic_id)->get();
+        if (count($classes) == 0) {
+           return 'هنوز کلاسی ثبت نشده است';
+        }
         
 
         $class_lists = ' <h5 class="card-title">  آلبوم عکس دانش آموزی </h5>';
@@ -129,9 +134,14 @@ return $class_lists;
     public function getPDF(Request $request)
     {
 
-       $students = Student::where('student_student_class',$request->id)->get();
-       $class= ClassModel::where('class_id',$request->id)->first();
+        $students = Student::where('student_student_class',$request->id)->get();
+        $class= ClassModel::where('class_id',$request->id)->first();
+      
        
+        // $pdf = PDF::loadView('User.Students.PDF_Allbum', $students);
+        // return $pdf->download('invoice.pdf');
+
+      
         return view('User.Students.PDF_Allbum',compact(['students','class']));
     }
 }
