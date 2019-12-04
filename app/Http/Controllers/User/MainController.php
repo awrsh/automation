@@ -14,6 +14,7 @@ class MainController extends Controller
 {
     public function index()
     {
+        
         $s='';
         $school = School::where('school_id', 1)->first();
         $count = $school->school_count_students;

@@ -161,3 +161,20 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 // ------------------ P E S R O N A L S - S C H O O l - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
 
 // ------------------ S T U D E N T - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
+Route::prefix('/Students')->group(function () {
+
+Route::get('/Register','Students\RegisterController@RegisterView')->name('Student.WorkSpace.Register');
+Route::get('/Login','Students\RegisterController@LoginView')->name('Student.WorkSpace.LoginView');
+Route::post('Login','Students\RegisterController@Login')->name('Student.WorkSpace.Login');
+Route::get('/Dashboard','Students\MainController@Dashboard')->name('Student.WorkSpace.Dashboard');
+Route::get('/DisciplineReport','Students\MainController@DisciplineReport')->name('Student.WorkSpace.DisciplineReport');
+Route::get('/Study','Students\MainController@StudyingReport')->name('Student.WorkSpace.StudyingReport');
+Route::post('Study','Students\MainController@StudyingReportInsert')->name('Student.WorkSpace.StudyingReportInsert');
+
+
+
+
+
+
+
+});

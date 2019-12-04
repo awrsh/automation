@@ -191,7 +191,7 @@ success:function(data){
 
 },
         error:function(data){
-    
+   
             $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
        alert('لطفا ورودی ها را تکمیل کنید')
         }

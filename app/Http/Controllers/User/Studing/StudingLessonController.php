@@ -104,9 +104,11 @@ foreach ($classes as $key=>$item){
 
         $studyStudent_array=StudiesStudentsModel::where('studies_students_date','>',$this->convertDate($request->start_date))
         ->where('studies_students_date','<',$this->convertDate($request->end_date))
-        ->whereHas('StudyName',function($q) use($lesson,$item){
-            $q->where(['lesson_id'=>$lesson->id,'class_id'=>$item->class_id]);
-    })->get();
+        ->where('lesson_id',$lesson->id)
+        ->get();
+    //     ->whereHas('StudyName',function($q) use($lesson,$item){
+    //         $q->where(['lesson_id'=>$lesson->id,'class_id'=>$item->class_id]);
+    // })->get();
     
     $LessonStudyStudentCount=0; 
     foreach ($studyStudent_array as  $studyStudent) {

@@ -74,13 +74,13 @@
                                                                       @endif  id="customRadioInline1" name="studies_date" class="custom-control-input ">
                                                                       <label class="custom-control-label" for="customRadioInline1"> یک سال </label>
                                                                   </div>
-                                                                  <div class="custom-control custom-radio custom-control-inline">
+                                                                  {{-- <div class="custom-control custom-radio custom-control-inline">
                                                                       <input type="radio" value="شش ماه"  id="customRadioInline2" name="studies_date" class="custom-control-input"
                                                                       @if ( old('studies_date') == 'شش ماه' )
                                                                       checked
                                                                   @endif>
                                                                       <label class="custom-control-label" for="customRadioInline2"> شش ماه </label>
-                                                                  </div>
+                                                                  </div> --}}
                                                                   <div class="custom-control custom-radio custom-control-inline">
                                                                     <input type="radio" value="انتخاب بازه زمانی"  id="customRadioInline3" name="studies_date" class="custom-control-input"
                                                                     @if ( old('studies_date') == 'انتخاب بازه زمانی' )
@@ -137,21 +137,24 @@
                                               </select>
                                               </div>
 
-                                              <div class=" form-group col-md-4 ">
+                                              {{-- <div class=" form-group col-md-4 ">
                                                 <label for="" class="  pt-3"> <span class="text-danger">*</span> درس </label>
                                                 <select id="lesson" name="lesson" class=" custom-select  mb-3">
                                                   <option value="">انتخاب مورد</option>
                                                 </select>
-                                                </div>
+                                                </div> --}}
 
                                     
                                            </div>
 
-                                           <div class=" row">
+                                           {{-- <div class=" row">
                                              <div class=" form-group col-md-6 form-inline">
                                                 <label for="">مدت زمان بر حسب دقیقه (مثلا : 20)</label>
                                                 <input type="text" name="studies_count" class=" form-control mr-2" value=" {{old('studies_count')}} ">
                                              </div>
+                                           </div> --}}
+                                           <div id="lesson" class=" row">
+
                                            </div>
 
 

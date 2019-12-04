@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\School;
 use App\Models\Admin\admin;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Admin\PasswordListSchoolModel;
 
 class LoginController extends Controller
@@ -31,6 +32,7 @@ class LoginController extends Controller
 
     public function login()
     {
+    
 
         $res = School::where([
             'school_username' => request()->post('username'),
@@ -38,7 +40,14 @@ class LoginController extends Controller
             'school_status' => 'on',
             'school_url' => route('BaseUrl'),
         ])->get();
+       
         if (count($res) > 0) {
+            if (request()->has('remember')) {
+                Auth::loginUsingId($res[0]['school_id'],true);
+            } else {
+                Auth::loginUsingId($res[0]['school_id']);
+            }
+            
             session()->put('ManagerSis', [
                 'id' => $res[0]['school_id'],
                 'name' => $res[0]['school_name'],

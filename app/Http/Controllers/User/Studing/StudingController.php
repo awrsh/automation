@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\LessonModel;
 use App\Models\ClassModel;
 use App\StudiesModel;
+use App\StudiesStudentsModel;
 use Carbon\Carbon;
 use Morilog\Jalali\Jalalian;
 
@@ -29,43 +30,74 @@ class StudingController extends Controller
 
 
            $lesson_array =  LessonModel::where('basic_id',$request->basic_id)->get();
-            $lessons = '';
-            foreach ($lesson_array as $item) {
-                $lessons .= ' <option value="' . $item->id . '">' . $item->lesson_name  . '</option>';
+           
+            
+
+
+        
+
+          $table = '<table class="table table-striped table-bordered example2">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>نام درس</th>
+                    <th>مدت زمان مطالعه</th>
+                   
+                 
+                </tr>
+            </thead>
+            <tbody>';
+
+            foreach ($lesson_array as $key=>$item) {
+               
+            
+               $table .=' <tr>
+                        <td>'.$key++.' </td>
+                        <td>'.$item->lesson_name.'</td>
+                        <td>                       
+                            <input name="id_lesson['.$item->id.']" type="text" style="width: 50px">         
+                        </td>
+
+                        
+
+                        
+                 </tr>';
             }
-            return response([$options,$lessons]);
-     
+                
+            
+
+           $table .= '</tbody>
+
+        </table>';
+        return response([$options,$table]);
 }
 
 
 
         public function InsertStudy(Request $request)
         {
+            
          
 
 
             $validatedData = $request->validate([
                 'studies_name' => 'required',
-                'studies_count' => 'required | numeric',
+                
                 'studies_date' => 'required',
-                'lesson' => 'required',
+                
                 'class' => 'required',
 
             ], [
                 'class.required' => 'نام کلاس الزامی است',
-                'lesson.required' => 'نام درس الزامی است',
+                
                 'studies_date.required' => ' لطفا بازه زمانی را انتخاب کنید',
-                'studies_count.required' => 'لطفا زمان مورد نیاز برای مطالعه را وارد نمایید',
-                'studies_count.numeric' => 'مدت زمان مطالعه به صورت عددی وارد شود',
+                
                 'studies_name.required' => 'نام مورد مطالعاتی الزامی می باشد',
                 // 'basic_id.required' => 'پایه را انتخاب کنید',
             ]);
 
             
-            if ($request->studies_date == 'شش ماه') {
-                $request->case_start_date = Carbon::now();
-                $request->case_end_date = Carbon::now()->addMonths(6);
-            }
+           
 
             if ($request->studies_date == 'یک سال') {
                 $request->case_start_date = Carbon::now();
@@ -81,15 +113,19 @@ class StudingController extends Controller
 
 
 
+           foreach ($request->id_lesson as $key=>$item) {
+               
             StudiesModel::create([
                 'studies_name' => $request->studies_name,
-                'studies_count' => $request->studies_count,
+                'studies_count' => $item,
                 'studies_start_date' => $request->case_start_date,
                 'studies_end_date' => $request->case_end_date,
-                'lesson_id' => $request->lesson,
+                'lesson_id' =>$key,
+                'school_id' => session()->get('ManagerSis')['id'],
                 'class_id' => $request->class
 
             ]);
+           }
 
             return back()->withInput()->with('success','مورد مطالعاتی با موفقیت اضافه شد'); 
         }
@@ -157,21 +193,24 @@ foreach ($classes as $key=>$item){
                 </thead>
                 <tbody>
                 ';
-         if(\App\Models\Student::where('student_student_class',$item->class_id)->count()){      
+      if(\App\Models\Student::where('student_student_class',$item->class_id)->count()){      
           foreach ( \App\Models\Student::where('student_student_class',$item->class_id)->get() as $student){
-        //    $studeis=  $student->getStudies;
-        //   برحسب تاریخ اضافه شود
-        $studeis = $student->whereHas('getStudies',function($query) use($request){
-                $query->where('studies_students_date', '>', $this->convertDate($request->start_date))
-                ->where('studies_students_date', '<', $this->convertDate($request->end_date));
-        })->get();
-       
+        
+        // $studeis = $student->whereHas('getStudies',function($query) use($request){
+        //         $query->where('studies_students_date', '>', $this->convertDate($request->start_date))
+        //         ->where('studies_students_date', '<', $this->convertDate($request->end_date));
+        // })->get();
+       $studeis = StudiesStudentsModel::where('student_id',$student->student_id)
+       ->where('studies_students_date', '>', $this->convertDate($request->start_date))
+       ->where('studies_students_date', '<', $this->convertDate($request->end_date))
+       ->get();
            $excelentStudy =0;
            $badStudy=0;
            $normalStudy =0;
 
 
            foreach ( $studeis as $key => $value) {
+               
                if($value->StudyName->studies_count < $value->studies_students_count){
                     $excelentStudy ++;
                }elseif($value->StudyName->studies_count > $value->studies_students_count){
