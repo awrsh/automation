@@ -51,6 +51,12 @@ class RegisterController extends Controller
        
     }
 
+    public function LogOut() {
+       
+        Auth::logout();
+        return redirect()->route('Student.WorkSpace.LoginView');
+      }
+
 
 
 }

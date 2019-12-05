@@ -12,6 +12,11 @@ use Morilog\Jalali\Jalalian;
 
 class MainController extends Controller
 {
+
+    public function __construct()
+{
+    $this->middleware('authStudent');
+}
     public function Dashboard()
     {
          
@@ -38,6 +43,8 @@ class MainController extends Controller
         $basic=$student->getBasicId();
 
        $lessons = LessonModel::where('basic_id',$basic)->get();
+       $lessons_name = LessonModel::where('basic_id',$basic)->pluck('lesson_name');
+
         $study_count =[];
        foreach ($lessons as $key => $value) {
         
@@ -45,16 +52,13 @@ class MainController extends Controller
         ->where('studies_students_date','>',Carbon::now()->subDays(7)->format('Y-m-d 00:00:00'))
         ->where('studies_students_date','<',Carbon::now()->format('Y-m-d 00:00:00'))
         ->first() != null){
-       $study_count[] = $student->getStudies()->where('lesson_id',$value->id)->first()->studies_students_count;
+       $study_count[] = json_encode($student->getStudies()->where('lesson_id',$value->id)->first()->studies_students_count);
         }else{
-            $study_count[] = 0;
+            $study_count[] = '0';
         }   
        }
-      
-        $study_count_json =json_encode($study_count);
-        $lessons_json = json_encode($lessons);
-
-        return view('Students.Pannel.Dashboard',compact(['student','lessons_json','study_count_json']));
+       
+        return view('Students.Pannel.Dashboard',compact(['student','lessons_name','study_count']));
     }
 
     public function DisciplineReport()
@@ -103,5 +107,18 @@ class MainController extends Controller
 
         return back()->with('success','عملیات با موفقیت انجام شد');
 
+    }
+
+    public function StudyingReportList()
+    {
+        $student = auth()->user();
+        $lessons = LessonModel::where('basic_id',$student->getBasicId())->get();
+        return view('Students.Pannel.StudyReportList',compact('student','lessons'));
+    }
+
+
+    public function EditProfileView()
+    {
+        return view('Students.Pannel.EditProfile');
     }
 }

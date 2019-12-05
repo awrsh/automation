@@ -11,7 +11,7 @@
     <div class="page-header">
         <div>
             <h3 style="color: #b1a3a3;
-            text-shadow: 0 1px 1px black;">  ثبت مطالعات</h3>
+            text-shadow: 0 1px 1px black;">  لیست مطالعات</h3>
             {{-- <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
@@ -62,24 +62,17 @@
             <form action=" {{route('Student.WorkSpace.StudyingReportInsert')}} " method="post">
                 @csrf
                             <div class="mb-4">                      
-                                 <div class="row">
-                                              <div class="col-md-4  mb-3">
-                                             
-                                                <label for=""> تاریخ انجام مطالعه </label>
-                                                <input type="text" value=" {{old('case_start_date')}} "  
-                                                name="studies_students_date" 
-                                                class="form-control text-right date-picker-shamsi-list" dir="ltr" 
-                                                autocomplete="off">                              
-                                               </div>   
-                                 </div>           
+                                            
                                  <div class=" row">
-                                       <div class="col-md-6">
+                                       <div class="col-md-12">
                                             <table class="table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
                                                           
                                                             <th>نام درس</th>
                                                             <th>مدت زمان مطالعه (برحسب دقیقه)</th>
+                                                            <th>حد مطلوب مطالعه (بر حسب دقیقه)</th>
+                                                            <th>وضعیت</th>
                                                            
                                                          
                                                         </tr>
@@ -89,8 +82,38 @@
                                                         <tr>
                                                                
                                                                 <td> {{$lesson->lesson_name}}</td>
-                                                                <td>                       
-                                                                    <input name="lesson_id[{{$lesson->id}}]" type="text" style="width: 100px" class="ee">         
+                                                                <td> 
+                                                                    @if (\App\StudiesStudentsModel::where('student_id',auth()->user()->student_id)
+                                                                    ->where('lesson_id',$lesson->id)->first() !== null)
+                                                                          {{$ii=\App\StudiesStudentsModel::where('student_id',auth()->user()->student_id)
+                                                                          ->where('lesson_id',$lesson->id)->first()->studies_students_count
+                                                                          }}
+                                                                     @else 
+                                                                     {{$ii=0}}    
+                                                                    @endif                      
+                                                                       
+                                                                </td>
+
+                                                                <td>
+                                                                    @if (\App\StudiesModel::where('lesson_id',$lesson->id)
+                                                                    ->where('school_id',auth()->user()->school_id)
+                                                                    ->where('class_id',auth()->user()->student_student_class)->first() !== null)
+                                                                    
+                                                                        {{
+                                                                            $i=\App\StudiesModel::where('lesson_id',$lesson->id)
+                                                                    ->where('school_id',auth()->user()->school_id)
+                                                                    ->where('class_id',auth()->user()->student_student_class)->first()->studies_count
+                                                                        }}
+
+                                                                    @else 
+                                                                       --
+                                                                    @endif
+                                                                </td>
+
+                                                                <td>
+                                                                    
+                                                                {{ $ii > $i ? 'مطلوب' : 'نامطلوب'}}
+
                                                                 </td>
                                           
                                                          </tr> 
@@ -104,12 +127,7 @@
                                                 </table>
                                        </div>
                                  </div>
-                                 <div class="row">
-                                              <div class="col-md-12  my-3">
-                                                           
-                                                 <button type="submit" class=" btn btn-primary btn__info">  ثبت اطلاعات</button>
-                                             </div>
-                                   </div>
+                               
                             
                             
  </form>
@@ -144,28 +162,7 @@
 <script src="{{route('BaseUrl')}}/Pannel/assets/js/examples/datepicker.js"></script>
 <!-- end::datepicker -->
 
-<script>
-        $(document).ready(function(e){
-          
-    //    $('.btn__info').prop('disabled',true)
-    //    $('.ee').blur(function(){
 
-    //     if($(this).val() == ''){
-    //     $('.btn__info').prop('disabled',true)
-    //    }else{
-    //     $('.btn__info').prop('disabled',false)
-    //    }
-    //    })
-     
-
-
-
-})
-  
-
-
-       
-        </script>
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/dataTable/responsive.bootstrap.min.css"

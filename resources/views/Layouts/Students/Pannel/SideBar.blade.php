@@ -18,7 +18,7 @@
             <li><a href="#"><i class="icon ti-book"></i> <span>مطالعات</span> </a>
                 <ul>
                     <li><a href="{{route('Student.WorkSpace.StudyingReport')}}"> ثبت مطالعه   </a></li>
-                    <li><a href=" {{route('Studing.StudyingReport')}} ">   مشاهده وضعیت مطالعه</a></li>
+                    <li><a href=" {{route('Student.WorkSpace.StudyingReportList')}} ">   مشاهده وضعیت مطالعه</a></li>
                 </ul>
             </li>
 
@@ -32,18 +32,18 @@
                 </ul>
             </li>
 
-           <li><a href="#"><i class="icon ti-book"></i> <span>  ویرایش پروفایل</span> </a>
+        {{-- <li><a href="{{ route('Student.WorkSpace.EditProfileView') }}"><i class="icon ti-book"></i> <span>  ویرایش پروفایل</span> </a> --}}
 
 
-            {{-- <li><a href="#"><i class="icon ti-book"></i> <span>فعالیت های کلاسی</span> </a>
+            <li><a href="#"><i class="icon ti-book"></i> <span>تکالیف</span> </a>
                 <ul>
-                    <li><a href="{{route('Studing.StudyingModels')}}">ثبت نمرات کلاسی </a></li>
-                    <li><a href=" {{route('Studing.StudyingReport')}} ">وضعیت مطالعه دانش اموزان</a></li>
+                    <li><a href="{{route('Student.WorkSpace.ExerciseList')}}">  گزارش تکلیف روزانه </a></li>
+                    {{-- <li><a href=" {{route('Studing.StudyingReport')}} ">وضعیت مطالعه دانش اموزان</a></li>
                     <li><a href=" {{route('Studing.StudyingLessonsReport')}} ">  میانگین مطالعه کلاس ها به تفکیک دروس</a></li>
-                    <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
+                    <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li> --}}
                 </ul>
-            </li> --}}
-            <li><a href="{{route('logout.manager')}}"><i class="icon ti-close"></i> <span>خروج</span> </a></li>
+            </li> 
+            <li><a href="{{route('Student.WorkSpace.LogOut')}}"><i class="icon ti-close"></i> <span>خروج</span> </a></li>
         </ul>
     </div>
 </div>
