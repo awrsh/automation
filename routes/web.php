@@ -12,9 +12,12 @@ Route::post('/CreateAcount', 'LoginController@SubmitAccount')->name('AddAccount'
 
 Route::get('/ForgetPassword', 'LoginController@ForgetPassword')->name('ForgetPassword');
 
-Route::get('/LogoutManager', function () {
-    session()->forget('ManagerSis');
-    return redirect(route('BaseUrl'));})->name('logout.manager');
+Route::get('/LogoutManager',
+    function () {
+        session()->forget('ManagerSis');
+        return redirect(route('BaseUrl'));
+    }
+)->name('logout.manager');
 
 //-------------A D M I N ----------------------------------------------------------------------------------------------------------------------------------------------------
 Route::get('/Admin/Login', 'LoginController@Admin')->name('login.Admin');
@@ -146,8 +149,13 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::get('/Studing/StudyingReportList/{student}', 'User\Studing\StudingClassListController@StudyingReportListStudent')->name('Studing.StudyingReportListStudent');
 
+    Route::get('/Personels', 'User\PermissionsController@index')->name('Personels');
+ 
+    Route::post('/AddPersonels', 'User\PermissionsController@AddPesonals')->name('Personels.Register');
+    
+    Route::post('ChangeStatusPersonal', 'User\PermissionsController@StatusPesonals')->name('Personels.ChangeStatusPersonal');
+
 });
 
-// ------------------ P E S R O N A L S - S C H O O l - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
 
 // ------------------ S T U D E N T - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------

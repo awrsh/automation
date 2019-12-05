@@ -48,7 +48,8 @@
 
             </ul>
         </li>
-    <li><a href="{{route('logout.manager')}}"><i class="icon ti-close"></i> <span>خروج</span> </a></li>
+        <li><a href="{{route('Personels')}}"><i class="icon ti-layout-cta-btn-right"></i> <span>پرسنل</span> </a></li>
+        <li><a href="{{route('logout.manager')}}"><i class="icon ti-close"></i> <span>خروج</span> </a></li>
         </ul>
     </div>
 </div>
