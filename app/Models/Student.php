@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\ExerciseDaily;
 use App\StudiesModel;
 use App\StudiesStudentsModel;
 use Illuminate\Database\Eloquent\Model;
@@ -42,7 +43,12 @@ class Student extends  Authenticatable
     {
         return $this->hasMany(StudiesStudentsModel::class,'student_id','student_id');
     }
-
+    
+     public function exercise_dailies()
+    {
+        return $this->belongsToMany(ExerciseDaily::class,'exercise_daily_student','exercise_id','student_id');
+    }
+    
 
     
 }

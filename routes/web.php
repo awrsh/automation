@@ -175,7 +175,8 @@ Route::post('Study','Students\MainController@StudyingReportInsert')->name('Stude
 Route::get('/StudyList','Students\MainController@StudyingReportList')->name('Student.WorkSpace.StudyingReportList');
 Route::get('/EditProfile','Students\MainController@EditProfileView')->name('Student.WorkSpace.EditProfileView');
 
-Route::get('/EditProfile','Students\ExerciseController@ExerciseList')->name('Student.WorkSpace.ExerciseList');
+Route::get('/ExerciseDailyView','Students\ExerciseController@ExerciseDailyView')->name('Student.WorkSpace.ExerciseDailyView');
+Route::post('ExerciseDailyInsert','Students\ExerciseController@ExerciseDailyInsert')->name('Student.WorkSpace.ExerciseDailyInsert');
 
 
 

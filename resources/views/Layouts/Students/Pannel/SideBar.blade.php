@@ -37,7 +37,7 @@
 
             <li><a href="#"><i class="icon ti-book"></i> <span>تکالیف</span> </a>
                 <ul>
-                    <li><a href="{{route('Student.WorkSpace.ExerciseList')}}">  گزارش تکلیف روزانه </a></li>
+                    <li><a href="{{route('Student.WorkSpace.ExerciseDailyView')}}">  گزارش تکلیف روزانه </a></li>
                     {{-- <li><a href=" {{route('Studing.StudyingReport')}} ">وضعیت مطالعه دانش اموزان</a></li>
                     <li><a href=" {{route('Studing.StudyingLessonsReport')}} ">  میانگین مطالعه کلاس ها به تفکیک دروس</a></li>
                     <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li> --}}
