@@ -51,89 +51,117 @@
                     </ul>
                 </div>
                 @endif
+
+                <form action=" {{route('Student.changeBasicForStudent')}} " method="post">
+                        <div class="row">
+                          @csrf
+                              <label for="" class=" col-md-1 pt-2"> <span class="text-danger">*</span>تغییر پایه </label>
+                              <select id="basic_id" name="basic_id" class="col-md-4 custom-select  mb-3">
+                                   @php
+                                   
+                               $session_id= \App\Models\School::where('school_name',session()->get('ManagerSis')['name'])->first()->school_sections;
+                                   $basics =  \App\Models\BasicModel::where('section_id', $session_id )->get();
+                                   
+                               @endphp
+                               @foreach ($basics as $item)
+                               <option value=" {{$item->basic_id}} ">{{$item->basic_name}}</option>
+                               @endforeach              
+                              </select>
+
+                              <div>
+                                  <button type="submit" class=" btn btn-primary mx-3">تایید</button>
+                              </div>
+                        </div>
+               </form>
+               <hr>
+                            @if (count($classes))
+                            
                             <ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">
 
-                                @foreach (\App\Models\ClassModel::all() as $key=>$item)
-                                <li class="nav-item">
-                                  <a class="nav-link {{$key == 0 ? ' active':''}}" id="pills-{{$item->class_id}}-tab" data-toggle="pill" href="#pills-{{$item->class_id}} " role="tab" aria-controls="pills-{{$item->class_id}}" aria-selected="false">{{$item->class_name}}</a>
-                                 </li>
-                                @endforeach
-
-
-                            </ul>
-
-
-                            <div class="tab-content" id="pills-tabContent2">
-                                @foreach (\App\Models\ClassModel::all() as $key=>$item)
-                                 <div class="tab-pane fade {{$key == 0 ? 'show active':''}}" id="pills-{{$item->class_id}}" role="tabpanel" aria-labelledby="pills-{{$item->class_id}}-tab">
-
-
-
-                                        <table class="table table-striped table-bordered example2">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ردیف</th>
-                                                          <th>نام</th>
-                                                          <th>کد ملی</th>
-                                                          <th>نام خانوادگی</th>
-                                                          <th> پایه</th>
-                                                          <th>کلاس</th>
-                                                          <th>ویرایش</th>
-                                                          <th>شماره شناسنامه</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                    @foreach (\App\Models\Student::where('student_student_class',$item->class_id)->get() as $key=>$students)
-
-                                                    <tr>
-                                                        <td>{{$key}}</td>
-                                                        @if ($students->student_firstname)
-                                                        <td>{{ $students->student_firstname}}</td>
-                                                        @else
-                                                        <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>ثبت نام</a></td>
-                                                        @endif
-                                                        @if ($students->student_lastname)
-                                                        <td>{{ $students->student_lastname}}</td>
-                                                        @else
-                                                        <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>ثبت نام خانوادگی</a></td>
-                                                        @endif
-                                                        @if ($students->student_national_number)
-                                                        <td>{{ $students->student_national_number}}</td>
-                                                        @else
-                                                        <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>ثبت کد ملی</a></td>
-                                                        @endif
-                                                        @if ($students->student_certificate_number)
-                                                        <td>{{ $students->student_certificate_number}}</td>
-                                                        @else
-                                                        <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'> ثبت شماره شناسنامه</a></td>
-                                                        @endif
-                                                        @if ($students->student_student_class)
-                                                        @php
-                                                           $class_ob = \App\Models\ClassModel::where('class_id',$students->student_student_class)->first();
-                                                           $class= $class_ob->class_name;
-                                                           $basic =\App\Models\BasicModel::where('basic_id',$class_ob->basic_id)->first()->basic_name;
-                                                       @endphp
-                                                       <td>{{$basic}}</td>
-                                                       <td>{{$class}}</td>
-                                                       @else
-                                                       <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>تعیین پایه</a></td>
-                                                       <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>تعیین کلاس</a></td>
-                                                        @endif
-                                                        <td class="text-center"><a class='btn btn-outline-primary ' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'> <i class="icon ti-pencil"></i>&nbsp;  ویرایش  </a> </td>
-                                                    </tr>
-
-                                                    @endforeach
-
-
-
-                                                </tbody>
-
-                                            </table>
-
+                                    @foreach ($classes as $key=>$item)
+                                    <li class="nav-item">
+                                      <a class="nav-link {{$key == 0 ? ' active':''}}" id="pills-{{$item->class_id}}-tab" data-toggle="pill" href="#pills-{{$item->class_id}} " role="tab" aria-controls="pills-{{$item->class_id}}" aria-selected="false">{{$item->class_name}}</a>
+                                     </li>
+                                    @endforeach
+    
+    
+                                </ul>
+    
+    
+                                <div class="tab-content" id="pills-tabContent2">
+                                    @foreach ($classes as $key=>$item)
+                                     <div class="tab-pane fade {{$key == 0 ? 'show active':''}}" id="pills-{{$item->class_id}}" role="tabpanel" aria-labelledby="pills-{{$item->class_id}}-tab">
+    
+    
+    
+                                            <table class="table table-striped table-bordered example2">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ردیف</th>
+                                                              <th>نام</th>
+                                                              <th>نام خانوادگی</th>
+                                                              <th>کد ملی</th>
+                                                              <th>شماره شناسنامه</th>
+                                                              <th> پایه</th>
+                                                              <th>کلاس</th>
+                                                              <th>ویرایش</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+    
+                                                        @foreach (\App\Models\Student::where('student_student_class',$item->class_id)->get() as $key=>$students)
+    
+                                                        <tr>
+                                                            <td>{{$key}}</td>
+                                                            @if ($students->student_firstname)
+                                                            <td>{{ $students->student_firstname}}</td>
+                                                            @else
+                                                            <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>ثبت نام</a></td>
+                                                            @endif
+                                                            @if ($students->student_lastname)
+                                                            <td>{{ $students->student_lastname}}</td>
+                                                            @else
+                                                            <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>ثبت نام خانوادگی</a></td>
+                                                            @endif
+                                                            @if ($students->student_national_number)
+                                                            <td>{{ $students->student_national_number}}</td>
+                                                            @else
+                                                            <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>ثبت کد ملی</a></td>
+                                                            @endif
+                                                            @if ($students->student_certificate_number)
+                                                            <td>{{ $students->student_certificate_number}}</td>
+                                                            @else
+                                                            <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'> ثبت شماره شناسنامه</a></td>
+                                                            @endif
+                                                            @if ($students->student_student_class)
+                                                            @php
+                                                               $class_ob = \App\Models\ClassModel::where('class_id',$students->student_student_class)->first();
+                                                               $class= $class_ob->class_name;
+                                                               $basic =\App\Models\BasicModel::where('basic_id',$class_ob->basic_id)->first()->basic_name;
+                                                           @endphp
+                                                           <td>{{$basic}}</td>
+                                                           <td>{{$class}}</td>
+                                                           @else
+                                                           <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>تعیین پایه</a></td>
+                                                           <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>تعیین کلاس</a></td>
+                                                            @endif
+                                                            <td class="text-center"><a class='btn btn-outline-primary ' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'> <i class="icon ti-pencil"></i>&nbsp;  ویرایش  </a> </td>
+                                                        </tr>
+    
+                                                        @endforeach
+    
+    
+    
+                                                    </tbody>
+    
+                                                </table>
+    
+                                    </div>
+                                    @endforeach
                                 </div>
-                                @endforeach
-                            </div>
+                            @else
+                                <p>کلاسی برای این پایه وجود ندارد</p>
+                            @endif
 
 
         </div>

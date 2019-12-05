@@ -2,7 +2,7 @@
 
 @section('content')
    
-<div class="container">
+<div class="container-fluid">
  <div class="row">
   <div class=" col-md-12">
     
@@ -38,8 +38,8 @@
                     </div>
         
                     
-                    <div class=" form-group">
-                            <button type="submit" class=" btn btn-primary">مشاهده</button>
+                    <div class=" form-group button__wrapper">
+                            <button type="submit" class=" btn btn-primary">نمایش</button>
                     </div>
         
         
@@ -114,6 +114,8 @@
 
         $("#form").submit(function(e){
         e.preventDefault();
+        $('.button__wrapper').html('<button class="btn btn-primary" type="button" disabled> <span class="spinner-border spinner-border-sm m-l-5" role="status" aria-hidden="true"></span> در حال بارگذاری ... </button>')
+
         var section_id = $(this).find('#section').val();
         var basic_id = $(this).find('#basic').val();
 
@@ -126,10 +128,13 @@
             console.log(data.length)
             if (data.length <= 183 ) {
                 $('#content').html('در حال حاظر کلاسی وجود ندارد')
-            
+                $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
+
             
             }else{
                 $('#content').html(data)
+                $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
+
             }
 
         }

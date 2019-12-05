@@ -4,17 +4,20 @@ $(document).ready(function () {
 	$('input.date-picker-shamsi').datepicker({
 		dateFormat: "yy/mm/dd",
 		showOtherMonths: true,
-		selectOtherMonths: false
+		selectOtherMonths: false,
+		showWeek: true
 	});
 
 	$('input.date-picker-shamsi-list').datepicker({
+		
 		dateFormat: "yy/mm/dd",
 		showOtherMonths: true,
 		selectOtherMonths: true,
 		changeMonth: true,
 		changeYear: true,
 		showButtonPanel: true
-	});
+	}).datepicker('setDate', 'today');
+	;
 
 	$('input.date-picker-shamsi-limited').datepicker({
 		dateFormat: "yy/mm/dd",

@@ -70,13 +70,14 @@ foreach ($classes as $key=>$item){
                 </thead>
                 <tbody>
                 ';
-               
-          foreach ( \App\Models\Student::where('student_student_class',$item->class_id)->get() as $key=>$student){
+      if(\App\Models\Student::where('student_student_class',$item->class_id)->count()){        
+       foreach ( \App\Models\Student::where('student_student_class',$item->class_id)->get() as $key=>$student){
          if ($student->student_father_name) {
             $fatherName = $student->student_father_name;
          }else{
             $fatherName = 'وارد نشده';
          }
+         
              
                           $class_lists .=' <tr>
                           <td> '.($key+1).' </td>
@@ -85,13 +86,17 @@ foreach ($classes as $key=>$item){
                           <td>'.$student->student_national_number.'</td>
                         
                           <td >
-                          <a href="'.route('Studing.StudyingReportListStudent',$student).'?basic='.$request->basic.'" class="btn btn-info btn-rounded"> مشاهده جزئیات </a>
+                          <a href="'.route('Studing.StudyingReportListStudent',$student).'?basic='.$request->basic.'" class="btn btn-info btn-rounded"> مشاهده کارنامه  </a>
                           </td>
               
 
         
                    </tr>';
-                        }
+                }
+            }else{
+                    $class_lists .='  <td>هنوز دانش اموزی وجود ندارد</td>
+            ';
+                }
                       
                         $class_lists .='  </tbody>
                                   
@@ -114,7 +119,7 @@ foreach ($classes as $key=>$item){
     </thead>
     <tbody>
     ';
-
+    if(\App\Models\Student::where('student_student_class',$item->class_id)->count()){
           foreach ( \App\Models\Student::where('student_student_class',$item->class_id)->get() as $student){
          
             if ($student->student_father_name) {
@@ -136,12 +141,16 @@ foreach ($classes as $key=>$item){
 
 
                    </tr>';
+            }}else{
+                $class_lists .='  <td>هنوز دانش اموزی وجود ندارد</td>
+        ';
             }
             $class_lists .='  </tbody>
                                   
             </table></div>
 ';
         }
+    
 }
 
 $class_lists .='</div>';

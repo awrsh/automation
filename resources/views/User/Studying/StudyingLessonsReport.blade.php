@@ -107,33 +107,10 @@
 <div id="content">
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                               
+                            
                 </div>
             </div>
         
-
-    
-
-
-
-
-
-
-
-
-
 </div>
 @endsection
 
@@ -161,6 +138,7 @@
 
 
 $("#form").submit(function(e){
+ 
 e.preventDefault();
 $('.button__wrapper').html('<button class="btn btn-primary" type="button" disabled> <span class="spinner-border spinner-border-sm m-l-5" role="status" aria-hidden="true"></span> در حال بارگذاری ... </button>')
 var basic = $(this).find('#basic').val();
@@ -182,7 +160,11 @@ success:function(data){
     $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
    
 
-}
+}, error:function(data){
+    
+            $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
+       alert('لطفا تاریخ ها را تکمیل کنید')
+        }
 
        });
 

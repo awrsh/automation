@@ -10,12 +10,12 @@
     <!-- begin::page header -->
     <div class="page-header">
         <div>
-            <h3>گزارش دانش آموزی</h3>
+            <h3>گزارش انظباطی دانش آموزان</h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
-                    <li class="breadcrumb-item"><a href="#">انضباطی</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="#">گزارش دانش آموزی</a>
+                    {{-- <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li> --}}
+                    <li class="breadcrumb-item"><a href="#">انظباطی</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">گزارش انظباطی دانش آموزان</a>
                     </li>
 
                 </ol>
@@ -26,7 +26,7 @@
 
     </div>
 
-<form action=" {{route('Discipline.InsertPoints')}} " method="post">
+<form action=" {{route('Discipline.changeBasic')}} " method="post">
 
     @csrf
         <div class="card">
@@ -55,45 +55,49 @@
                             <div class="mb-4">
                                     
                                            
-                    
+                                   
                                             <div class="row">
                                                     <div class="col-md-6">
-                                                            <label for="">تاریخ شروع</label>
-                                                            <input type="text"  name="start_time" class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">
+                                                            <label for="">  تغییر پایه</label>
+                                                            <select id="basic" name="basic" class="custom-select mb-3">
+                                                              <option value="" selected="">باز کردن فهرست انتخاب</option>
+                                                            
+                                                         @foreach (\App\Models\BasicModel::where('section_id',1)->get() as $item)
+                                                         <option value="{{$item->basic_id}}" >{{$item->basic_name}}</option>
+                                                         @endforeach
+                                                             
+                                                          </select>
                                                         </div>
 
-                                                        <div class="col-md-6">
-                                                                <label for="">تاریخ اتمام</label>
-                                                                <input type="text"  name="expire_time" class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">
-                                                            </div>
+                                                       
                                                 </div>
                 
                     
                                                 <div class="row">
                                                         <div class="col-md-12  my-3">
                                                            
-                                                            <button type="submit" class=" btn btn-primary">جست و جو</button>
+                                                            <button type="submit" class=" btn btn-primary">نمایش</button>
                                                         </div>
-                                                    </div>
+                                                 </div>
                             
                             </div>
-        
+  </form>
                             <hr>
         
         
                                     <ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">
         
-                                        @foreach (\App\Models\ClassModel::all() as $key=>$item)
+                                        @foreach ($classes as $key=>$item)
                                         <li class="nav-item">
                                           <a class="nav-link {{$key == 0 ? ' active':''}}" id="pills-{{$item->class_id}}-tab" data-toggle="pill" href="#pills-{{$item->class_id}} " role="tab" aria-controls="pills-{{$item->class_id}}" aria-selected=" {{$key == 0 ? 'true':'false'}} ">{{$item->class_name}}</a>
                                          </li>
                                         @endforeach
                                        
                                         
-                                    </ul>
+                                    </ul> 
         
                                  <div class="tab-content" id="pills-tabContent2">
-                                    @foreach (\App\Models\ClassModel::all() as $key=>$item)
+                                    @foreach ($classes as $key=>$item)
                                      <div class="tab-pane fade {{$key == 0 ? 'show active':''}}" id="pills-{{$item->class_id}}" role="tabpanel" aria-labelledby="pills-{{$item->class_id}}-tab">
                                     
                                     
@@ -107,7 +111,7 @@
                                                             <th>کلاس</th>
                                                             <th>نمره پیشنهادی</th>
                                                             <th>  نمایش </th>
-                                                            <td>چاپ</td>
+                                                            
                                                          
                                                         </tr>
                                                     </thead>
@@ -122,13 +126,9 @@
                                                                 <td>{{$students->getClass->class_name}}</td>
                                                                 <td>20</td>
                                                                 <td >
-                                                                    <a href="#" class=" text-center"><i class="fa fa-file-text-o fa-2x"></i></a>
+                                                                    <a href=" {{route('Discipline.student.Show',$students)}} " class=" text-center"><i class="fa fa-file-text-o fa-2x"></i></a>
                                                                 </td>
-                                                                <td > 
                                                                 
-                                                                  <a href="#" class=" text-center text-info"><i class="fa fa-print fa-2x"></i></a>
-                                                               
-                                                                </td>
         
                                                                 
                            
@@ -147,7 +147,7 @@
                 </div>
             </div>
         
-</form>
+
     
 
 

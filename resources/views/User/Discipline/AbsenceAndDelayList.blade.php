@@ -19,7 +19,7 @@
                      <label for="" class=" "> <span class="text-danger">*</span> پایه </label>
                      <select id="basic" name="basic" class=" custom-select  mb-3">
                        <option selected="">باز کردن فهرست انتخاب</option> 
-                       @foreach (\App\Models\BasicModel::latest()->get() as $basic)
+                       @foreach (\App\Models\BasicModel::where('section_id',$section)->latest()->get() as $basic)
                        <option value="{{$basic->basic_id}}" >{{$basic->basic_name}}</option> 
                        @endforeach                  
                      </select>
@@ -35,7 +35,7 @@
       </div>
              <div class=" form-group col-md-4 ">
               <label> تاریخ </label>
-              <input type="text" id="date" value="" name="date" 
+              <input type="text" id="date" value=" " name="date" 
                   class="form-control text-right date-picker-shamsi-list" dir="ltr">
 
           </div>
@@ -44,7 +44,7 @@
                    </div>
         
                     
-                    <div class=" form-group">
+                    <div class=" form-group button__wrapper">
                             <button type="submit"  class=" btn btn-primary">مشاهده</button>
                     </div>
         
@@ -114,6 +114,7 @@ headers: {
 
 $("#form").submit(function(e){
 e.preventDefault();
+$('.button__wrapper').html('<button class="btn btn-primary" type="button" disabled> <span class="spinner-border spinner-border-sm m-l-5" role="status" aria-hidden="true"></span> در حال بارگذاری ... </button>')
 
 var date = $(this).find('#date').val();
 var basic = $(this).find('#basic').val();
@@ -130,11 +131,23 @@ date:date,
 type:type
 },
 success:function(data){
-    console.log(data)
-    $('#content').html(data)
-   
+    
+   if (data.length == 173 || data.length == 174) {
+    $('#content').html('<p>موردی برای نمایش وجود ندارد</p>')
+    $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
 
-}
+   }else{
+    $('#content').html(data)
+    $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
+   }
+
+
+},
+        error:function(data){
+    
+            $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
+       alert('لطفا ورودی ها را تکمیل کنید')
+        }
 
     });
 

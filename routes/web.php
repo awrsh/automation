@@ -52,11 +52,15 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::get('/Students/ImportData', 'User\MainController@ImportWithExcel')->name('Student.Excel');
 
+    Route::post('/Students/view_classes','User\MainController@GetClassesForView');
+
     Route::get('/Students/UploadPhoto', 'User\MainController@UploadPhoto')->name('Student.Photo');
 
     Route::get('/Students/AlbumPhoto', 'User\MainController@AlbumPhoto')->name('Student.AlbumPhoto');
 
     Route::get('/Students/List', 'User\MainController@ListStudents')->name('Student.List');
+
+    Route::post('Students/changeBasicForStudent', 'User\MainController@changeBasicForStudent')->name('Student.changeBasicForStudent');
 
     Route::get('/Students/EditStudent/{id?}', 'User\StudentsContorller@Student')->name('Student.EditStudent');
 
@@ -91,7 +95,8 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::post('/Students/SubmitBasic', 'User\BasicController@InsertBasic')->name('Student.SubmitBasic');
 
-    Route::get('/Students/AddClass', 'User\classificationController@AddClass')->name('Student.AddClass');
+    Route::get('/Students/AddClass', 'User\ClassificationController@AddClass')->name('Student.AddClass');
+    Route::get('/Students/DeleteClass/{item}', 'User\ClassificationController@DeleteClass')->name('Class.Delete');
 
     Route::post('/Students/SubmitClass', 'User\ClassificationController@InsertClass')->name('Student.SubmitClass');
 
@@ -102,6 +107,8 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::post('/EditInfo', 'User\StudentsContorller@EditInfo')->name('Student.EditInfo');
 
     Route::post('Students/Allbum_getClasses', 'User\AllbumController@getClasses')->name('Allbum.Classes');
+    
+    Route::get('/Students/Class/getPDF/{id}', 'User\AllbumController@getPDF')->name('Allbum.getPDF');
 
     Route::get('/AddDiscipline', 'User\MainController@Discipline')->name('Discipline.Add');
 
@@ -114,17 +121,20 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::post('discipline/AddItems', 'User\Discipline\DisciplineController@InsertCases')->name('Discipline.AddCases');
 
     Route::get('discipline/AddPoints', 'User\Discipline\DisciplineController@AddPoints')->name('Discipline.AddPoints');
+    Route::post('discipline/changeBasicForLaw', 'User\Discipline\DisciplineController@changeBasicForLaw')->name('Discipline.changeBasicForLaw');
 
     Route::post('discipline/InsertPoints', 'User\Discipline\DisciplineController@InsertPoints')->name('Discipline.InsertPoints');
+    Route::post('discipline/changeBasic', 'User\Discipline\DisciplineController@changeBasic')->name('Discipline.changeBasic');
 
     Route::get('discipline/lists', 'User\Discipline\DisciplineController@DisciplineLists')->name('Discipline.lists');
 
-    Route::get('discipline/show/{id}', 'User\Discipline\DisciplineController@DisciplineShow')->name('Discipline.student.Show');
+    Route::get('discipline/show/{student}', 'User\Discipline\DisciplineController@DisciplineShow')->name('Discipline.student.Show');
+    
 
     Route::get('discipline/DefineLow', 'User\Discipline\DisciplineController@DefineLow')->name('Discipline.defineLow');
 
     Route::post('discipline/InsertLow', 'User\Discipline\DisciplineController@InsertLow')->name('Discipline.InsertLow');
-
+    Route::get('discipline/DeleteLow/{item}', 'User\Discipline\DisciplineController@DeleteLow')->name('Discipline.DeleteLow');
     Route::get('discipline/AbsenceAndDelayList', 'User\Discipline\DisciplineController@AbsenceAndDelayList')->name('Discipline.AbsenceAndDelayList');
 
     Route::post('discipline/get_absenceAndDelayList', 'User\Discipline\DisciplineController@getAbsenceAndDelayList')->name('Discipline.get_absenceAndDelayList');
@@ -159,3 +169,20 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
 
 // ------------------ S T U D E N T - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
+Route::prefix('/Students')->group(function () {
+
+Route::get('/Register','Students\RegisterController@RegisterView')->name('Student.WorkSpace.Register');
+Route::get('/Login','Students\RegisterController@LoginView')->name('Student.WorkSpace.LoginView');
+Route::post('Login','Students\RegisterController@Login')->name('Student.WorkSpace.Login');
+Route::get('/Dashboard','Students\MainController@Dashboard')->name('Student.WorkSpace.Dashboard');
+Route::get('/DisciplineReport','Students\MainController@DisciplineReport')->name('Student.WorkSpace.DisciplineReport');
+Route::get('/Study','Students\MainController@StudyingReport')->name('Student.WorkSpace.StudyingReport');
+Route::post('Study','Students\MainController@StudyingReportInsert')->name('Student.WorkSpace.StudyingReportInsert');
+
+
+
+
+
+
+
+});

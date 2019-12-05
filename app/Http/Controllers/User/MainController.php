@@ -14,6 +14,8 @@ class MainController extends Controller
 {
     public function index()
     {
+        
+        $s='';
         $school = School::where('school_id', 1)->first();
         $count = $school->school_count_students;
 
@@ -25,15 +27,16 @@ class MainController extends Controller
 
         $request->validate([
             'student_photo' => 'mimes:jpeg,png,jpg',
-            'national_number' => 'required | numeric',
-            'student_student_number' => 'unique:students'
+            'student_national_number' => 'unique:students',
+            'student_student_number' => 'unique:students',
+            'student_certificate_number' => 'unique:students'
 
         ], [
-            'student_photo.mimes' => 'فرمت فایل صحیح نیست',
-            'national_number.required'=>'کد ملی الزامی است',
-            'national_number.digits' => 'شماره ملی بایستی شامل اعداد باشد',
-            'national_number.between' => 'تعداد ارقام شماره ملی تایید نشد',
-            'student_student_number.unique' => 'شماره دانش اموزی از قبل وجود دارد'
+            'student_photo.mimes' => 'فرمت فایل صحیح نیست',    
+            'student_national_number.unique' => 'دانش اموز دیگری با این کد ملی وجود دارد',
+            'student_student_number.unique' => 'شماره دانش اموزی از قبل وجود دارد',
+            'student_certificate_number.unique' => 'دانش اموز دیگری با این شماره شناسنامه وجود دارد'
+
 
         ]);
 
@@ -41,27 +44,31 @@ class MainController extends Controller
             $fileName = $request->national_number .'.'. $request->student_photo->getClientOriginalExtension();
             $fileNameWithoutEx = pathinfo($fileName, PATHINFO_FILENAME);
             $request->student_photo->move(public_path('uploads/students/'.$request->national_number), $fileName);
+        }else{
+            $fileName ='';
         }
 
-        Student::create([
+       $insert_status= Student::create([
             'school_id' => 1,
             'student_firstname' => $request->firstname,
             'student_lastname' => $request->lastname,
-            'student_certificate_number' => $request->certificate_number,
-            'student_national_number' => $request->national_number,
+            'student_certificate_number' => $request->student_certificate_number,
+            'student_national_number' => $request->student_national_number,
             'student_father_name' => $request->father_name,
             'student_father_mobile' => $request->father_mobile,
             'student_mother_mobile' => $request->mother_mobile,
             'student_birthday' => $request->birthday,
-            'student_student_class' => $request->student_class,
-            'student_student_number' => $request->student_number,
+        
+            'student_student_number' => $request->student_student_number,
             'student_home_tel' => $request->home_tel,
             'student_student_mobile' => $request->student_mobile,
             'student_prev_school' => $request->prev_school,
             'student_student_photo' => $fileName,
+            
         ]);
         School::find(1)->decrement('school_count_students', 1);
-        return back()->with('success', 'دانش اموز با موفقیت ثبت شد');
+        
+        return redirect()->route('Student.EditClass')->with('success', 'دانش اموز با موفقیت ثبت شد');
     }
 
     public function ImportWithExcel()
@@ -86,10 +93,22 @@ class MainController extends Controller
         return view('User.Students.EditClass', compact('list_ul'));
     }
 
+    public function changeBasicForStudent(Request $request)
+    {
+        if($request->basic_id == null) $request->basic_id = 1;
+        $classes = ClassModel::where('basic_id',$request->basic_id)->get();
+       
+            
+        
+        return view('User.Students.List',compact('classes'));
+    }
     public function ListStudents()
     {
-        $list = Student::get();
-        return view('User.Students.List', compact('list'));
+        $session_id= \App\Models\School::where('school_name',session()->get('ManagerSis')['name'])->first()->school_sections;
+        $basic_id =  \App\Models\BasicModel::where('section_id', $session_id )->first()->basic_id;
+                                         
+        $classes = ClassModel::where('basic_id',$basic_id)->get();
+        return view('User.Students.List', compact('classes'));
     }
 
     public function GetBasics(Request $request)
@@ -110,8 +129,55 @@ class MainController extends Controller
         foreach ($classes as $item) {
             $options .= ' <option value="' . $item->class_id . '">' . $item->class_name . '</option>';
         }
-
         return $options;
+    }
+
+
+
+    public function GetClassesForView(Request $request)
+    {
+        $classes = ClassModel::where('basic_id', $request->basic_id)->get();
+        $class_lists = '
+        <table class="table table-striped table-bordered example2">
+        <thead>
+            <tr>
+            <th>ردیف</th>
+            <th> نام کلاس </th>
+           
+            <th>  حذف</th>
+         
+    
+             
+            </tr>
+        </thead>
+        <tbody>
+        ';
+        foreach ($classes as $key=>$item) {
+
+
+            $class_lists .=' <tr>
+            <td> '.($key+1).' </td>
+            <td>'.$item->class_name.'</td>
+            <td>
+               <a
+               title="توجه در صورت حذف کلاس  , دانش اموزان در کلاس بندی نشده ها قرار میگیرند "
+               href="DeleteClass/'.$item->class_id.'" class=" text-danger">
+                <i class="fa fa-trash-o fa-2x"></i> 
+                </a>
+            </td>
+          
+          
+            
+
+     </tr>';
+                }
+                $class_lists .='  </tbody>
+                          
+                </table></div>
+    ';
+        return $class_lists;
+
+ 
     }
 
 

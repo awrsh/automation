@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ClassModel;
 use App\Models\SectionModel;
+use App\Models\Student;
+use PDF;
 
 class AllbumController extends Controller
 {
@@ -14,12 +16,16 @@ class AllbumController extends Controller
     
     function getClasses(Request $request)
     {
+        
         $classes=ClassModel::where('basic_id',$request->basic_id)->get();
+        if (count($classes) == 0) {
+           return 'هنوز کلاسی ثبت نشده است';
+        }
         
 
         $class_lists = ' <h5 class="card-title">  آلبوم عکس دانش آموزی </h5>';
 
-
+        $class_lists .='<div class="d-flex justify-content-between">'; 
         $class_lists .='<ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">';
 
         foreach ($classes as $key=>$item){
@@ -39,6 +45,12 @@ class AllbumController extends Controller
         $class_lists .= '</ul>
     ';
 
+    $class_lists .= '<div class="">
+    <a href="'.route('Allbum.getPDF',$item->class_id).'" class="btn btn-sm btn-secondary">دریافت فایل pdf </a>
+    </div>
+    ';
+    $class_lists .='</div>';
+
 
    
       
@@ -57,7 +69,7 @@ foreach ($classes as $key=>$item){
                                       <div class="flex__column">
                                       <img src="' .route('BaseUrl').'/uploads/students/'.$student->student_national_number.'/'.$student->student_student_photo.' " height="100" width="75" alt="">
                                       <span>
-                                          '.$student->student_firstname . $student->student_lastname.'
+                                          '.$student->student_firstname  .' _ '. $student->student_lastname.'
                                       </span>
                                       </div>
                               </div>';
@@ -67,7 +79,7 @@ foreach ($classes as $key=>$item){
                             <div class="flex__column">
                             <img src="' .route('BaseUrl').'/Pannel/img/avatar.jpg " height="100" width="75" alt="">
                             <span>
-                                '.$student->student_firstname . $student->student_lastname.'
+                                '.$student->student_firstname .' _ '. $student->student_lastname.'
                             </span>
                             </div>
                     </div>';
@@ -107,6 +119,8 @@ foreach ($classes as $key=>$item){
             $class_lists .='  </div>
 </div>';
           }
+
+       
 }
 
 $class_lists .='</div>';
@@ -115,5 +129,19 @@ $class_lists .='</div>';
 return $class_lists;
 
 
+    }
+
+    public function getPDF(Request $request)
+    {
+
+        $students = Student::where('student_student_class',$request->id)->get();
+        $class= ClassModel::where('class_id',$request->id)->first();
+      
+       
+        // $pdf = PDF::loadView('User.Students.PDF_Allbum', $students);
+        // return $pdf->download('invoice.pdf');
+
+      
+        return view('User.Students.PDF_Allbum',compact(['students','class']));
     }
 }

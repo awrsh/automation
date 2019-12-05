@@ -31,6 +31,11 @@
     
         <div class="card">
        
+            <div class=" card-header">
+
+
+                        
+            </div>
                 <div class="card-body">
                  
         
@@ -60,7 +65,7 @@
                                        
                                     <img src=" {{route('BaseUrl')}}/uploads/students/{{$student->student_student_photo}}" style="width: 100px;" class="img-thumbnail" alt="">
                                         @else
-                                        <img src="{{url('Pannel/img/avatar.jpg')}} " style="width: 100px;" class="img-thumbnail" alt="">
+                                        <img src="{{route('BaseUrl')}}/Pannel/img/avatar.jpg" style="width: 100px;" class="img-thumbnail" alt="">
 
                                        @endif
                                     </div>
@@ -78,8 +83,8 @@
                                 <tr>
                                         		 		
                                     <th scope="col">درس</th>
-                                    <th scope="col">میزان مطالعه</th>
-                                    <th scope="col">حد مطالعه</th>
+                                    <th scope="col">میزان مطالعه (دقیقه)</th>
+                                    <th scope="col">حد مطلوب مطالعه(دقیقه)</th>
                                     <th scope="col">وضعیت</th>
                                 </tr>
                                 </thead>
@@ -104,10 +109,15 @@
 
 
 
-                                   @if($studyStudentList= $student->getStudies()->where('lesson_id',$lesson->id)->first() != null)
+                                   @if($studyModel= \App\StudiesModel::where('lesson_id',$lesson->id)
+                                   ->where('class_id',$student->getClass->class_id)
+                                   ->first() != null)
                                        
                                     @php
-                                    $studies_id= $student->getStudies()->where('lesson_id',$lesson->id)->first()->studies_id;
+                                    $studies_id= \App\StudiesModel::where('lesson_id',$lesson->id)
+                                   ->where('class_id',$student->getClass->class_id)
+                                   ->first()->id;
+                                      
                                         $StudyNormalCount= \App\StudiesModel::where('id',$studies_id)->first()->studies_count;
                                     @endphp
                                    @else

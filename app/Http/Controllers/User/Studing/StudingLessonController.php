@@ -20,12 +20,15 @@ class StudingLessonController extends Controller
 
     public function StudyingLessonsReportList(Request $request)
     {
+        if($request->basic == null){
+            return '<script>alert("لطفا پایه را وارد کنید")</script>';
+        }
       
         
       $classes=ClassModel::where('basic_id',$request->basic)->get();
         
 
-      $class_lists = ' <h5 class="card-title">  لیست مطالعات دانش آموزی </h5>';
+      $class_lists = ' <h5 class="card-title">  میانگین مطالعات دروس به تفکیک کلاس از تاریخ '.$request->start_date.' تا تاریخ '.$request->end_date.'</h5>';
 
 
       $class_lists .='<ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">';
@@ -65,8 +68,9 @@ foreach ($classes as $key=>$item){
                     <th>ردیف</th>
                     <th> درس </th>
                     <th>دبیر</th>
-                    <th> حد مطلوب</th>
-                    <th>میانگین مطالعه </th>
+                    <th> حد مطلوب(دقیقه)</th>
+                    <th> میانگین مطالعه (دقیقه) </th>
+                    <th>تعداد</th>
                     <th>وضعیت</th>
             
                      
@@ -92,14 +96,19 @@ foreach ($classes as $key=>$item){
 
 
         if ($lesson->getRelatedStudySpecialClass($item->class_id)->first() != null) {
+            // حد مطلوب
             $studyCountLesson = $lesson->getRelatedStudySpecialClass($item->class_id)->first()->studies_count; 
         }else{
             $studyCountLesson = 0;
         }
 
-        $studyStudent_array=StudiesStudentsModel::whereHas('StudyName',function($q) use($lesson,$item){
-            $q->where(['lesson_id'=>$lesson->id,'class_id'=>$item->class_id]);
-    })->get();
+        $studyStudent_array=StudiesStudentsModel::where('studies_students_date','>',$this->convertDate($request->start_date))
+        ->where('studies_students_date','<',$this->convertDate($request->end_date))
+        ->where('lesson_id',$lesson->id)
+        ->get();
+    //     ->whereHas('StudyName',function($q) use($lesson,$item){
+    //         $q->where(['lesson_id'=>$lesson->id,'class_id'=>$item->class_id]);
+    // })->get();
     
     $LessonStudyStudentCount=0; 
     foreach ($studyStudent_array as  $studyStudent) {
@@ -114,6 +123,7 @@ foreach ($classes as $key=>$item){
         $status = '<a class="text-danger">نامطلوب</a>';
      }
 
+     $studentWhereStudyLesson =StudiesStudentsModel::where('lesson_id',$lesson->id)->count();
                            
                           $class_lists .=' <tr>
                           <td> '.(($key++)+1).' </td>
@@ -122,6 +132,7 @@ foreach ($classes as $key=>$item){
                           <td>'.  $studyCountLesson.'</td>
                         
                           <td >'.$averageStudyStudentClass.'</td>
+                          <td>'.$studentWhereStudyLesson.'</td>
                           <td>'. $status .'</td>
 
         
@@ -145,6 +156,7 @@ foreach ($classes as $key=>$item){
         <th>دبیر</th>
         <th> حد مطلوب</th>
         <th>میانگین مطالعه </th>
+        <th>تعداد</th>
         <th>وضعیت</th>
 
             
@@ -179,6 +191,7 @@ foreach ($classes as $key=>$item){
      }else{
         $status = '<a class="text-danger">نامطلوب</a>';
      }
+     $studentWhereStudyLesson =StudiesStudentsModel::where('lesson_id',$lesson->id)->count();
                           
                           $class_lists .=' <tr>
                           <td> '.(($key++)+1).' </td>
@@ -187,6 +200,7 @@ foreach ($classes as $key=>$item){
                           <td>'.  $studyCountLesson.'</td>
                         
                           <td >'.$averageStudyStudentClass.'</td>
+                          <td>'.$studentWhereStudyLesson.'</td>
                           <td>'.$status.'</td>
 
         

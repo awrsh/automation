@@ -8,7 +8,9 @@ use App\Models\ClassModel;
 use App\Models\DisciplineCaseModel;
 use App\Models\DisciplineLawsModel;
 use App\Models\DisciplineNumberModel;
+use App\Models\School;
 use App\Models\Student;
+use Morilog\Jalali\Jalalian;
 
 class DisciplineController extends Controller
 {
@@ -21,18 +23,20 @@ class DisciplineController extends Controller
             'case_date' => 'required',
             'law_id' => 'required',
             'case_effect' => 'required',
+            
 
         ], [
 
             'case_date.required' => 'زمان ثبت الزامی است',
             'law_id.required' => 'لطفا عنوان مورد را انتخاب نمایید',
             'case_effect.required' => 'تاثیر مورد انظباطی روی نمره را وارد کنید',
+            
         ]);
 
-
+           
         DisciplineCaseModel::create([
             'student_id' => $request->student_id,
-            'case_date' => $request->case_date,
+            'case_date' => $this->convertDate($request->case_date),
             'law_id' => $request->law_id,
             'case_descriotion' => $request->case_descriotion,
             'case_effect' => $request->case_effect,
@@ -41,7 +45,7 @@ class DisciplineController extends Controller
 
         return back()->with('success', 'مورد انضباطی با موفقیت ثبت شد');
     }
-
+   
 
     public function getChart(Request $request)
     {
@@ -70,6 +74,20 @@ class DisciplineController extends Controller
 
         return $list;
     }
+
+
+
+
+
+
+    public function DisciplineShow(Student $student)
+    {
+
+        return view('User.Discipline.DisciplineReportStudent',compact('student'));
+       
+    }
+
+
 
 
     public function AddCases()
@@ -101,7 +119,7 @@ class DisciplineController extends Controller
         foreach ($students as  $student) {
 
             DisciplineCaseModel::create([
-                'case_date' => $request->case_date,
+                'case_date' => $this->convertDate($request->case_date),
                 'student_id' => $student,
                 'law_id' => $request->law_id,
                 'case_descriotion' => $request->case_descriotion,
@@ -113,15 +131,23 @@ class DisciplineController extends Controller
         return back()->with('success', 'مورد انضباطی دسته جمعی با موفقیت ثبت شد');
     }
 
-
+    public function changeBasicForLaw(Request $request)
+    {
+        if($request->basic_id == null) $request->basic_id = 1;
+        $classes = ClassModel::where('basic_id',$request->basic_id)->get();
+        return view('User.Discipline.Add_point',compact('classes'));
+    }
 
     public function AddPoints()
     {
-        return view('User.Discipline.Add_point');
+        
+        $classes = ClassModel::where('basic_id',1)->get();
+        return view('User.Discipline.Add_point',compact('classes'));
     }
 
     public function InsertPoints(Request $request)
     {
+    
 
         $request->validate([
             'examin_group' => 'required',
@@ -131,43 +157,40 @@ class DisciplineController extends Controller
 
         ], [
 
-            'case_date.required' => 'زمان ثبت الزامی است',
-            'law_id.required' => 'لطفا عنوان مورد را انتخاب نمایید',
+            'start_time.required' => 'برای گروه ازمون انتخاب شده تاریخ را انتخاب کنید',
+            'expire_time.required' => '',
             'case_effect.required' => 'تاثیر مورد انظباطی روی نمره را وارد کنید',
-            'student_ids.required' => 'دانش اموزان مورد نظر را علامت بزنید'
+            'discipline_points.required' => 'دانش اموزان مورد نظر را علامت بزنید'
         ]);
 
 
         $students = $request->discipline_points;
 
 
-        $group = DisciplineNumberModel::where('number_group', $request->examin_group)->count();
-        if ($group) {
-            foreach ($students as $key => $student) {
-                if ($student == null) {
-                    $student = 0;
+       
+  
+            foreach ($students as $key => $student ) {
+               
+              if ($student != null) {
+                if ( DisciplineNumberModel::where(['student_id'=> $key,'number_group'=>$request->examin_group])->count()) {
+                    DisciplineNumberModel::where(['number_group'=>$request->examin_group,'student_id'=>$key])->update([
+                        'number_score' => $student,
+                        'number_date_start' => $this->convertDate($request->start_time),
+                        'number_date_end' => $this->convertDate($request->expire_time),
+                    ]);
+                }else{
+                    DisciplineNumberModel::create([
+                        'number_group' => $request->examin_group,
+                        'student_id' => $key,
+                        'number_score' => $student,
+                        'number_date_start' => $this->convertDate($request->start_time),
+                        'number_date_end' => $this->convertDate($request->expire_time),
+                    ]);  
                 }
-                DisciplineNumberModel::where(['number_group'=>$request->examin_group,'student_id'=>$key])->update([
-                    'number_score' => $student,
-                    'number_date_start' => $request->start_time,
-                    'number_date_end' => $request->expire_time,
-                ]);
+               }
+              
             }
-        } else {
-            foreach ($students as $key => $student) {
-                if ($student == null) {
-                    $student = 0;
-                }
-                DisciplineNumberModel::create([
-                    'number_group' => $request->examin_group,
-                    'student_id' => $key,
-                    'number_score' => $student,
-                    'number_date_start' => $request->start_time,
-                    'number_date_end' => $request->expire_time,
-                ]);
-            }
-        }
-
+       
         return back()->with('success', 'نمرات با موفقیت ثبت شد');
     }
 
@@ -175,8 +198,18 @@ class DisciplineController extends Controller
 
     public function DisciplineLists()
     {
-        return view('User.Discipline.DisciplineLists');
+
+        $classes = ClassModel::where('basic_id',1)->get();
+        return view('User.Discipline.DisciplineLists',compact('classes'));
     }
+
+
+    public function changeBasic(Request $request)
+    {
+        $classes = ClassModel::where('basic_id',$request->basic)->get();
+        return view('User.Discipline.DisciplineLists',compact('classes'));
+    }
+
 
 
     public function DefineLow()
@@ -187,8 +220,9 @@ class DisciplineController extends Controller
     public function InsertLow(Request $request)
     {
         
+        
         $request->validate([
-            'law_title' => 'required',
+            'law_title' => 'required | unique:discipline_laws',
             'law_type' => 'required',
             'low_count' => 'required',
             'law_num' => 'required'
@@ -196,6 +230,7 @@ class DisciplineController extends Controller
         ], [
 
             'law_title.required' => 'عنوان الزامی است',
+            'law_title.unique' => 'موردی با این عنوان وجود دارد',
             'law_type.required' => ' نوع مورد را انتخاب نمایید',
             'low_count.required' => 'ضریب ایین نامه انظباطی را وارد کنید',
             'law_num.required' => 'ضریب ایین نامه انظباطی را وارد کنید'
@@ -210,14 +245,13 @@ class DisciplineController extends Controller
                 'basic_id' => $request->basic
         ]);
 
-
-
         $tr ='<tr>
         <td>'.$dd->law_title.'</td>
         <td>'.$dd->law_type.'</td>
         <td>'.$dd->law_count.'</td>
         <td>'.$dd->law_num.'</td>
-        <td>'.$dd->basic_id.'</td>
+        <td>'.$dd->relatedBasic->basic_name.'</td>
+        <td> <a href="'.route('Discipline.DeleteLow',$dd).' " class=" text-danger"> <i class=" fa fa-trash fa-2x"></i> </a> </td>
 
     </tr>';
 
@@ -226,32 +260,35 @@ class DisciplineController extends Controller
 
     public function AbsenceAndDelayList()
     {
-        return view('User.Discipline.AbsenceAndDelayList');
+
+       $section = School::where('school_name',session()->get('ManagerSis')['name'])->first()->school_sections;
+        return view('User.Discipline.AbsenceAndDelayList',compact('section'));
     }
 
     function getAbsenceAndDelayList(Request $request)
     {
 
         
-        // $validatedData =    $request->validate([
-        //     'basic' => 'required',
-        //     'type' => 'required',
-        //     'date' => 'required',
+        $validatedData =    $request->validate([
+            'basic' => 'required',
+            'type' => 'required',
+            'date' => 'required',
          
-        // ],[
+        ],[
            
-        //     'basic.required' => 'پایه را مشخص کنید'
-        // ]);
+            'basic.required' => 'پایه را مشخص کنید',
+            'date.required' => 'تاریخ را مشخص کنید'
+        ]);
 
       
-        
+       
 
 
         
       $classes=ClassModel::where('basic_id',$request->basic)->get();
         
 
-        $class_lists = ' <h5 class="card-title">  آلبوم عکس دانش آموزی </h5>';
+        $class_lists = ' <h5 class="card-title">   لیست '.$request->type.' </h5>';
 
 
         $class_lists .='<ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">';
@@ -299,9 +336,13 @@ foreach ($classes as $key=>$item){
                   </thead>
                   <tbody>
                   ';
-                 
+          if(\App\Models\Student::where('student_student_class',$item->class_id)->whereHas('getCasesLaw',function($query) use($request){
+            $query->where('case_date',$this->convertDate($request->date))->whereHas('relatedLow',function($query2) use($request){
+                $query2->where('law_title',$request->type);
+            });
+    })->count()){       
             foreach ( \App\Models\Student::where('student_student_class',$item->class_id)->whereHas('getCasesLaw',function($query) use($request){
-                    $query->where('case_date',$request->date)->whereHas('relatedLow',function($query2) use($request){
+                    $query->where('case_date',$this->convertDate($request->date))->whereHas('relatedLow',function($query2) use($request){
                         $query2->where('law_title',$request->type);
                     });
             })->get() as $student){
@@ -315,6 +356,11 @@ foreach ($classes as $key=>$item){
           
                      </tr>';
                           }
+
+                        }else{
+                            $class_lists .='  <td>موردی برای نمایش در این تاریخ وجود ندارد</td>
+              ';
+                        }
                           $class_lists .='  </tbody>
                                     
                           </table></div>
@@ -340,8 +386,13 @@ foreach ($classes as $key=>$item){
       <tbody>
       ';
 
+      if(\App\Models\Student::where('student_student_class',$item->class_id)->whereHas('getCasesLaw',function($query) use($request){
+        $query->where('case_date',$this->convertDate($request->date))->whereHas('relatedLow',function($query2) use($request){
+            $query2->where('law_title',$request->type);
+        });
+})->count()){  
             foreach ( \App\Models\Student::where('student_student_class',$item->class_id)->whereHas('getCasesLaw',function($query) use($request){
-                    $query->where('case_date',$request->date)->whereHas('relatedLow',function($query2) use($request){
+                    $query->where('case_date',$this->convertDate($request->date))->whereHas('relatedLow',function($query2) use($request){
                         $query2->where('law_title',$request->type);
                     });
             })->get() as $student){
@@ -356,6 +407,10 @@ foreach ($classes as $key=>$item){
           
                      </tr>';
               }
+            }else{
+                $class_lists .=' <td>موردی برای نمایش در این تاریخ وجود ندارد</td>
+  ';
+            }
               $class_lists .='  </tbody>
                                     
               </table></div>
@@ -369,5 +424,11 @@ $class_lists .='</div>';
 return $class_lists;
 
 
+    }
+
+    public function DeleteLow(DisciplineLawsModel $item)
+    {
+        $item->delete();
+        return back()->with('success','مورد انظباطی با موفقیت حذف شد');
     }
 }

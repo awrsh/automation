@@ -10,12 +10,12 @@
     <!-- begin::page header -->
     <div class="page-header">
         <div>
-            <h3>ثبت نمره انضباط</h3>
+            <h3>ثبت نمره انظباط</h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">صحفه اصلی</a></li>
-                    <li class="breadcrumb-item"><a href="#">انضباطی</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="#">ثبت نمره انضباط</a>
+                    <li class="breadcrumb-item"><a href="#">انظباطی</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">ثبت نمره انظباط</a>
                     </li>
 
                 </ol>
@@ -26,7 +26,7 @@
 
     </div>
 
-<form action=" {{route('Discipline.InsertPoints')}} " method="post">
+
 
     @csrf
         <div class="card">
@@ -52,9 +52,35 @@
                         @endif
         
         
-                            <div class="mb-4">
-                                    <div class="row">
-                                        <div class="col-md-6">
+                        <div class="mb-4">
+                                <form action=" {{route('Discipline.changeBasicForLaw')}} " method="post">
+                              <div class="row">
+                                @csrf
+                                    <label for="" class=" col-md-1 pt-2"> <span class="text-danger">*</span>تغییر پایه </label>
+                                    <select id="basic_id" name="basic_id" class="col-md-4 custom-select  mb-3">
+                                         @php
+                                         
+                                     $session_id= \App\Models\School::where('school_name',session()->get('ManagerSis')['name'])->first()->school_sections;
+                                         $basics =  \App\Models\BasicModel::where('section_id', $session_id )->get();
+                                         
+                                     @endphp
+                                     @foreach ($basics as $item)
+                                     <option value=" {{$item->basic_id}} ">{{$item->basic_name}}</option>
+                                     @endforeach              
+                                    </select>
+     
+                                    <div>
+                                        <button type="submit" class=" btn btn-primary mx-3">تایید</button>
+                                    </div>
+                              </div>
+                               </form>
+                              </div>
+                              <hr>
+             
+                              <form action=" {{route('Discipline.InsertPoints')}} " method="post">                             
+                              <div class="row">
+                                        @csrf
+                                  <div class="col-md-6">
                                                 <label for="">گروه ازمون</label>
                                                 <select name="examin_group" class="custom-select custom-select-sm mb-3">
                                                                                                     
@@ -87,21 +113,15 @@
                                                 </div>
                 
                     
-                                                <div class="row">
-                                                        <div class="col-md-12  my-3">
-                                                            <h6 > <span class="text-danger">*</span> پس از اعمال نمرات در جدول دکمه تایید را بزنید  </h6>
-                                                            <button type="submit" class=" btn btn-primary">تایید</button>
-                                                        </div>
-                                                    </div>
-                            
-                            </div>
+                                              
+                          
         
                             <hr>
         
         
                                     <ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">
         
-                                        @foreach (\App\Models\ClassModel::all() as $key=>$item)
+                                        @foreach ($classes as $key=>$item)
                                         <li class="nav-item">
                                           <a class="nav-link {{$key == 0 ? ' active':''}}" id="pills-{{$item->class_id}}-tab" data-toggle="pill" href="#pills-{{$item->class_id}} " role="tab" aria-controls="pills-{{$item->class_id}}" aria-selected=" {{$key == 0 ? 'true':'false'}} ">{{$item->class_name}}</a>
                                          </li>
@@ -111,7 +131,7 @@
                                     </ul>
         
                                  <div class="tab-content" id="pills-tabContent2">
-                                    @foreach (\App\Models\ClassModel::all() as $key=>$item)
+                                    @foreach ($classes as $key=>$item)
                                      <div class="tab-pane fade {{$key == 0 ? 'show active':''}}" id="pills-{{$item->class_id}}" role="tabpanel" aria-labelledby="pills-{{$item->class_id}}-tab">
                                     
                                     
@@ -153,19 +173,25 @@
                                                                 
                                                          </tr>
                                                         @endforeach
-                        
+                                                    </form>
                                     
                                                     </tbody>
                                     
                                                 </table>
-            
+                                                <div class="row">
+                                                        <div class="col-md-12  my-3">
+                                                            <h6 > <span class="text-danger">*</span> پس از اعمال نمرات در جدول دکمه تایید را بزنید  </h6>
+                                                            <button type="submit" class=" btn btn-primary">تایید</button>
+                                                        </div>
+                                                    </div>
+                            
                                     </div>
                                     @endforeach
                                 </div>
                 </div>
             </div>
         
-</form>
+
     
 
 

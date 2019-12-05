@@ -24,7 +24,7 @@
 
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                        <input type="checkbox" name="remember" class="custom-control-input" id="customCheck">
                         <label class="custom-control-label" for="customCheck">به خاطر سپاری</label>
                     </div>
 

@@ -18,4 +18,11 @@ class LessonModel extends Model
     {
         return $this->getRelatedStudies()->where('class_id',$class_id)->get();
     }
+
+
+
+    public function getStudentWhereStudyLesson()
+    {
+        return $this->hasMany(StudiesStudentsModel::class,'lesson_id','id');
+    }
 }

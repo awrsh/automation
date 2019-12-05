@@ -2,12 +2,17 @@
 
 @section('content')
    
-<div class="container">
+<div class="container-fluid">
  <div class="row">
   <div class=" col-md-12">
     
    <div class="card">
     <div class="card-body">
+            @if (\Session::has('success'))
+            <div class="alert alert-success text-center">
+                <p>{{ \Session::get('success') }}</p>
+            </div><br />
+            @endif
         <h5 class="card-title">مراحل بارگذاری عکس ها : </h5>
         <p>
          1 - عکس دانش آموزان را به نام کد ملی یا شماره دانش آموزی ذخیره کنید       
