@@ -21,18 +21,18 @@
                 </ol>
             </nav>
         </div>
-        
+
 
 
     </div>
 
 
 
-    
+
         <div class="card">
-       
+
                 <div class="card-body">
-        
+
                         @if(\Session::has('success'))
                         <div class="alert alert-success">
                         <p>
@@ -40,7 +40,7 @@
                         </p>
                         </div>
                         @endif
-        
+
                         @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -50,21 +50,21 @@
                             </ul>
                         </div>
                         @endif
-        
+
             <form action=" {{route('Studing.InsertStudy')}} " method="post">
                 @csrf
-                            <div class="mb-4">                      
+                            <div class="mb-4">
                                  <div class="row">
-                                      
-                                          
+
+
                                               <div class=" form-group col-md-4">
                                                 <label for="">  عنوان الگو</label>
                                                 <input name="studies_name" type="text" class="form-control"  placeholder="" value=" {{old('studies_name')}} ">
                                               </div>
-                                            
 
-                                            
-                                              
+
+
+
                                               <div class="col-md-6 text-center mt-4">
                                                           <label class="card-title mt-2 "> بازه زمانی :
                                                           </label>
@@ -89,24 +89,24 @@
                                                                     <label class="custom-control-label" for="customRadioInline3">  انتخاب بازه زمانی </label>
                                                                 </div>
                                               </div>
-                                              
 
 
 
-                                             
+
+
                                             </div>
                                             <div class="row date__picker" style="display:none">
                                               <div class="col-md-5  mt-2">
-                                             
+
                                                 <label for="">از تاریخ</label>
-                                                <input type="text" value=" {{old('case_start_date')}} "  name="case_start_date" class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">                              
+                                                <input type="text" value=" {{old('case_start_date')}} "  name="case_start_date" class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">
                                                </div>
                                                <div class="col-md-5  mt-2">
                                                 <label for="">تا تاریخ</label>
                                                 <input type="text" value=" {{old('case_end_date')}} "   name="case_end_date" class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">
-                                          
+
                                                </div>
-                                               
+
                                             </div>
 
 
@@ -117,7 +117,7 @@
                                              <select id="basic" name="basic" class=" custom-select  mb-3">
                                                <option value="  ">انتخاب مورد</option>
                                                  @php
-                                                 $sis = 1;   
+                                                 $sis = session()->get('ManagerSis')['sections'];
                                                  if ($sis==4) {
                                                    $basics =  \App\Models\BasicModel::where('section_id',2)->Orwhere('section_id',3)->get();
                                                  }else{
@@ -128,7 +128,7 @@
                                              <option value="{{$item->basic_id}}" @if ( old('basic') == $item->basic_id )
                                                  selected=""
                                              @endif>{{$item->basic_name}}</option>
-                                             @endforeach              
+                                             @endforeach
                                              </select>
                                             </div>
                                              <div class=" form-group col-md-4 ">
@@ -144,7 +144,7 @@
                                                 </select>
                                                 </div> --}}
 
-                                    
+
                                            </div>
 
                                            {{-- <div class=" row">
@@ -158,23 +158,23 @@
                                            </div>
 
 
-                    
+
                                                 <div class="row">
                                                         <div class="col-md-12  mb-3">
-                                                           
+
                                                             <button type="submit" class=" btn btn-primary"> افزودن مورد</button>
                                                         </div>
                                                     </div>
-                            
+
                             </div>
  </form>
-                           
-                               
+
+
                 </div>
             </div>
-        
 
-    
+
+
 
 
 
@@ -209,7 +209,7 @@
           $('.date__picker').fadeOut()
          }
          })
-      
+
       $.ajaxSetup({
 
 headers: {
@@ -218,9 +218,9 @@ headers: {
 });
 
 $("#basic").change(function(e){
-  
+
     e.preventDefault();
-  
+
     var basic_id = $(this).val();
 
     $.ajax({
@@ -229,9 +229,9 @@ $("#basic").change(function(e){
       url:'getStudyClasses',
       data:{basic_id:basic_id,},
       success:function(data){
-      
+
         if (data !== '') {
-          
+
         $('#class').html(data[0])
         $('#lesson').html(data[1])
         }
@@ -241,16 +241,16 @@ $("#basic").change(function(e){
 
   });
 
-})  
+})
 
 
-       
+
         </script>
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/dataTable/responsive.bootstrap.min.css"
     type="text/css">
-    
+
     <!-- begin::datepicker -->
     <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker-jalali/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker/daterangepicker.css">

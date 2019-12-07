@@ -36,7 +36,7 @@
                 <li><a href=" {{route('Discipline.AbsenceAndDelayList')}} "> لیست غیبت و تاخیر </a></li>
             </ul>
         </li>
-    
+
             <li><a href="#"><i class="icon ti-book"></i> <span>مطالعات</span> </a>
                 <ul>
                     <li><a href="{{route('Studing.StudyingModels')}}">تعریف الگوی مطالعه </a></li>
@@ -50,12 +50,11 @@
 
             <li><a href="#"><i class="icon ti-book"></i> <span>فعالیت های کلاسی</span> </a>
                 <ul>
-                    <li><a href="{{route('Studing.StudyingModels')}}"> </a></li>
-                    <li><a href=" {{route('Studing.StudyingReport')}} ">وضعیت مطالعه دانش اموزان</a></li>
-                    <li><a href=" {{route('Studing.StudyingLessonsReport')}} ">  میانگین مطالعه کلاس ها به تفکیک دروس</a></li>
+                    <li><a href="{{route('activity_class.classScore')}}"> نمرات کلاسی</a></li>
 
-                    <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
-                </ul>
+                    <li><a href=" {{route('activity_class.ExerciseAdddaily')}} ">ثبت تکلیف</a></li>
+                    <li><a href=" {{route('activity_class.ScoreExercise')}} ">ثبت نمرات تکلیف</a></li>
+                      </ul>
             </li>
 
 
