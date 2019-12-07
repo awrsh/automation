@@ -110,6 +110,7 @@ class MainController extends Controller
 
     public function StudyingReportList()
     {
+        
         $student = auth()->user();
         $lessons = LessonModel::where('basic_id',$student->getBasicId())->get();
         return view('Students.Pannel.StudyReportList',compact('student','lessons'));

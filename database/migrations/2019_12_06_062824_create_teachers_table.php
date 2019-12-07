@@ -23,7 +23,7 @@ class CreateTeachersTable extends Migration
         });
         
         Schema::create('teachers', function (Blueprint $table) {
-            $table->bigIncrements('teacher_id');
+            $table->bigIncrements('id');
             $table->text('teacher_fullname');
             $table->string('teacher_password');
             $table->string('teacher_email');

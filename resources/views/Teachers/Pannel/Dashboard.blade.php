@@ -125,10 +125,13 @@
               
                     <div class="col-md-6">
                         <label class="text-muted" for="">تلفن:  </label>
-                        <input type="text" value="{{  $teacher->teacher_mobile  }} " name="teacher_mobile"
-                            class="form-control text-right " dir="ltr">
+                        <input type="text" value="{{  $teacher->teacher_mobile  }} " id="teacher_mobile" name="teacher_mobile"
+                            class="form-control text-right " dir="ltr" 
+                           
+                            >
                     </div>
                 </div>
+                <input type="hidden" value="{{$teacher->id}}" name="teacher_id">
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="text-muted" for="">ایمیل:</label>
@@ -179,7 +182,15 @@
 
 @section('js')
 
+<script>
 
+var teacher_mobile = document.getElementById('teacher_mobile');
+teacher_mobile.oninvalid = function(event) {
+
+event.target.setCustomValidity('شماره موبایل باید 11 رقم باشد');
+
+}
+</script>
 @endsection
 @section('css')
 
