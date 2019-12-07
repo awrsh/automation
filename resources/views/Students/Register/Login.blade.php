@@ -1,4 +1,4 @@
-@extends('Layouts.Students.Template')
+@extends('Layouts.FrontEnd.Template')
 @section('content')
 <div class="container h-100-vh">
     <div class="row align-items-center h-100-vh">
@@ -46,10 +46,7 @@
                 <button class="btn btn-primary btn-lg btn-block btn-uppercase mb-4">ورود</button>
 
             </form>
-            <hr>
-            <a class="d-block" href="{{route('ForgetPassword')}}">کلمه عبورتان را فراموش کرده اید ؟</a>
-            <a class="d-block my-3 btn  btn-success" href="{{route('CreateAccount')}}">ایجاد حساب کاربر جدید </a>
-        </div>
+           </div>
     </div>
 </div>
 

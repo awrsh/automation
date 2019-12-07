@@ -196,6 +196,8 @@ class MainController extends Controller
 
     }
 
+    
+
     public function Discipline()
     {
         return view('User.Discipline.AddDiscipline');

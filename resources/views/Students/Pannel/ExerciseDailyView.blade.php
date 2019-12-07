@@ -3,10 +3,6 @@
 @section('content')
 <div class="container-fluid">
 
-
-
-
-
     <!-- begin::page header -->
     <div class="page-header">
         <div>
@@ -27,11 +23,7 @@
 
     </div>
 
-
-
-    
         <div class="card">
-       
                 <div class="card-body">
         
                         @if(\Session::has('success'))
@@ -59,19 +51,9 @@
                         </div>
                         @endif
         
-            <form action=" {{route('Student.WorkSpace.StudyingReportInsert')}} " method="post">
+            <form action=" {{route('Student.WorkSpace.ExerciseDailyInsert')}} " method="post">
                 @csrf
                             <div class="mb-4">                      
-                                 <div class="row">
-                                              <div class="col-md-4  mb-3">
-                                             
-                                                <label for=""> تاریخ انجام مطالعه </label>
-                                                <input type="text" value=" {{old('case_start_date')}} "  
-                                                name="studies_students_date" 
-                                                class="form-control text-right date-picker-shamsi-list" dir="ltr" 
-                                                autocomplete="off">                              
-                                               </div>   
-                                 </div>           
                                  <div class=" row">
                                        <div class="col-md-6">
                                             <table class="table table-striped table-bordered">
@@ -79,21 +61,38 @@
                                                         <tr>
                                                           
                                                             <th>نام درس</th>
-                                                            <th>مدت زمان مطالعه (برحسب دقیقه)</th>
+                                                            <th>عنوان تکلیف</th>
+                                                            <th>وضعیت</th>
                                                            
                                                          
                                                         </tr>
                                                     </thead>
                                                     <tbody> 
-                                                        @foreach ($lessons as $lesson)
+                                                        @foreach ($lessons as $key=>$lesson)
+                                                       @if (\App\ExerciseDaily::where('lesson_id',$lesson->id)->count())
+                                                        @foreach (\App\ExerciseDaily::where('lesson_id',$lesson->id)->get() as $exercise)
+                                                        @php
+                                                            $rand = rand();
+                                                        @endphp
                                                         <tr>
-                                                               
+                                                                
                                                                 <td> {{$lesson->lesson_name}}</td>
-                                                                <td>                       
-                                                                    <input name="lesson_id[{{$lesson->id}}]" type="text" style="width: 100px" class="ee">         
+                                                                <td>    
+                                                                {{$exercise->exercise_name}}            
                                                                 </td>
-                                          
-                                                         </tr> 
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <div class="custom-control custom-switch">
+                                                                        <input type="checkbox" value="{{$lesson->id}}" name="status[]" class="custom-control-input switch" id="{{$rand}}">
+                                                                        <label class="custom-control-label" for="{{$rand}}"><span class="text-danger">انجام نشده</span></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                        
+                                                            </tr> 
+                                                           
+                                                        @endforeach
+                                                       @endif
                                                         @endforeach
                                                                 
                                         
@@ -147,20 +146,15 @@
 <script>
         $(document).ready(function(e){
           
-    //    $('.btn__info').prop('disabled',true)
-    //    $('.ee').blur(function(){
-
-    //     if($(this).val() == ''){
-    //     $('.btn__info').prop('disabled',true)
-    //    }else{
-    //     $('.btn__info').prop('disabled',false)
-    //    }
-    //    })
-     
-
-
-
-})
+          
+           $('.switch').change(function(){
+            if($(this).is(':checked')){
+                $(this).next().html('<span class="text-success">انجام شده</span>')
+            }else{
+                $(this).next().html('<span class="text-danger">انجام نشده</span>')
+            }
+           })
+          })
   
 
 
