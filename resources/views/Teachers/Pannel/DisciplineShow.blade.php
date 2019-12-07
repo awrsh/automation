@@ -1,21 +1,25 @@
-@extends('Layouts.Students.Template');
+@extends('Layouts.Teachers.Template');
 
 @section('content')
 <div class="container-fluid">
+
+
+
+
+
     <!-- begin::page header -->
     <div class="page-header">
         <div>
-            <h3 style="color: #a4aac1;
-            text-shadow: 0 1px 1px black;"> گزارش انظباطی دانش اموز </h3>
-            {{-- <nav aria-label="breadcrumb">
+            <h3> گزارش انظباطی دانش اموز </h3>
+            <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
-                    <li class="breadcrumb-item"><a href="#">مطالعاتی</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="#">گزارش انظباطی دانش اموز</a>
+                   
+                <li class="breadcrumb-item"><a href="{{ route('Teachers.WorkSpace.DisciplineList') }}">گزارش انظباطی</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" >گزارش انظباطی دانش اموز
                     </li>
 
                 </ol>
-            </nav> --}}
+            </nav>
         </div>
         
 
@@ -26,11 +30,6 @@
 
     
         <div class="card">
-            <div class=" card-header">
-                <h6 >
-                    لیست موارد انظباطی 
-                </h6>
-            </div>
        
                 <div class="card-body">
                  
@@ -53,7 +52,7 @@
                         </div>
                         @endif
 
-                        {{-- <div class="profile row">
+                        <div class="profile row">
                             <div class="col-sm-6 p-3 mb-5">
                                 <div class="d-flex">
                                     <div class=" col-sm-6 col-md-3">
@@ -71,19 +70,32 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                        </div> --}}
+                            <div class=" col-sm-6">
+                              
+                                                                
+                                <div class="text-left">
+                                  <a href="#" class=" btn btn-sm btn-secondary">دریافت pdf</a>
+                             
+                                </div>
+                             
+                            </div>
+                        </div>
         
-                      
+                         
+                        
+                        
+
+                       
+
 
                 @if (count($student->getCasesLaw))
                 <div class="accordion custom-accordion">
                         @foreach ($student->getCasesLaw as $key=>$case)
                         <div class="accordion-row {{$key == 0 ? 'open':''}}">
                             <a href="#" class="accordion-header">
-                                <span>عنوان: {{\App\Models\DisciplineLawsModel::where('law_id',$case->law_id)->first()->law_title }} 
+                                <span>{{\App\Models\DisciplineLawsModel::where('law_id',$case->law_id)->first()->law_title }} 
                                 </span>
-                                <span>تاریخ: {{\Morilog\Jalali\Jalalian::forge($case->case_date)->format('%B %d، %Y')}}</span>
+                                <span>{{\Morilog\Jalali\Jalalian::forge($case->case_date)->format('%B %d، %Y')}}</span>
                                 <i class="accordion-status-icon close fa fa-chevron-up"></i>
                                 <i class="accordion-status-icon open fa fa-chevron-down"></i>
                             </a>
@@ -105,9 +117,30 @@
 @endsection
 
 @section('js')
+<script src="{{route('BaseUrl')}}/Pannel/assets/vendors/dataTable/jquery.dataTables.min.js"></script>
+<script src="{{route('BaseUrl')}}/Pannel/assets/vendors/dataTable/dataTables.bootstrap4.min.js"></script>
+<script src="{{route('BaseUrl')}}/Pannel/assets/vendors/dataTable/dataTables.responsive.min.js"></script>
+<script src="{{route('BaseUrl')}}/Pannel/assets/js/examples/datatable.js"></script>
+<!-- begin::datepicker -->
+<script src="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker-jalali/bootstrap-datepicker.min.js"></script>
+<script src="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker-jalali/bootstrap-datepicker.fa.min.js"></script>
+<script src="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker/daterangepicker.js"></script>
+<script src="{{route('BaseUrl')}}/Pannel/assets/js/examples/datepicker.js"></script>
+<!-- end::datepicker -->
 
 @endsection
 
 @section('css')
-
+<link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/dataTable/responsive.bootstrap.min.css"
+    type="text/css">
+    
+    <!-- begin::datepicker -->
+    <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker-jalali/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker/daterangepicker.css">
+    <!-- end::datepicker -->
+<style>
+.breadcrumb-item.active {
+    color: #04d67f;
+}
+</style>
 @endsection

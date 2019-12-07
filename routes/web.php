@@ -163,7 +163,7 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 // ------------------ S T U D E N T - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
 Route::group(['prefix' => 'Students'],function () {
 
-Route::get('/Register','Students\RegisterController@RegisterView')->name('Student.WorkSpace.Register');
+// Route::get('/Register','Students\RegisterController@RegisterView')->name('Student.WorkSpace.Register');
 Route::get('/Login','Students\RegisterController@LoginView')->name('Student.WorkSpace.LoginView');
 Route::post('Login','Students\RegisterController@Login')->name('Student.WorkSpace.Login');
 Route::get('/LogOut','Students\RegisterController@LogOut')->name('Student.WorkSpace.LogOut');
@@ -179,8 +179,25 @@ Route::get('/ExerciseDailyView','Students\ExerciseController@ExerciseDailyView')
 Route::post('ExerciseDailyInsert','Students\ExerciseController@ExerciseDailyInsert')->name('Student.WorkSpace.ExerciseDailyInsert');
 
 
-
-
-
-
 });
+
+// ------------------ E N D - S T U D E N T - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
+
+// ------------------ T E A C H E R - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
+Route::group(['prefix' => 'Teachers'],function () {
+
+    Route::get('/Register','Teachers\RegisterController@RegisterView')->name('Teachers.WorkSpace.Register');
+    Route::get('/Login','Teachers\RegisterController@LoginView')->name('Teachers.WorkSpace.LoginView');
+    Route::post('Login','Teachers\RegisterController@Login')->name('Teachers.WorkSpace.Login');
+    Route::get('/LogOut','Teachers\RegisterController@LogOut')->name('Teachers.WorkSpace.LogOut');
+    Route::get('/Dashboard','Teachers\MainController@Dashboard')->name('Teachers.WorkSpace.Dashboard');
+    Route::get('Discipline/list', 'Teachers\DisciplineController@DisciplineList')->name('Teachers.WorkSpace.DisciplineList');
+    Route::get('Discipline/show/{student}', 'Teachers\DisciplineController@DisciplineShow')->name('Teachers.WorkSpace.DisciplineShow');
+    Route::get('Discipline/AddItem', 'Teachers\DisciplineController@AddDisciplineView')->name('Teachers.WorkSpace.AddDisciplineView');
+    Route::put('Profile/Edit/{teacher}', 'Teachers\ProfileController@EditProfile')->name('Teachers.WorkSpace.EditProfile');
+
+   
+    
+    
+});
+// ------------------ E N D - T E A C H E R - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
