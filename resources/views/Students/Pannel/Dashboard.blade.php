@@ -10,7 +10,7 @@
     <!-- begin::page header -->
     <div class="page-header">
         <div>
-            <h3 style="color: #b1a3a3;
+            <h3 style="color: #a4aac1;
             text-shadow: 0 1px 1px black;"> داشبورد </h3>
             {{-- <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">

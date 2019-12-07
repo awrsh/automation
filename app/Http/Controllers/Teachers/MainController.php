@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Teachers;
 
 use App\Http\Controllers\Controller;
 use App\LessonModel;
@@ -8,20 +8,27 @@ use App\Models\BasicModel;
 use App\Models\ClassModel;
 use App\Models\School;
 use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        
-        $s='';
-        $school = School::where('school_id', 1)->first();
-        $count = $school->school_count_students;
-
-        return view('User.Students.Register', compact('count'));
+        $this->middleware('authTeacher');
     }
 
+
+    public function Dashboard()
+    {
+       
+        $teacher = Auth::Guard('teacher')->user(); 
+       $lessons = $teacher->teacher_lessons()->get();
+        return view('Teachers.Pannel.Dashboard',compact(['teacher','lessons']));
+    }
+
+    
     public function Register(Request $request)
     {
 

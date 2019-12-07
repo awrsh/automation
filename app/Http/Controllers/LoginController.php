@@ -42,11 +42,11 @@ class LoginController extends Controller
         ])->get();
 
         if (count($res) > 0) {
-            if (request()->has('remember')) {
-                Auth::loginUsingId($res[0]['school_id'],true);
-            } else {
-                Auth::loginUsingId($res[0]['school_id']);
-            }
+            // if (request()->has('remember')) {
+            //     Auth::loginUsingId($res[0]['school_id'],true);
+            // } else {
+            //     Auth::loginUsingId($res[0]['school_id']);
+            // }
 
             session()->put('ManagerSis', [
                 'id' => $res[0]['school_id'],

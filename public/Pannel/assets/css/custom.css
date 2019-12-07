@@ -151,3 +151,11 @@ New Styles
 .card{
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.23) !important;
 }
+
+.modal__header{
+    background: #0acf97;
+    padding: 6px;
+    color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 3px 6px #000000f5;
+}

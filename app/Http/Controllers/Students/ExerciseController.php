@@ -9,6 +9,14 @@ use App\Models\Student;
 
 class ExerciseController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('authStudent');
+    }
+
+
     public function ExerciseDailyView()
     {
         // $student =Student::find(1);

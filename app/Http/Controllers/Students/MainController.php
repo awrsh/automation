@@ -13,15 +13,14 @@ use Morilog\Jalali\Jalalian;
 class MainController extends Controller
 {
 
-    public function __construct()
+   public function __construct()
 {
     $this->middleware('authStudent');
-}
+} 
     public function Dashboard()
     {
          
         $student = auth()->user();
-       
        
        /*
         $count = 6;
