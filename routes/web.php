@@ -198,6 +198,8 @@ Route::group(['prefix' => 'Teachers'],function () {
     Route::get('/AddStudyView','Teachers\StudyController@AddStudyView')->name('Teachers.WorkSpace.AddStudyView');
     Route::post('/getTeacherClasses','Teachers\StudyController@getTeacherClasses')->name('Teachers.WorkSpace.getTeacherClasses');
     Route::post('/InsertStudy','Teachers\StudyController@InsertStudy')->name('Teachers.WorkSpace.InsertStudy');
+    Route::get('Studing/ReportList', 'Teachers\StudyController@StudyReportListView')->name('Teachers.WorkSpace.StudyReportListView');
+    Route::post('Studing/getStudyingReport', 'Teachers\StudyController@getStudyingReport')->name('Teachers.WorkSpace.getStudyingReport');
 
     
    

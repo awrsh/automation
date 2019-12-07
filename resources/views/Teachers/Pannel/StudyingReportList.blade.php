@@ -1,4 +1,4 @@
-@extends('Layouts.Pannel.Template');
+@extends('Layouts.Teachers.Template');
 
 @section('content')
 <div class="container-fluid">
@@ -11,7 +11,7 @@
     <div class="page-header">
         <div>
             <h3> وضعیت مطالعاتی </h3>
-            <nav aria-label="breadcrumb">
+            {{-- <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
                     <li class="breadcrumb-item"><a href="#">مطالعاتی</a></li>
@@ -19,7 +19,7 @@
                     </li>
 
                 </ol>
-            </nav>
+            </nav> --}}
         </div>
         
 
@@ -30,7 +30,9 @@
 
     
         <div class="card">
-       
+                <div class="card-header">
+                        <h6 class="text-muted">فرم شامل کلاس های مرتبط با معلم میشود</h6>
+                    </div>
                 <div class="card-body">
                  
         
@@ -52,7 +54,7 @@
                         </div>
                         @endif
         
-            <form id="form" action=" {{route('Studing.InsertStudy')}} " method="post">
+            <form id="form" action="  " method="post">
                 @csrf
                                
                              <div class="row">
@@ -177,7 +179,7 @@ console.log({basic,start_date,end_date})
 $.ajax({
 
 type:'POST',
-url:'getStudyingReport',
+url:'{{route("Teachers.WorkSpace.getStudyingReport")}}',
 data:{
   basic:basic,
   start_date:start_date,

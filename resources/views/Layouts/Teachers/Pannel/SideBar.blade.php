@@ -20,7 +20,7 @@
             <li><a href="#"><i class="icon ti-book"></i> <span>مطالعات</span> </a>
                 <ul>
                     <li><a href="{{route('Teachers.WorkSpace.AddStudyView')}}"> ثبت مطالعه   </a></li>
-                    <li><a href=" {{route('Student.WorkSpace.StudyingReportList')}} ">   مشاهده وضعیت مطالعه</a></li>
+                    <li><a href=" {{route('Teachers.WorkSpace.StudyReportListView')}} ">   مشاهده وضعیت مطالعه</a></li>
                 </ul>
             </li>
 

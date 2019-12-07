@@ -117,10 +117,10 @@
                             <select id="basic" name="basic" class=" custom-select  mb-3">
                                 <option value="  ">انتخاب مورد</option>
                                 @php
-                               
-                              
+
+
                                 $basics = \App\Models\BasicModel::where('section_id',$section_id)->get();
-                               
+
                                 @endphp
                                 @foreach ($basics as $item)
                                 <option value="{{$item->basic_id}}" @if ( old('basic')==$item->basic_id )
@@ -129,11 +129,56 @@
                                 @endforeach
                             </select>
                         </div>
+
                         <div class=" form-group col-md-4 ">
+                            <label for="" class="  pt-3"> <span class="text-danger">*</span> درس: </label>
+                            <select id="basic" name="lesson_name" class=" custom-select  mb-3">
+                                <option value="  ">انتخاب مورد</option>
+                                @php
+
+
+                                $teacher_lessons = Auth::Guard('teacher')->user()->teacher_lessons()->get();
+
+
+                                @endphp
+                                @foreach ($teacher_lessons as $item)
+                                <option value="{{$item->lesson_name}}" @if ( old('basic')==$item->basic_id )
+                                    selected=""
+                                    @endif>{{$item->lesson_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                        <div class=" form-group col-md-4 ">
+                            <label for="" class="  pt-3"> <span class="text-danger">*</span> کلاس: </label>
+                            <select id="basic" name="class_name" class=" custom-select  mb-3">
+                                <option value="  ">انتخاب مورد</option>
+                                @php
+
+
+                                $teacher_lessons = Auth::Guard('teacher')->user()->teacher_lessons()->get();
+
+
+                                @endphp
+                                @foreach ($teacher_lessons as $item)
+                                <option value="{{$item->class_name}}" @if ( old('basic')==$item->basic_id )
+                                    selected=""
+                                    @endif>{{$item->class_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class=" form-group col-md-4 ">
+                                <label for="ww" class="  pt-3"> <span class="text-danger">*</span> حد مطلوب الگو (برحسب دقیقه) </label>
+                               <input type="number" name="studies_count" id="ww" class="form-control">
+                            </div>
+
+
+                        {{-- <div class=" form-group col-md-4 ">
                             <label for="" class="  pt-3"> <span class="text-danger">*</span> کلاس </label>
                             <select id="class" name="class" class=" custom-select  mb-3">
                             </select>
-                        </div>
+                        </div> --}}
 
                         {{-- <div class=" form-group col-md-4 ">
                                                 <label for="" class="  pt-3"> <span class="text-danger">*</span> درس </label>
@@ -199,35 +244,35 @@
          }
          })
       
-      $.ajaxSetup({
+//       $.ajaxSetup({
 
-headers: {
-    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-}
-});
+// headers: {
+//     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+// }
+// });
 
-$("#basic").change(function(e){
+// $("#basic").change(function(e){
   
-    e.preventDefault();
+//     e.preventDefault();
   
-    var basic_id = $(this).val();
+//     var basic_id = $(this).val();
 
-    $.ajax({
+//     $.ajax({
 
-      type:'POST',
-      url:'{{route("Teachers.WorkSpace.getTeacherClasses")}}',
-      data:{basic_id:basic_id,},
-      success:function(data){
+//       type:'POST',
+//       url:'{{route("Teachers.WorkSpace.getTeacherClasses")}}',
+//       data:{basic_id:basic_id,},
+//       success:function(data){
       
-        if (data !== '') {   
-        $('#class').html(data[0])
-        $('#lesson').html(data[1])
-        }
-      }
+//         if (data !== '') {   
+//         $('#class').html(data[0])
+//         $('#lesson').html(data[1])
+//         }
+//       }
 
-    });
+//     });
 
-  });
+//   });
 
 })  
 
