@@ -196,6 +196,8 @@ Route::group(['prefix' => 'Teachers'],function () {
     Route::get('Discipline/AddItem', 'Teachers\DisciplineController@AddDisciplineView')->name('Teachers.WorkSpace.AddDisciplineView');
     Route::put('Profile/Edit/{teacher}', 'Teachers\ProfileController@EditProfile')->name('Teachers.WorkSpace.EditProfile');
     Route::get('/AddStudyView','Teachers\StudyController@AddStudyView')->name('Teachers.WorkSpace.AddStudyView');
+    Route::post('/getTeacherClasses','Teachers\StudyController@getTeacherClasses')->name('Teachers.WorkSpace.getTeacherClasses');
+    Route::post('/InsertStudy','Teachers\StudyController@InsertStudy')->name('Teachers.WorkSpace.InsertStudy');
 
     
    

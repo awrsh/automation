@@ -11,7 +11,7 @@
     <div class="page-header">
         <div>
             <h3>تعریف الگوی مطالعاتی</h3>
-            <nav aria-label="breadcrumb">
+            {{-- <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
                     <li class="breadcrumb-item"><a href="#">انضباطی</a></li>
@@ -19,7 +19,7 @@
                     </li>
 
                 </ol>
-            </nav>
+            </nav> --}}
         </div>
 
 
@@ -30,6 +30,9 @@
 
 
     <div class="card">
+        <div class="card-header">
+            <h6 class="text-muted">فرم شامل کلاس های مرتبط با معلم میشود</h6>
+        </div>
 
         <div class="card-body">
 
@@ -37,6 +40,13 @@
             <div class="alert alert-success">
                 <p>
                     {{\Session::get('success')}}
+                </p>
+            </div>
+            @endif
+            @if(\Session::has('Error'))
+            <div class="alert alert-danger">
+                <p>
+                    {{\Session::get('Error')}}
                 </p>
             </div>
             @endif
@@ -51,7 +61,7 @@
             </div>
             @endif
 
-            <form action=" {{route('Studing.InsertStudy')}} " method="post">
+            <form action=" {{route('Teachers.WorkSpace.InsertStudy')}} " method="post">
                 @csrf
                 <div class="mb-4">
                     <div class="row">
@@ -205,7 +215,7 @@ $("#basic").change(function(e){
     $.ajax({
 
       type:'POST',
-      url:'{{route("Studing.getStudyClasses")}}',
+      url:'{{route("Teachers.WorkSpace.getTeacherClasses")}}',
       data:{basic_id:basic_id,},
       success:function(data){
       
