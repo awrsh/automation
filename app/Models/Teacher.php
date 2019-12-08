@@ -9,10 +9,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Teacher extends Authenticatable
 {
     protected $guarded = [];
-    protected $primaryKey='teacher_id';
+    protected $primaryKey ='id';
 
     public function teacher_lessons()
     {
-        return $this->hasMany(TeacherLessons::class,'teacher_id','teacher_id');
+        return $this->hasMany(TeacherLessons::class,'teacher_id','id');
     }
 }

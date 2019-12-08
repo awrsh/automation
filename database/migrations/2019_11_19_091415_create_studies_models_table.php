@@ -16,10 +16,12 @@ class CreateStudiesModelsTable extends Migration
         Schema::create('studies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('studies_name');
-            $table->text('studies_date');
+            $table->text('studies_start_date');
+            $table->text('studies_end_date');
             $table->integer('studies_count');
             $table->integer('class_id');
             $table->integer('lesson_id');
+            $table->integer('school_id');
             $table->timestamps();
         });
     }

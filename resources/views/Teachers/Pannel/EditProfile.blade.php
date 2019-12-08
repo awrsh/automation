@@ -69,7 +69,7 @@
                                     </div><!-- form-group -->
                                     <div class="form-group col-md-6 wd-xs-300">
                                         <label> موبایل پدر</label>
-                                        <input type="text" name="father_mobile" id="father_mobile" required
+                                        <input type="number" name="father_mobile" id="father_mobile" required
                                             class="form-control text-right">
                                         <p class="errorMassage" id="massage-father_name"></p>
                                     </div><!-- form-group -->
@@ -77,7 +77,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 wd-xs-300">
                                         <label> موبایل مادر</label>
-                                        <input type="text" class="form-control" id="mother_mobile" required
+                                        <input type="number" class="form-control" id="mother_mobile" required
                                             name="mother_mobile">
                                         <p class="errorMassage" id="massage-mother_mobile"></p>
                                     </div><!-- form-group -->

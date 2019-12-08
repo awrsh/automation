@@ -210,6 +210,8 @@ Route::get('/EditProfile','Students\MainController@EditProfileView')->name('Stud
 
 Route::get('/ExerciseDailyView','Students\ExerciseController@ExerciseDailyView')->name('Student.WorkSpace.ExerciseDailyView');
 Route::post('ExerciseDailyInsert','Students\ExerciseController@ExerciseDailyInsert')->name('Student.WorkSpace.ExerciseDailyInsert');
+Route::post('getStudyModel','Students\MainController@getStudyModel')->name('Students.WorkSpace.getStudyModel');
+
 
 
 });
@@ -228,6 +230,11 @@ Route::group(['prefix' => 'Teachers'],function () {
     Route::get('Discipline/show/{student}', 'Teachers\DisciplineController@DisciplineShow')->name('Teachers.WorkSpace.DisciplineShow');
     Route::get('Discipline/AddItem', 'Teachers\DisciplineController@AddDisciplineView')->name('Teachers.WorkSpace.AddDisciplineView');
     Route::put('Profile/Edit/{teacher}', 'Teachers\ProfileController@EditProfile')->name('Teachers.WorkSpace.EditProfile');
+    Route::get('/AddStudyView','Teachers\StudyController@AddStudyView')->name('Teachers.WorkSpace.AddStudyView');
+    Route::post('/getTeacherClasses','Teachers\StudyController@getTeacherClasses')->name('Teachers.WorkSpace.getTeacherClasses');
+    Route::post('/InsertStudy','Teachers\StudyController@InsertStudy')->name('Teachers.WorkSpace.InsertStudy');
+    Route::get('Studing/ReportList', 'Teachers\StudyController@StudyReportListView')->name('Teachers.WorkSpace.StudyReportListView');
+    Route::post('Studing/getStudyingReport', 'Teachers\StudyController@getStudyingReport')->name('Teachers.WorkSpace.getStudyingReport');
 
 
 

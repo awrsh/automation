@@ -96,17 +96,15 @@
 
                                                                 <td>
                                                                     @if (\App\StudiesModel::where('lesson_id',$lesson->id)
-                                                                    ->where('school_id',auth()->user()->school_id)
                                                                     ->where('class_id',auth()->user()->student_student_class)->first() !== null)
                                                                     
                                                                         {{
-                                                                            $i=\App\StudiesModel::where('lesson_id',$lesson->id)
-                                                                    ->where('school_id',auth()->user()->school_id)
+                                                                            $i=\App\StudiesModel::where('lesson_id',$lesson->id)                 
                                                                     ->where('class_id',auth()->user()->student_student_class)->first()->studies_count
                                                                         }}
 
                                                                     @else 
-                                                                       --
+                                                                       {{$i =0}}
                                                                     @endif
                                                                 </td>
 

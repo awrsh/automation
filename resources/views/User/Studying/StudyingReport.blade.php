@@ -15,7 +15,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
                     <li class="breadcrumb-item"><a href="#">مطالعاتی</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="#">وضعیت مطالعاتی</a>
+                    <li class="breadcrumb-item active" aria-current="page">وضعیت مطالعاتی
                     </li>
 
                 </ol>
