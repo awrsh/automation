@@ -21,117 +21,130 @@
                 </ol>
             </nav> --}}
         </div>
-        
+
 
 
     </div>
 
 
 
-    
-        <div class="card">
-                <div class="card-header">
-                        <h6 class="text-muted">فرم شامل کلاس های مرتبط با معلم میشود</h6>
-                    </div>
-                <div class="card-body">
-                 
-        
-                        @if(\Session::has('success'))
-                        <div class="alert alert-success">
-                        <p>
-                          {{\Session::get('success')}}
-                        </p>
-                        </div>
-                        @endif
-        
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
-        
+
+    <div class="card">
+        <div class="card-header">
+            <h6 class="text-muted">فرم شامل کلاس های مرتبط با معلم میشود</h6>
+        </div>
+        <div class="card-body">
+
+
+            @if(\Session::has('success'))
+            <div class="alert alert-success">
+                <p>
+                    {{\Session::get('success')}}
+                </p>
+            </div>
+            @endif
+
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <form id="form" action="  " method="post">
                 @csrf
-                               
-                             <div class="row">
-                              <div class=" form-group col-md-4 ">
-                               <label for="" class="  pt-3"> <span class="text-danger">*</span> پایه </label>
-                               <select id="basic" name="basic" class=" custom-select  mb-3">
-                                 <option value="  ">انتخاب مورد</option>
-                                   @php
-                                   $sis = 1;   
-                                   if ($sis==4) {
-                                     $basics =  \App\Models\BasicModel::where('section_id',2)->Orwhere('section_id',3)->get();
-                                   }else{
-                                     $basics =  \App\Models\BasicModel::where('section_id', $sis )->get();
-                                   }
-                               @endphp
-                               @foreach ($basics as $item)
-                               <option value=" {{$item->basic_id}} ">{{$item->basic_name}}</option>
-                               @endforeach              
-                               </select>
-                              </div>
-               
-                             </div>       
 
-                      
-                                            <div class="row date__picker" >
-                                              <div class="col-md-5  ">
-                                             
-                                                <label for="">از تاریخ</label>
-                                                <input type="text" id="case_start_date"  name="case_start_date" class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">                              
-                                               </div>
-                                               <div class="col-md-5  ">
-                                                <label for="">تا تاریخ</label>
-                                                <input type="text" id="case_end_date" name="case_end_date" class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">
-                                          
-                                               </div>
-                                               
-                                            </div>
+                <div class="row">
+                    <div class=" form-group col-md-4 ">
+                        <label for="" class="  pt-3"> <span class="text-danger">*</span> پایه </label>
+                        <select id="basic" name="basic" class=" custom-select  mb-3">
+                            <option value="  ">انتخاب مورد</option>
+                            @php
 
-                    
-                                                <div class="row">
-                                                        <div class="col-md-12  my-3 button__wrapper">
-                                                           
-                                                            <button type="submit" class=" btn btn-primary"> نمایش</button>
-                                                        </div>
-                                                       
-                                                    </div>
-                            
-                            
- </form>
-              
- 
+                            $section =
+                            \App\Models\School::where('school_id',auth()->guard('teacher')->user()->school_id)->first()->school_sections;
 
+                            $basics = \App\Models\BasicModel::where('section_id',$section)->get();
+                            @endphp
+                            @foreach ($basics as $item)
+                            <option value=" {{$item->basic_id}} ">{{$item->basic_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-
-
-
-<div id="content">
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-                               
                 </div>
-            </div>
-        
 
-    
+
+                <div class="row date__picker">
+                    <div class="col-md-5  ">
+
+                        <label for="">از تاریخ</label>
+                        <input type="text" id="case_start_date" name="case_start_date"
+                            class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">
+                    </div>
+                    <div class="col-md-5  ">
+                        <label for="">تا تاریخ</label>
+                        <input type="text" id="case_end_date" name="case_end_date"
+                            class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="">نام درس: </label>
+                        
+                        <select class="custom-select" name="lesson_id" id="">
+                            <option value="">باز کردن فهرست انتخاب</option>
+                            @foreach ( as $item)
+                                
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12  my-3 button__wrapper">
+
+                        <button type="submit" class=" btn btn-primary"> نمایش</button>
+                    </div>
+
+                </div>
+
+
+            </form>
+
+
+
+
+
+
+
+            <div id="content">
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+
 
 
 
@@ -157,7 +170,7 @@
 <!-- end::datepicker -->
 
 <script>
-        $(document).ready(function(e){
+    $(document).ready(function(e){
     
  $.ajaxSetup({
 
@@ -206,15 +219,15 @@ success:function(data){
 
 
        
-        </script>
+</script>
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/dataTable/responsive.bootstrap.min.css"
     type="text/css">
-    
-    <!-- begin::datepicker -->
-    <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker-jalali/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker/daterangepicker.css">
-    <!-- end::datepicker -->
+
+<!-- begin::datepicker -->
+<link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker-jalali/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker/daterangepicker.css">
+<!-- end::datepicker -->
 
 @endsection

@@ -177,6 +177,8 @@ Route::get('/EditProfile','Students\MainController@EditProfileView')->name('Stud
 
 Route::get('/ExerciseDailyView','Students\ExerciseController@ExerciseDailyView')->name('Student.WorkSpace.ExerciseDailyView');
 Route::post('ExerciseDailyInsert','Students\ExerciseController@ExerciseDailyInsert')->name('Student.WorkSpace.ExerciseDailyInsert');
+Route::post('getStudyModel','Students\MainController@getStudyModel')->name('Students.WorkSpace.getStudyModel');
+
 
 
 });

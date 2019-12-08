@@ -151,12 +151,7 @@ class StudyController extends Controller
     public function getStudyingReport(Request $request)
     {
         $teacher_lessons = Auth::Guard('teacher')->user()->teacher_lessons()->pluck('class_name')->toArray();
-
-
-
-
         $classes = ClassModel::where('basic_id', $request->basic)->get();
-
 
         $class_lists = ' <h5 class="card-title">     وضعیت مطالعاتی دروس به تفکیک کلاس </h5>';
 

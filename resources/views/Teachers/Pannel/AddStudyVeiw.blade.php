@@ -142,9 +142,7 @@
 
                                 @endphp
                                 @foreach ($teacher_lessons as $item)
-                                <option value="{{$item->lesson_name}}" @if ( old('basic')==$item->basic_id )
-                                    selected=""
-                                    @endif>{{$item->lesson_name}}</option>
+                                <option value="{{$item->lesson_name}}">{{$item->lesson_name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -169,9 +167,10 @@
                             </select>
                         </div>
                         <div class=" form-group col-md-4 ">
-                                <label for="ww" class="  pt-3"> <span class="text-danger">*</span> حد مطلوب الگو (برحسب دقیقه) </label>
-                               <input type="number" name="studies_count" id="ww" class="form-control">
-                            </div>
+                            <label for="ww" class="  pt-3"> <span class="text-danger">*</span> حد مطلوب الگو (برحسب
+                                دقیقه) </label>
+                            <input type="number" name="studies_count" id="ww" class="form-control">
+                        </div>
 
 
                         {{-- <div class=" form-group col-md-4 ">
