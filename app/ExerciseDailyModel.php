@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PresentClassModel extends Model
+class ExerciseDailyModel extends Model
 {
+    protected $table = "exercise_daily";
     protected $guarded = [];
-    protected $table = 'present_class';
 }

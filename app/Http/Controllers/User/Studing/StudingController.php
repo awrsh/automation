@@ -30,18 +30,18 @@ class StudingController extends Controller
 
 
            $lesson_array =  LessonModel::where('basic_id',$request->basic_id)->get();
-           
-            
 
 
-        
+
+
+
 
           $table = '<table class="table table-striped table-bordered example2">
             <thead>
                 <tr>
                     <th>ردیف</th>
                     <th>نام درس</th>
-                    <th>مدت زمان مطالعه</th>
+                    <th> مدت زمان مطالعه بر حسب دقیقه</th>
                    
                  
                 </tr>
@@ -49,8 +49,8 @@ class StudingController extends Controller
             <tbody>';
 
             foreach ($lesson_array as $key=>$item) {
-               
-            
+
+
                $table .=' <tr>
                         <td>'.$key++.' </td>
                         <td>'.$item->lesson_name.'</td>
@@ -63,8 +63,8 @@ class StudingController extends Controller
                         
                  </tr>';
             }
-                
-            
+
+
 
            $table .= '</tbody>
 
@@ -76,28 +76,28 @@ class StudingController extends Controller
 
         public function InsertStudy(Request $request)
         {
-            
-         
+
+
 
 
             $validatedData = $request->validate([
                 'studies_name' => 'required',
-                
+
                 'studies_date' => 'required',
-                
+
                 'class' => 'required',
 
             ], [
                 'class.required' => 'نام کلاس الزامی است',
-                
+
                 'studies_date.required' => ' لطفا بازه زمانی را انتخاب کنید',
-                
+
                 'studies_name.required' => 'نام مورد مطالعاتی الزامی می باشد',
                 // 'basic_id.required' => 'پایه را انتخاب کنید',
             ]);
 
-            
-           
+
+
 
             if ($request->studies_date == 'یک سال') {
                 $request->case_start_date = Carbon::now();
@@ -108,13 +108,13 @@ class StudingController extends Controller
                 $request->case_start_date = $this->convertDate($request->case_start_date);
                 $request->case_end_date = $this->convertDate($request->case_end_date);
             }
-            
+
 
 
 
 
            foreach ($request->id_lesson as $key=>$item) {
-               
+
             StudiesModel::create([
                 'studies_name' => $request->studies_name,
                 'studies_count' => $item,
@@ -127,7 +127,7 @@ class StudingController extends Controller
             ]);
            }
 
-            return back()->withInput()->with('success','مورد مطالعاتی با موفقیت اضافه شد'); 
+            return back()->withInput()->with('success','مورد مطالعاتی با موفقیت اضافه شد');
         }
 
 
@@ -141,11 +141,11 @@ class StudingController extends Controller
 
         public function getStudyingReport(Request $request)
         {
-          
 
-        
+
+
       $classes=ClassModel::where('basic_id',$request->basic)->get();
-        
+
 
       $class_lists = ' <h5 class="card-title">     وضعیت مطالعاتی دروس به تفکیک کلاس </h5>';
 
@@ -153,7 +153,7 @@ class StudingController extends Controller
       $class_lists .='<ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">';
 
       foreach ($classes as $key=>$item){
-      
+
       if ($key == 0){
           $class_lists .=  '<li class="nav-item">
               <a class="nav-link active" id="pills-'.$item->class_id.'-tab" data-toggle="pill" href="#pills-'.$item->class_id.'" role="tab" aria-controls="pills-home" aria-selected="true"> '.$item->class_name.'</a>
@@ -172,7 +172,7 @@ class StudingController extends Controller
 
 
 
-    
+
   $class_lists .='<div class="tab-content my-5" id="pills-tabContent2">';
 
 foreach ($classes as $key=>$item){
@@ -193,9 +193,9 @@ foreach ($classes as $key=>$item){
                 </thead>
                 <tbody>
                 ';
-      if(\App\Models\Student::where('student_student_class',$item->class_id)->count()){      
+      if(\App\Models\Student::where('student_student_class',$item->class_id)->count()){
           foreach ( \App\Models\Student::where('student_student_class',$item->class_id)->get() as $student){
-        
+
         // $studeis = $student->whereHas('getStudies',function($query) use($request){
         //         $query->where('studies_students_date', '>', $this->convertDate($request->start_date))
         //         ->where('studies_students_date', '<', $this->convertDate($request->end_date));
@@ -210,7 +210,7 @@ foreach ($classes as $key=>$item){
 
 
            foreach ( $studeis as $key => $value) {
-               
+
                if($value->StudyName->studies_count < $value->studies_students_count){
                     $excelentStudy ++;
                }elseif($value->StudyName->studies_count > $value->studies_students_count){
@@ -241,7 +241,7 @@ foreach ($classes as $key=>$item){
                         $class_lists .='  <td>دانش اموزی برای این کلاس ثبت نشده است</td>
             ';
                     }
-                      
+
                         $class_lists .='  </tbody>
                                   
                         </table></div>
@@ -263,7 +263,7 @@ foreach ($classes as $key=>$item){
     </thead>
     <tbody>
     ';
-    if(\App\Models\Student::where('student_student_class',$item->class_id)->count()){      
+    if(\App\Models\Student::where('student_student_class',$item->class_id)->count()){
 
           foreach ( \App\Models\Student::where('student_student_class',$item->class_id)->get() as $student){
             $studeis=  $student->getStudies;
@@ -272,8 +272,8 @@ foreach ($classes as $key=>$item){
             $excelentStudy =0;
             $badStudy=0;
             $normalStudy =0;
- 
- 
+
+
             foreach ( $studeis as $key => $value) {
                 if($value->StudyName->studies_count < $value->studies_students_count){
                      $excelentStudy ++;
@@ -303,7 +303,7 @@ foreach ($classes as $key=>$item){
             $class_lists .='  <td>دانش اموزی برای این کلاس ثبت نشده است</td>
 ';
         }
-          
+
             $class_lists .='  </tbody>
                                   
             </table></div>
