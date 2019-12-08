@@ -202,6 +202,7 @@ Route::group(['prefix' => 'Teachers'],function () {
     Route::post('/InsertStudy','Teachers\StudyController@InsertStudy')->name('Teachers.WorkSpace.InsertStudy');
     Route::get('Studing/ReportList', 'Teachers\StudyController@StudyReportListView')->name('Teachers.WorkSpace.StudyReportListView');
     Route::post('Studing/getStudyingReport', 'Teachers\StudyController@getStudyingReport')->name('Teachers.WorkSpace.getStudyingReport');
+    Route::get('Studing/Student/{student}', 'Teachers\StudyController@StudyStudentView')->name('Teachers.WorkSpace.StudyStudentView');
 
     
    
