@@ -368,7 +368,118 @@
 
                                 </div>
                                 <div class="tab-pane fade" id="v-pills-addtechers" role="tabpanel"
-                                    aria-labelledby="v-pills-profile-tab"></div>
+                                    aria-labelledby="v-pills-profile-tab">
+                                    <div class=" col-md-12">
+                                        @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+
+
+                                        @endif
+
+                                        @if (\Session::has('success'))
+                                        <div class="alert alert-success text-center">
+                                            <p>{{ \Session::get('success') }}</p>
+                                        </div><br />
+                                        @endif
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title"> ثبت نام پرسنل</h5>
+                                                <form id="form1" method="post"
+                                                    action=" {{route('Personels.Register')}} "
+                                                    enctype="multipart/form-data" class="needs-validation" novalidate>
+
+                                                    <div id="wizard2">
+                                                        @csrf
+
+                                                        <section>
+                                                            <h6 class="card-title"> اطلاعات کلی</h6>
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6 wd-xs-300">
+                                                                    <label>نام نام خانوادگی</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="fullname" name="fullname" required>
+
+                                                                </div><!-- form-group -->
+                                                                <div class="form-group col-md-6 wd-xs-300">
+                                                                    <label>تحصیلات</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="Education" required>
+                                                                </div>
+                                                                <!-- form-group -->
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6 wd-xs-300">
+                                                                    <label>نام کاربری</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="username" name="username" required>
+
+                                                                </div><!-- form-group -->
+                                                                <div class="form-group col-md-6 wd-xs-300">
+                                                                    <label>کلمه عبور</label>
+                                                                    <input type="password" class="form-control"
+                                                                        name="password" required>
+                                                                </div>
+                                                                <!-- form-group -->
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6 wd-xs-300">
+                                                                    <label>کد ملی</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="certificate_number"
+                                                                        name="certificate_number" required>
+                                                                    <p class="errorMassage"
+                                                                        id="massage-certificate_number"></p>
+                                                                </div><!-- form-group -->
+                                                                <div class="form-group col-md-6 wd-xs-300">
+                                                                    <label>تلفن همراه</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="phone_number" name="phone_number" required>
+                                                                    <p class="errorMassage" id="massage-phone_number">
+                                                                    </p>
+                                                                </div><!-- form-group -->
+
+                                                            </div>
+
+                                                            <div class="row">
+
+                                                                <div class="form-group col-md-6 wd-xs-300">
+                                                                    <label>تلفن ثابت</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="telphone" name="telphone" required>
+                                                                    <p class="errorMassage" id="massage-telphone"></p>
+                                                                </div>
+
+                                                                <div class="form-group col-md-6 wd-xs-300">
+                                                                    <label>آدرس منزل</label>
+                                                                    <textarea class="form-control" id="Address"
+                                                                        name="Address" required>
+                                                                    </textarea>
+
+                                                                </div>
+                                                            </div>
+                                                        </section>
+                                                        <section>
+                                                            <div class="row">
+                                                                <div class=" form-group col-md-6">
+                                                                    <button type="submit"
+                                                                        class="btn subForm btn-primary">ثبت</button>
+                                                                </div>
+                                                            </div>
+                                                        </section>
+
+                                                    </div>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="tab-pane fade" id="v-pills-listtechers" role="tabpanel"
                                     aria-labelledby="v-pills-profile-tab"></div>
                                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
