@@ -107,7 +107,7 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::post('/EditInfo', 'User\StudentsContorller@EditInfo')->name('Student.EditInfo');
 
     Route::post('Students/Allbum_getClasses', 'User\AllbumController@getClasses')->name('Allbum.Classes');
-    
+
     Route::get('/Students/Class/getPDF/{id}', 'User\AllbumController@getPDF')->name('Allbum.getPDF');
 
     Route::get('/AddDiscipline', 'User\MainController@Discipline')->name('Discipline.Add');
@@ -129,7 +129,7 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::get('discipline/lists', 'User\Discipline\DisciplineController@DisciplineLists')->name('Discipline.lists');
 
     Route::get('discipline/show/{student}', 'User\Discipline\DisciplineController@DisciplineShow')->name('Discipline.student.Show');
-    
+
 
     Route::get('discipline/DefineLow', 'User\Discipline\DisciplineController@DefineLow')->name('Discipline.defineLow');
 
@@ -159,14 +159,47 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::get('/Studing/StudyingReportList/{student}', 'User\Studing\StudingClassListController@StudyingReportListStudent')->name('Studing.StudyingReportListStudent');
 
+    Route::get('/ActivityClass/ClassScore', 'User\activityClass\ClassScoreController@index')->name('activity_class.classScore');
+
+    Route::post('/ActivityClass/getlessens', 'User\activityClass\ClassScoreController@getlesson');
+
+    Route::post('/ActivityClass/getstudent', 'User\activityClass\ClassScoreController@getStudent');
+
+
+    Route::post('/ActivityClass/ClassScore', 'User\activityClass\ClassScoreController@insertClassScore')->name('activity_class.classScoreInsert');
+
+    Route::get('/ActivityClass/ExerciseAddِaily', 'User\activityClass\ExerciseController@exerciseAddDaily')->name('activity_class.ExerciseAdddaily');
+
+    Route::post('/ActivityClass/ExerciseAddِaily', 'User\activityClass\ExerciseController@InsertExerciseAddDaily')->name('activity_class.SubmitExerciseAdddaily');
+
+    Route::get('/ActivityClass/ScoreExercise', 'User\activityClass\ExerciseController@ScoreExercise')->name('activity_class.ScoreExercise');
+
+    Route::post('/ActivityClass/getExercise', 'User\activityClass\ExerciseController@getExercise');
+
+    Route::post('/ActivityClass/getExerciseDate', 'User\activityClass\ExerciseController@getExerciseDate');
+
+    Route::post('/ActivityClass/ScoreExercise', 'User\activityClass\ExerciseController@insertScoreExercise')->name('activity_class.ScoreExercise');
+
+    Route::get('/ActivityClass/StatusAbsence', 'User\activityClass\StatusAbsence@Status_absence')->name('activity_class.Status_absence');
+
+    Route::post('/ActivityClass/StatusAbsence', 'User\activityClass\StatusAbsence@GetClass')->name('activity_class.GETCLASSFORAB');
+
+    Route::post('ActivityClass/InsertStatusAbsence', 'User\activityClass\StatusAbsence@insertAbsence')->name('activity_class.insertAbsence');
+
+    Route::get('/ActivityClass/ExitClass', 'User\activityClass\dismisaalController@exitClass')->name('activity_class.exitClass');
+
+    Route::post('ActivityClass/insertExitClass', 'User\activityClass\dismisaalController@InsertExitClass')->name('activity_class.InsertExitClass');
+
     Route::get('/Personels', 'User\PermissionsController@index')->name('Personels');
- 
+
     Route::post('/AddPersonels', 'User\PermissionsController@AddPesonals')->name('Personels.Register');
-    
+
     Route::post('ChangeStatusPersonal', 'User\PermissionsController@StatusPesonals')->name('Personels.ChangeStatusPersonal');
+
 
 });
 
+// ------------------ P E S R O N A L S - S C H O O l - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
 
 // ------------------ S T U D E N T - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
 Route::group(['prefix' => 'Students'],function () {
@@ -211,9 +244,9 @@ Route::group(['prefix' => 'Teachers'],function () {
     Route::get('Studing/ReportList', 'Teachers\StudyController@StudyReportListView')->name('Teachers.WorkSpace.StudyReportListView');
     Route::post('Studing/getStudyingReport', 'Teachers\StudyController@getStudyingReport')->name('Teachers.WorkSpace.getStudyingReport');
 
-    
-   
-    
-    
+
+
+
+
 });
 // ------------------ E N D - T E A C H E R - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------

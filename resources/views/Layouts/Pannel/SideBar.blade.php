@@ -50,12 +50,13 @@
         <li><a href="{{route('Personels')}}"><i class="icon ti-layout-cta-btn-right"></i> <span>پرسنل</span> </a></li>
             <li><a href="#"><i class="icon ti-book"></i> <span>فعالیت های کلاسی</span> </a>
                 <ul>
-                    <li><a href="{{route('Studing.StudyingModels')}}"> </a></li>
-                    <li><a href=" {{route('Studing.StudyingReport')}} ">وضعیت مطالعه دانش اموزان</a></li>
-                    <li><a href=" {{route('Studing.StudyingLessonsReport')}} ">  میانگین مطالعه کلاس ها به تفکیک دروس</a></li>
+                    <li><a href="{{route('activity_class.classScore')}}"> نمرات کلاسی</a></li>
 
-                    <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
-                </ul>
+                    <li><a href=" {{route('activity_class.ExerciseAdddaily')}} ">ثبت تکلیف</a></li>
+                    <li><a href=" {{route('activity_class.ScoreExercise')}} ">ثبت نمرات تکلیف</a></li>
+                    <li><a href=" {{route('activity_class.Status_absence')}} ">ثبت حضور و غیاب</a></li>
+                    <li><a href=" {{route('activity_class.exitClass')}} ">ثبت اخراج از کلاس</a></li>
+                      </ul>
             </li>
 
 
@@ -67,7 +68,7 @@
                     <li><a href=" {{route('Studing.StudyingLessonsReport')}} ">  میانگین مطالعه کلاس ها به تفکیک دروس</a></li>
                     <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
                 </ul>
-            </li> 
+            </li>
             <li><a href="{{route('logout.manager')}}"><i class="icon ti-close"></i> <span>خروج</span> </a></li>
         </ul>
     </div>
