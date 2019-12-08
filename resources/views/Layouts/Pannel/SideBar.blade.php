@@ -60,14 +60,14 @@
 
 
 
-            {{-- <li><a href="#"><i class="icon ti-book"></i> <span>فعالیت های کلاسی</span> </a>
+            <li><a href="#"><i class="icon ti-chart"></i> <span> گزارشات</span> </a>
                 <ul>
-                    <li><a href="{{route('Studing.StudyingModels')}}">ثبت نمرات کلاسی </a></li>
+                    <li><a href="{{route('Studing.StudyingModels')}}">  مقایسه کلاس ها به تفکیک هر درس </a></li>
                     <li><a href=" {{route('Studing.StudyingReport')}} ">وضعیت مطالعه دانش اموزان</a></li>
                     <li><a href=" {{route('Studing.StudyingLessonsReport')}} ">  میانگین مطالعه کلاس ها به تفکیک دروس</a></li>
                     <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
                 </ul>
-            </li> --}}
+            </li> 
             <li><a href="{{route('logout.manager')}}"><i class="icon ti-close"></i> <span>خروج</span> </a></li>
         </ul>
     </div>

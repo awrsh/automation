@@ -198,6 +198,7 @@ class DisciplineController extends Controller
 
     public function DisciplineLists()
     {
+       
 
         $classes = ClassModel::where('basic_id',1)->get();
         return view('User.Discipline.DisciplineLists',compact('classes'));

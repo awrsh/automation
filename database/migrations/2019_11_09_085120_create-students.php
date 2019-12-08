@@ -18,6 +18,7 @@ class CreateStudents extends Migration
             $table->unsignedBigInteger('school_id');
             $table->text('student_firstname')->nullable();
             $table->text('student_lastname')->nullable();
+            $table->text('student_password')->nullable();
             $table->text('student_certificate_number')->nullable();
             $table->text('student_national_number')->nullable();
             $table->text('student_father_name')->nullable();

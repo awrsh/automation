@@ -36,17 +36,17 @@ class LoginController extends Controller
 
         $res = School::where([
             'school_username' => request()->post('username'),
-            'school_password' => md5(request()->post('password')),
+            'school_password' => request()->post('password'),
             'school_status' => 'on',
             'school_url' => route('BaseUrl'),
         ])->get();
        
         if (count($res) > 0) {
-            if (request()->has('remember')) {
-                Auth::loginUsingId($res[0]['school_id'],true);
-            } else {
-                Auth::loginUsingId($res[0]['school_id']);
-            }
+            // if (request()->has('remember')) {
+            //     Auth::loginUsingId($res[0]['school_id'],true);
+            // } else {
+            //     Auth::loginUsingId($res[0]['school_id']);
+            // }
             
             session()->put('ManagerSis', [
                 'id' => $res[0]['school_id'],

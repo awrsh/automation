@@ -8,15 +8,20 @@ use App\LessonModel;
 use App\StudiesModel;
 use App\StudiesStudentsModel;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Morilog\Jalali\Jalalian;
 
 class MainController extends Controller
 {
+
+   public function __construct()
+{
+    $this->middleware('authStudent');
+} 
     public function Dashboard()
     {
          
         $student = auth()->user();
-       
        
        /*
         $count = 6;
@@ -38,6 +43,8 @@ class MainController extends Controller
         $basic=$student->getBasicId();
 
        $lessons = LessonModel::where('basic_id',$basic)->get();
+       $lessons_name = LessonModel::where('basic_id',$basic)->pluck('lesson_name');
+
         $study_count =[];
        foreach ($lessons as $key => $value) {
         
@@ -45,16 +52,13 @@ class MainController extends Controller
         ->where('studies_students_date','>',Carbon::now()->subDays(7)->format('Y-m-d 00:00:00'))
         ->where('studies_students_date','<',Carbon::now()->format('Y-m-d 00:00:00'))
         ->first() != null){
-       $study_count[] = $student->getStudies()->where('lesson_id',$value->id)->first()->studies_students_count;
+       $study_count[] = json_encode($student->getStudies()->where('lesson_id',$value->id)->first()->studies_students_count);
         }else{
-            $study_count[] = 0;
+            $study_count[] = '0';
         }   
        }
-      
-        $study_count_json =json_encode($study_count);
-        $lessons_json = json_encode($lessons);
-
-        return view('Students.Pannel.Dashboard',compact(['student','lessons_json','study_count_json']));
+       
+        return view('Students.Pannel.Dashboard',compact(['student','lessons_name','study_count']));
     }
 
     public function DisciplineReport()
@@ -72,36 +76,78 @@ class MainController extends Controller
 
     public function StudyingReportInsert(Request $request)
     {
+       if ($request->study_model == "0") {
+        return back()->with('Error','در حال حاظر الگوی مطالعه ای وجود ندارد');
+
+       }
         $request->validate([
             'studies_students_date' => 'required',
-     
+            'study_model' => 'required',
+            'lesson_id' => 'required',
+            'count' => 'required'
+
         ], [
-            'studies_students_date.required' => 'تاریخ انجام مطالعه را وارد کنید',       
+            'studies_students_date.required' => 'تاریخ انجام مطالعه را وارد کنید',    
+            'study_model.required' => 'الگوی مطالعاتی را انتخاب کنید',   
+            'lesson_id.required' => 'درس مورد نظر را انتخاب کنید',   
+            'count.required' => 'میزان مطالعه را وارد کنید',      
         ]);
         
      $class_id = auth()->user()->getClass()->first()->class_id;
-     if(strlen(implode($request->lesson_id)) == 0){
-        return back()->with('Error','هیچ موردی برای ثبت وارد نشده است');
-     }
-     foreach ($request->lesson_id as $key=>$lesson_count) {
-         if ($lesson_count !== null) {
+    if (StudiesStudentsModel::where('studies_id',$request->study_model)
+    ->where('lesson_id',$request->lesson_id)
+    ->where('student_id',auth()->user()->student_id)->count()) {
+        return back()->with('Error','میزان مطالعه برای این درس ثبت شده است');
 
-           if(is_numeric($lesson_count)){
-            StudiesStudentsModel::create([
-                'studies_students_date' => $request->studies_students_date,
-                'studies_students_count' => $lesson_count,
-                'lesson_id' => $key,
-                'studies_id' => StudiesModel::where('class_id',$class_id)->first()->id,
-                'student_id' => auth()->user()->student_id
+    }else{
+        StudiesStudentsModel::create([
+            'studies_students_date' => $this->convertDate($request->studies_students_date),
+            'studies_students_count' => $request->count,
+            'lesson_id' => $request->lesson_id,
+            'studies_id' => $request->study_model,
+            'student_id' => auth()->user()->student_id
 
-            ]);
-           }else{
-            return back()->with('Error','لطفا مدت زمان را به صورت عددی وارد کنید');
-           }
-          }
+        ]);
+        return back()->with('success','عملیات با موفقیت انجام شد');
+    }
+          
+          
+          
+        
+
+       
+
+    }
+
+    public function StudyingReportList()
+    {
+        
+        $student = auth()->user();
+        $lessons = LessonModel::where('basic_id',$student->getBasicId())->get();
+        return view('Students.Pannel.StudyReportList',compact('student','lessons'));
+    }
+
+
+    public function EditProfileView()
+    {
+        return view('Students.Pannel.EditProfile');
+    }
+
+    public function getStudyModel(Request $request)
+    {
+        $student=Auth::guard('student')->user();
+        $studies=StudiesModel::where('class_id',$student->student_student_class)
+        ->where('lesson_id',$request->lesson_id)->where('school_id',$student->school_id)
+        ->where('studies_start_date','<=',Carbon::now())
+        ->where('studies_end_date','>=',Carbon::now())
+        ->get();
+        $options = ' <option selected="">باز کردن فهرست انتخاب</option>';
+        foreach ($studies as $item) {
+            $options .= ' <option value="' . $item->id . '">' . $item->studies_name . '</option>';
         }
 
-        return back()->with('success','عملیات با موفقیت انجام شد');
 
+        return response($options);
+        
     }
 }

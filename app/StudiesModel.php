@@ -11,6 +11,6 @@ class StudiesModel extends Model
 
     public function getRelatedStudiesStudent()
     {
-        return $this->hasMany(StudiesStudentsModel::model,'studies_id','id');
+        return $this->hasMany(StudiesStudentsModel::class,'studies_id','id');
     }
 }

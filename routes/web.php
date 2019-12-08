@@ -169,20 +169,51 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
 
 // ------------------ S T U D E N T - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
-Route::prefix('/Students')->group(function () {
+Route::group(['prefix' => 'Students'],function () {
 
-Route::get('/Register','Students\RegisterController@RegisterView')->name('Student.WorkSpace.Register');
+// Route::get('/Register','Students\RegisterController@RegisterView')->name('Student.WorkSpace.Register');
 Route::get('/Login','Students\RegisterController@LoginView')->name('Student.WorkSpace.LoginView');
 Route::post('Login','Students\RegisterController@Login')->name('Student.WorkSpace.Login');
+Route::get('/LogOut','Students\RegisterController@LogOut')->name('Student.WorkSpace.LogOut');
+
 Route::get('/Dashboard','Students\MainController@Dashboard')->name('Student.WorkSpace.Dashboard');
 Route::get('/DisciplineReport','Students\MainController@DisciplineReport')->name('Student.WorkSpace.DisciplineReport');
 Route::get('/Study','Students\MainController@StudyingReport')->name('Student.WorkSpace.StudyingReport');
 Route::post('Study','Students\MainController@StudyingReportInsert')->name('Student.WorkSpace.StudyingReportInsert');
+Route::get('/StudyList','Students\MainController@StudyingReportList')->name('Student.WorkSpace.StudyingReportList');
+Route::get('/EditProfile','Students\MainController@EditProfileView')->name('Student.WorkSpace.EditProfileView');
 
-
-
-
+Route::get('/ExerciseDailyView','Students\ExerciseController@ExerciseDailyView')->name('Student.WorkSpace.ExerciseDailyView');
+Route::post('ExerciseDailyInsert','Students\ExerciseController@ExerciseDailyInsert')->name('Student.WorkSpace.ExerciseDailyInsert');
+Route::post('getStudyModel','Students\MainController@getStudyModel')->name('Students.WorkSpace.getStudyModel');
 
 
 
 });
+
+// ------------------ E N D - S T U D E N T - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
+
+// ------------------ T E A C H E R - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
+Route::group(['prefix' => 'Teachers'],function () {
+
+    Route::get('/Register','Teachers\RegisterController@RegisterView')->name('Teachers.WorkSpace.Register');
+    Route::get('/Login','Teachers\RegisterController@LoginView')->name('Teachers.WorkSpace.LoginView');
+    Route::post('Login','Teachers\RegisterController@Login')->name('Teachers.WorkSpace.Login');
+    Route::get('/LogOut','Teachers\RegisterController@LogOut')->name('Teachers.WorkSpace.LogOut');
+    Route::get('/Dashboard','Teachers\MainController@Dashboard')->name('Teachers.WorkSpace.Dashboard');
+    Route::get('Discipline/list', 'Teachers\DisciplineController@DisciplineList')->name('Teachers.WorkSpace.DisciplineList');
+    Route::get('Discipline/show/{student}', 'Teachers\DisciplineController@DisciplineShow')->name('Teachers.WorkSpace.DisciplineShow');
+    Route::get('Discipline/AddItem', 'Teachers\DisciplineController@AddDisciplineView')->name('Teachers.WorkSpace.AddDisciplineView');
+    Route::put('Profile/Edit/{teacher}', 'Teachers\ProfileController@EditProfile')->name('Teachers.WorkSpace.EditProfile');
+    Route::get('/AddStudyView','Teachers\StudyController@AddStudyView')->name('Teachers.WorkSpace.AddStudyView');
+    Route::post('/getTeacherClasses','Teachers\StudyController@getTeacherClasses')->name('Teachers.WorkSpace.getTeacherClasses');
+    Route::post('/InsertStudy','Teachers\StudyController@InsertStudy')->name('Teachers.WorkSpace.InsertStudy');
+    Route::get('Studing/ReportList', 'Teachers\StudyController@StudyReportListView')->name('Teachers.WorkSpace.StudyReportListView');
+    Route::post('Studing/getStudyingReport', 'Teachers\StudyController@getStudyingReport')->name('Teachers.WorkSpace.getStudyingReport');
+
+    
+   
+    
+    
+});
+// ------------------ E N D - T E A C H E R - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------

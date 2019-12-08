@@ -1,4 +1,4 @@
-@extends('Layouts.Pannel.Template')
+@extends('Layouts.Students.Template')
 
 @section('content')
 
@@ -24,10 +24,10 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title"> ثبت نام دانش اموز</h5>
+                    <h5 class="card-title"> ویرایش اطلاعات</h5>
                     <form id="form1" method="post" action=" {{route('Student.Register')}} "
                         enctype="multipart/form-data" class="needs-validation" novalidate>
-                <p>تعداد دانش آموز قابل ثبت  : {{$count}}</p>
+               
                         <div id="wizard2">
                             @csrf
 
@@ -69,7 +69,7 @@
                                     </div><!-- form-group -->
                                     <div class="form-group col-md-6 wd-xs-300">
                                         <label> موبایل پدر</label>
-                                        <input type="text" name="father_mobile" id="father_mobile" required
+                                        <input type="number" name="father_mobile" id="father_mobile" required
                                             class="form-control text-right">
                                         <p class="errorMassage" id="massage-father_name"></p>
                                     </div><!-- form-group -->
@@ -77,7 +77,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 wd-xs-300">
                                         <label> موبایل مادر</label>
-                                        <input type="text" class="form-control" id="mother_mobile" required
+                                        <input type="number" class="form-control" id="mother_mobile" required
                                             name="mother_mobile">
                                         <p class="errorMassage" id="massage-mother_mobile"></p>
                                     </div><!-- form-group -->
@@ -467,12 +467,5 @@
 <script src="{{route('BaseUrl')}}/Pannel/assets/js/examples/datepicker.js"></script>
 <!-- end::datepicker -->
 
-{{-- <script>
-$(".date-picker-shamsi-list").focus(function(event){
-                var dim = $(this).offset();
-                $("#ui-datepicker-div").offset({
-                    top     :   dim.top - 20,
-                    left    :   dim.left + 80
-                });
-            });</script> --}}
+
 @endsection

@@ -12,7 +12,7 @@
 
             <div class="d-flex align-items-center m-b-20">
                 {{-- <img src="assets/media/image/dark-logo.png" class="m-l-15" width="40" alt=""> --}}
-                <h4 class="m-0"> پنل دانش اموزان <span class="text-success">علمی نو</span></h4>
+                <h4 class="m-0"> پنل مدیریت <span class="text-success">علمی نو</span></h4>
             </div>
             <p>برای ادامه وارد شوید.</p>
             @include('FrontEnd.errors')
@@ -23,16 +23,16 @@
             </p>
             </div>
             @endif
-            <form action="{{route('Student.WorkSpace.Login')}}" method="post">
+            <form action="{{route('Teachers.WorkSpace.Login')}}" method="post">
                 @csrf
                 <div class="form-group mb-4">
                     <input type="text" class="form-control form-control-lg" 
-                    name="student_number" autofocus
-                        placeholder="شماره دانش اموزی">
+                    name="teacher_email" autofocus
+                        placeholder="ایمیل">
                 </div>
                 <div class="form-group mb-4">
                     <input type="password" class="form-control form-control-lg" 
-                    name="student_password" placeholder="رمز عبور">
+                    name="teacher_password" placeholder="رمز عبور">
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center mb-4">

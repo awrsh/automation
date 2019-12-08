@@ -10,7 +10,7 @@
     <!-- begin::page header -->
     <div class="page-header">
         <div>
-            <h3 style="color: #b1a3a3;
+            <h3 style="color: #a4aac1;
             text-shadow: 0 1px 1px black;"> داشبورد </h3>
             {{-- <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -240,22 +240,24 @@ $(document).ready(function () {
     };
     chart_demo_4();
     function chart_demo_4() {
+       console.log()
         if ($('#chart_demo_4').length) {
             var ctx = document.getElementById("chart_demo_4").getContext("2d");
             var densityData = {
                 backgroundColor: chartColors.success.base,
-                data: <?php echo $study_count_json; ?> 
+                data: <?php echo json_encode($study_count); ?> ,
+                label: "میزان مطالعه برحسب دقیقه میباشد"
             };
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: <?php echo $lessons_json; ?> ,
+                    labels: <?php echo json_encode($lessons_name); ?> ,
                     datasets: [densityData]
                 },
                 options: {
                     scaleFontColor: "#FFFFFF",
                     legend: {
-                        display: false,
+                        display: true,
                         labels: {
                             fontColor: chartColors.fontColor
                         }
