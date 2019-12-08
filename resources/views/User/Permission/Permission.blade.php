@@ -389,7 +389,7 @@
                                         @endif
                                         <div class="card">
                                             <div class="card-body">
-                                                <h5 class="card-title"> ثبت نام پرسنل</h5>
+                                                <h5 class="card-title"> ثبت نام دبیر</h5>
                                                 <form id="form1" method="post"
                                                     action=" {{route('Personels.Register')}} "
                                                     enctype="multipart/form-data" class="needs-validation" novalidate>
