@@ -177,6 +177,17 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::post('/ActivityClass/ScoreExercise', 'User\activityClass\ExerciseController@insertScoreExercise')->name('activity_class.ScoreExercise');
 
+    Route::get('/ActivityClass/StatusAbsence', 'User\activityClass\StatusAbsence@Status_absence')->name('activity_class.Status_absence');
+
+    Route::post('/ActivityClass/StatusAbsence', 'User\activityClass\StatusAbsence@GetClass')->name('activity_class.GETCLASSFORAB');
+
+    Route::post('ActivityClass/InsertStatusAbsence', 'User\activityClass\StatusAbsence@insertAbsence')->name('activity_class.insertAbsence');
+
+    Route::get('/ActivityClass/ExitClass', 'User\activityClass\dismisaalController@exitClass')->name('activity_class.exitClass');
+
+    Route::post('ActivityClass/insertExitClass', 'User\activityClass\dismisaalController@InsertExitClass')->name('activity_class.InsertExitClass');
+
+
 
 });
 
