@@ -160,22 +160,22 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::get('/ActivityClass/ClassScore', 'User\activityClass\ClassScoreController@index')->name('activity_class.classScore');
 
-    Route::post('/ActivityClass/getlessens', 'User\activityClass\ClassScoreController@getlesson');
+    Route::post('/ActivityClass/getlessens', 'User\activityClass\ClassScoreController@getlesson')->name('ActivityClass.getLessons');
 
     Route::post('/ActivityClass/getstudent', 'User\activityClass\ClassScoreController@getStudent');
 
 
     Route::post('/ActivityClass/ClassScore', 'User\activityClass\ClassScoreController@insertClassScore')->name('activity_class.classScoreInsert');
 
-    Route::get('/ActivityClass/ExerciseAddِaily', 'User\activityClass\ExerciseController@exerciseAddDaily')->name('activity_class.ExerciseAdddaily');
+    Route::get('/ActivityClass/ExerciseDaily/Add', 'User\activityClass\ExerciseController@exerciseAddDaily')->name('activity_class.ExerciseAdddaily');
 
-    Route::post('/ActivityClass/ExerciseAddِaily', 'User\activityClass\ExerciseController@InsertExerciseAddDaily')->name('activity_class.SubmitExerciseAdddaily');
+    Route::post('/ActivityClass/ExerciseDaily/Add', 'User\activityClass\ExerciseController@InsertExerciseAddDaily')->name('activity_class.SubmitExerciseAdddaily');
 
     Route::get('/ActivityClass/ScoreExercise', 'User\activityClass\ExerciseController@ScoreExercise')->name('activity_class.ScoreExercise');
 
-    Route::post('/ActivityClass/getExercise', 'User\activityClass\ExerciseController@getExercise');
+    Route::post('/ActivityClass/getExercise', 'User\activityClass\ExerciseController@getExercise')->name('ActivityClass.getExercise');
 
-    Route::post('/ActivityClass/getExerciseDate', 'User\activityClass\ExerciseController@getExerciseDate');
+    Route::post('/ActivityClass/getExerciseDate', 'User\activityClass\ExerciseController@getExerciseDate')->name('ActivityClass.getExerciseDate');
 
     Route::post('/ActivityClass/ScoreExercise', 'User\activityClass\ExerciseController@insertScoreExercise')->name('activity_class.ScoreExercise');
 
@@ -247,6 +247,11 @@ Route::group(['prefix' => 'Teachers'],function () {
     Route::get('Studing/ReportList', 'Teachers\StudyController@StudyReportListView')->name('Teachers.WorkSpace.StudyReportListView');
     Route::post('Studing/getStudyingReport', 'Teachers\StudyController@getStudyingReport')->name('Teachers.WorkSpace.getStudyingReport');
     Route::get('Studing/Student/{student}', 'Teachers\StudyController@StudyStudentView')->name('Teachers.WorkSpace.StudyStudentView');
+    Route::get('Activity/ClassScores', 'Teachers\ActivityController@ClassScores')->name('Teachers.WorkSpace.ClassScores');
+    Route::post('Activity/getStudents', 'Teachers\ActivityController@getStudents__Ajax')->name('Teachers.WorkSpace.getStudents');
+    Route::post('Activity/ClassScores', 'Teachers\ActivityController@InsertClassScores')->name('Teachers.WorkSpace.InsertClassScores');
+    Route::get('Activity/ExerciseDaily/Add', 'Teachers\ActivityController@AddExerciseDailyView')->name('Teachers.WorkSpace.AddExerciseDailyView');
+    Route::get('Activity/ExerciseScores/Add', 'Teachers\ActivityController@AddExerciseScoresView')->name('Teachers.WorkSpace.AddExerciseScoresView');
 
 
 

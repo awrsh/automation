@@ -46,7 +46,7 @@ class Student extends  Authenticatable
     
      public function exercise_dailies()
     {
-        return $this->belongsToMany(ExerciseDaily::class,'exercise_daily_student','exercise_id','student_id');
+        return $this->belongsToMany(ExerciseDaily::class,'exercise_daily_student','student_id','exercise_id');
     }
     
 

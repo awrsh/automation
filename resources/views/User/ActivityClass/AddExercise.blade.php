@@ -121,7 +121,7 @@
                 $.ajax({
 
                     type: 'POST',
-                    url: '../Studing/getStudyClasses',
+                    url: '{{route("Studing.getStudyClasses")}}',
                     data: {basic_id: basic_id,},
                     success: function (data) {
 
@@ -146,7 +146,7 @@
                 $.ajax({
 
                     type: 'POST',
-                    url: 'getlessens',
+                    url: '{{route("ActivityClass.getLessons")}}',
                     data: {basic_id: basic_id,},
                     success: function (data) {
 

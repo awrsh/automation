@@ -11,6 +11,7 @@ class StatusAbsence extends Controller
 {
     public function Status_absence()
     {
+        
         $classes = ClassModel::get();
         return view('User.ActivityClass.Status_Absence', compact('classes'));
     }
