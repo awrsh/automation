@@ -21,13 +21,13 @@
         <div class="card">
             <div class="card-body">
                 @if(\Session::has('error'))
-                    <div class="alert text-center alert-success">
-                        <p>  {{\Session::get('success')}}</p>
+                    <div class="alert alert-danger text-center alert-success">
+                        <p>  {{\Session::get('error')}}</p>
                     </div>
                 @endif
 
                 @if(\Session::has('success'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-success text-center ">
                         <p>
                             {{\Session::get('success')}}
                         </p>
@@ -148,7 +148,7 @@
                                         <div class="col-md-12">
                                             <h5 class="card-title mt-2"> توضیح </h5>
 
-                                            <input value="asdasd" name="case_wdescription" class="form-control text-right ">
+                                            <input   name="case_description" class="form-control text-right ">
 
                                         </div>
                                     </div>
