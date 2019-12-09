@@ -4,12 +4,13 @@
         <!-- begin::page header -->
         <div class="page-header">
             <div>
-                <h3>ثبت نمره کلاسی</h3>
+                <h3>گزارش گیری وضعیت هر دانش اموز</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">صحفه اصلی</a></li>
                         <li class="breadcrumb-item"><a href="#">فعالیت کلاسی</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="#">ثبت نمره کلاسی</a>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="#">گزارش گیری وضعیت هر دانش
+                                اموز</a>
                         </li>
 
                     </ol>
@@ -56,58 +57,30 @@
                                 @endforeach
                             </select>
                         </div>
-
-                        <div class=" form-group col-md-4 ">
-                            <label for="" class="  pt-3"> <span class="text-danger">*</span> درس </label>
-                            <select id="lesson" name="lesson" class=" custom-select  mb-3">
-                                <option value="">انتخاب مورد</option>
-
-                            </select>
-                        </div>
-
                         <div class=" form-group col-md-4 ">
                             <label for="" class="  pt-3"> <span class="text-danger">*</span> کلاس </label>
                             <select id="class" name="class" class=" custom-select  mb-3">
                             </select>
                         </div>
-
-
-                            <div class="col-md-4 mb-3">
-                                <label for="">گروه ازمون</label>
-                                <select name="examin_group" class="custom-select form-control custom-select-sm mb-3">
-                                    <option value="تکوینی 1">تکوینی 1</option>
-                                    <option value="پایانی 1">پایانی 1</option>
-                                    <option value="تکوینی 2">تکوینی 2</option>
-                                    <option value="پایانی 2">پایانی 2</option>
-                                    <option value="ماهانه مهر">ماهانه مهر</option>
-                                    <option value="ماهانه آبان">ماهانه آبان</option>
-                                    <option value="ماهانه بهمن">ماهانه بهمن</option>
-                                    <option value="ماهانه اسفند">ماهانه اسفند</option>
-                                    <option value="ماهانه اردیبهشت">ماهانه اردیبهشت</option>
-                                </select>
-                            </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered  ">
-                                <thead>
-                                <tr>
-                                    <th>ردیف</th>
-                                    <th>نام و نام خانوادگی</th>
-                                    <th>نام پدر</th>
-                                    <th>نمره</th>
-                                </tr>
-                                </thead>
-                                <tbody class="text-center" id="content-student">
-                                </tbody>
-                            </table>
-
-                        </div>
                     </div>
-                    <button class="btn btn-primary">
-                        ثبت اطلاعات
-                    </button>
-                </form>
-            </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered  ">
+                            <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>نام و نام خانوادگی</th>
+                                <th>نام پدر</th>
+                                <th>گزارش نمرات کلاسی</th>
+                                <th>گزارش نمرات تکالیف</th>
+                            </tr>
+                            </thead>
+                            <tbody class="text-center" id="content-student">
+                            </tbody>
+                        </table>
+                    </div>
+            </form>
         </div>
+    </div>
     </div>
 @endsection
 @section('js')
@@ -186,7 +159,7 @@
                 $.ajax({
 
                     type: 'POST',
-                    url: 'getstudent',
+                    url: 'getReportstudent',
                     data: {class_id: class_id,},
                     success: function (data) {
 
@@ -208,12 +181,13 @@
 @endsection
 @section('css')
     <!-- begin::datepicker -->
-    <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker-jalali/bootstrap-datepicker.min.css">
+    <link rel="stylesheet"
+          href="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker-jalali/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/datepicker/daterangepicker.css">
     <!-- end::datepicker -->
     <style>
-        #ui-datepicker-div{
-            z-index: 3000!important;
+        #ui-datepicker-div {
+            z-index: 3000 !important;
         }
     </style>
 @endsection

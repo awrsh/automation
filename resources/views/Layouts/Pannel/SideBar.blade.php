@@ -23,7 +23,6 @@
                     <li><a href=" {{route('Student.EditClass')}} ">ویرایش کلاس بندی</a></li>
                 </ul>
             </li>
-
         </ul>
         </li>
         <li><a href="#"><i class="icon ti-alert"></i> <span>انظباطی</span> </a>
@@ -36,7 +35,6 @@
                 <li><a href=" {{route('Discipline.AbsenceAndDelayList')}} "> لیست غیبت و تاخیر </a></li>
             </ul>
         </li>
-
             <li><a href="#"><i class="icon ti-book"></i> <span>مطالعات</span> </a>
                 <ul>
                     <li><a href="{{route('Studing.StudyingModels')}}">تعریف الگوی مطالعه </a></li>
@@ -46,21 +44,16 @@
                     <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
                 </ul>
             </li>
-
-
             <li><a href="#"><i class="icon ti-book"></i> <span>فعالیت های کلاسی</span> </a>
                 <ul>
                     <li><a href="{{route('activity_class.classScore')}}"> نمرات کلاسی</a></li>
-
                     <li><a href=" {{route('activity_class.ExerciseAdddaily')}} ">ثبت تکلیف</a></li>
                     <li><a href=" {{route('activity_class.ScoreExercise')}} ">ثبت نمرات تکلیف</a></li>
                     <li><a href=" {{route('activity_class.Status_absence')}} ">ثبت حضور و غیاب</a></li>
                     <li><a href=" {{route('activity_class.exitClass')}} ">ثبت اخراج از کلاس</a></li>
+                    <li><a href=" {{route('activity_class.Reporting')}} ">گزارش گیری وضعیت هر دانش آموز </a></li>
                       </ul>
             </li>
-
-
-
             <li><a href="#"><i class="icon ti-chart"></i> <span> گزارشات</span> </a>
                 <ul>
                     <li><a href="{{route('Studing.StudyingModels')}}">  مقایسه کلاس ها به تفکیک هر درس </a></li>

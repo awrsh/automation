@@ -118,9 +118,11 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::post('discipline/AddItems', 'User\Discipline\DisciplineController@InsertCases')->name('Discipline.AddCases');
 
     Route::get('discipline/AddPoints', 'User\Discipline\DisciplineController@AddPoints')->name('Discipline.AddPoints');
+
     Route::post('discipline/changeBasicForLaw', 'User\Discipline\DisciplineController@changeBasicForLaw')->name('Discipline.changeBasicForLaw');
 
     Route::post('discipline/InsertPoints', 'User\Discipline\DisciplineController@InsertPoints')->name('Discipline.InsertPoints');
+
     Route::post('discipline/changeBasic', 'User\Discipline\DisciplineController@changeBasic')->name('Discipline.changeBasic');
 
     Route::get('discipline/lists', 'User\Discipline\DisciplineController@DisciplineLists')->name('Discipline.lists');
@@ -187,6 +189,15 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::post('ActivityClass/insertExitClass', 'User\activityClass\dismisaalController@InsertExitClass')->name('activity_class.InsertExitClass');
 
+    Route::get('/ActivityClass/Reporting_class', 'User\activityClass\reportingStudentController@Reporting')->name('activity_class.Reporting');
+
+    Route::get('/ActivityClass/ReportScoresClassStudent/{id?}', 'User\activityClass\reportingStudentController@ReportScoresClassStudent')->name('activity_class.ReportScoresClassStudent');
+
+    Route::post('/ActivityClass/getReportstudent', 'User\activityClass\reportingStudentController@getReportstudent');
+
+    Route::get('/ActivityClass/getStudyingexerciseList/{student}', 'User\activityClass\reportingStudentController@ReportScoresExerciseStudent')->name('activity_class.getStudyingexerciseList');
+
+    Route::post('/ActivityClass/getStudyingexerciseList', 'User\activityClass\reportingStudentController@ReportScoresExerciseStudent');
 
 
 });

@@ -49,6 +49,7 @@ class ClassScoreController extends Controller
                 'class_scores_date' => \request()->date,
                 'score' => $item,
                 'student_id' => $key,
+                'lesson_id' => \request()->lesson
             ]);
         }
         return back()->with('success','ثبت نمرات با موفقیت انجام شد');
