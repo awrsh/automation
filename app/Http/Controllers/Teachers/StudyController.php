@@ -10,6 +10,7 @@ use App\Models\ClassModel;
 use Illuminate\Http\Request;
 use App\StudiesStudentsModel;
 use App\Http\Controllers\Controller;
+use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 
 class StudyController extends Controller
@@ -85,8 +86,8 @@ class StudyController extends Controller
     public function InsertStudy(Request $request)
     {
 
-            
-      
+
+
 
         $validatedData = $request->validate([
             'studies_name' => 'required',
@@ -123,52 +124,53 @@ class StudyController extends Controller
         //     return back()->with('Error', 'لطفا حد مطلوب مطالعه برای دروس را وارد کنید');
         // } else {
 
-            // foreach ($request->id_lesson as $key => $item) {
+        // foreach ($request->id_lesson as $key => $item) {
 
-            //     if ($item !== null) {
+        //     if ($item !== null) {
 
-                    StudiesModel::create([
-                        'studies_name' => $request->studies_name,
-                        'studies_count' => $request->studies_count,
-                        'studies_start_date' => $request->case_start_date,
-                        'studies_end_date' => $request->case_end_date,
-                        'lesson_id' => LessonModel::where('lesson_name',$request->lesson_name)->first()->id,
-                        'school_id' => Auth::guard('teacher')->user()->school_id,
-                        'class_id' => ClassModel::where('class_name',$request->class_name)->first()->class_id,
+        StudiesModel::create([
+            'studies_name' => $request->studies_name,
+            'studies_count' => $request->studies_count,
+            'studies_start_date' => $request->case_start_date,
+            'studies_end_date' => $request->case_end_date,
+            'lesson_id' => LessonModel::where('lesson_name', $request->lesson_name)->first()->id,
+            'school_id' => Auth::guard('teacher')->user()->school_id,
+            'class_id' => ClassModel::where('class_name', $request->class_name)->first()->class_id,
 
-                    ]);
-               
-        
+        ]);
+
+
 
         return back()->withInput()->with('success', 'مورد مطالعاتی با موفقیت اضافه شد');
     }
 
     public function StudyReportListView()
+
     {
         return view('Teachers.Pannel.StudyingReportList');
     }
 
     public function getStudyingReport(Request $request)
     {
-        $teacher_lessons = Auth::Guard('teacher')->user()->teacher_lessons()->pluck('class_name')->toArray();
-        $classes = ClassModel::where('basic_id', $request->basic)->get();
 
-        $class_lists = ' <h5 class="card-title">     وضعیت مطالعاتی دروس به تفکیک کلاس </h5>';
+        // $teacher_lessons = Auth::Guard('teacher')->user()->teacher_lessons()->pluck('class_name')->toArray();
+        $classes = ClassModel::where('class_id', $request->class_id)->get();
+
+        $class_lists = ' <h5 class="card-title">     وضعیت مطاله درس از تاریخ ' . $request->start_date . ' تا تاریخ ' . $request->end_date . '</h5>';
 
 
         $class_lists .= '<ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">';
 
         foreach ($classes as $key => $item) {
-            if (in_array($item->class_name, $teacher_lessons)) {
-                if ($key == 0) {
-                    $class_lists .=  '<li class="nav-item">
+
+            if ($key == 0) {
+                $class_lists .=  '<li class="nav-item">
               <a class="nav-link active" id="pills-' . $item->class_id . '-tab" data-toggle="pill" href="#pills-' . $item->class_id . '" role="tab" aria-controls="pills-home" aria-selected="true"> ' . $item->class_name . '</a>
       </li>';
-                } else {
-                    $class_lists .= '<li class="nav-item">
+            } else {
+                $class_lists .= '<li class="nav-item">
              <a class="nav-link " id="pills-' . $item->class_id . '-tab" data-toggle="pill" href="#pills-' . $item->class_id . '" role="tab" aria-controls="pills-home" aria-selected="true"> ' . $item->class_name . '</a>
       </li>';
-                }
             }
         }
 
@@ -182,12 +184,12 @@ class StudyController extends Controller
         $class_lists .= '<div class="tab-content my-5" id="pills-tabContent2">';
 
         foreach ($classes as $key => $item) {
-            if (in_array($item->class_name, $teacher_lessons)) {
-                if ($key == 0) {
-                    $class_lists .= '  <div class="tab-pane fade show active" id="pills-' . $item->class_id . '" role="tabpanel" aria-labelledby="pills-all-tab">
+
+            if ($key == 0) {
+                $class_lists .= '  <div class="tab-pane fade show active" id="pills-' . $item->class_id . '" role="tabpanel" aria-labelledby="pills-all-tab">
                 ';
 
-                    $class_lists .= '
+                $class_lists .= '
                 <table class="table table-striped table-bordered example2">
                 <thead>
                     <tr>
@@ -200,37 +202,38 @@ class StudyController extends Controller
                 </thead>
                 <tbody>
                 ';
-                    if (\App\Models\Student::where('student_student_class', $item->class_id)->count()) {
-                        foreach (\App\Models\Student::where('student_student_class', $item->class_id)->get() as $student) {
+                if (\App\Models\Student::where('student_student_class', $item->class_id)->count()) {
+                    foreach (\App\Models\Student::where('student_student_class', $item->class_id)->get() as $student) {
 
-                            // $studeis = $student->whereHas('getStudies',function($query) use($request){
-                            //         $query->where('studies_students_date', '>', $this->convertDate($request->start_date))
-                            //         ->where('studies_students_date', '<', $this->convertDate($request->end_date));
-                            // })->get();
-                            $studeis = StudiesStudentsModel::where('student_id', $student->student_id)
-                                ->where('studies_students_date', '>', $this->convertDate($request->start_date))
-                                ->where('studies_students_date', '<', $this->convertDate($request->end_date))
-                                ->get();
-                            $excelentStudy = 0;
-                            $badStudy = 0;
-                            $normalStudy = 0;
+                        // $studeis = $student->whereHas('getStudies',function($query) use($request){
+                        //         $query->where('studies_students_date', '>', $this->convertDate($request->start_date))
+                        //         ->where('studies_students_date', '<', $this->convertDate($request->end_date));
+                        // })->get();
+                        $studeis = StudiesStudentsModel::where('student_id', $student->student_id)
+                            ->where('lesson_id', $request->lesson_id)
+                            ->where('studies_students_date', '>', $this->convertDate($request->start_date))
+                            ->where('studies_students_date', '<', $this->convertDate($request->end_date))
+                            ->get();
+                        $excelentStudy = 0;
+                        $badStudy = 0;
+                        $normalStudy = 0;
 
 
-                            foreach ($studeis as $key => $value) {
+                        foreach ($studeis as $key => $value) {
 
-                                if ($value->StudyName->studies_count < $value->studies_students_count) {
-                                    $excelentStudy++;
-                                } elseif ($value->StudyName->studies_count > $value->studies_students_count) {
-                                    $badStudy++;
-                                } else {
-                                    $normalStudy++;
-                                }
+                            if ($value->StudyName->studies_count < $value->studies_students_count) {
+                                $excelentStudy++;
+                            } elseif ($value->StudyName->studies_count > $value->studies_students_count) {
+                                $badStudy++;
+                            } else {
+                                $normalStudy++;
                             }
-                            $class_lists .= ' <tr>
+                        }
+                        $class_lists .= ' <tr>
                           <td> ' . ($key + 1) . ' </td>
                           
                           <td>
-                          <a href="' . route('Studing.StudyingReportListStudent', $student) . '?basic=' . $request->basic . '" >
+                          <a href="' . route('Teachers.WorkSpace.StudyStudentView', $student) . '?c=' . $request->class_id . '&l=' . $request->lesson_id . '&sd=' . $request->start_date . '&ed=' . $request->end_date . '" >
                           ' . $student->student_firstname . ' ' . $student->student_lastname . ' 
                            </a>
                           
@@ -243,21 +246,21 @@ class StudyController extends Controller
 
         
                    </tr>';
-                        }
-                    } else {
-                        $class_lists .= '  <td>دانش اموزی برای این کلاس ثبت نشده است</td>
-            ';
                     }
+                } else {
+                    $class_lists .= '  <td>دانش اموزی برای این کلاس ثبت نشده است</td>
+            ';
+                }
 
-                    $class_lists .= '  </tbody>
+                $class_lists .= '  </tbody>
                                   
                         </table></div>
             ';
-                } else {
+            } else {
 
-                    $class_lists .= '<div class="tab-pane fade" id="pills-' . $item->class_id . '" role="tabpanel" aria-labelledby="pills-all-tab">
+                $class_lists .= '<div class="tab-pane fade" id="pills-' . $item->class_id . '" role="tabpanel" aria-labelledby="pills-all-tab">
     ';
-                    $class_lists .= '
+                $class_lists .= '
     <table class="table table-striped table-bordered example2">
     <thead>
         <tr>
@@ -270,32 +273,32 @@ class StudyController extends Controller
     </thead>
     <tbody>
     ';
-                    if (\App\Models\Student::where('student_student_class', $item->class_id)->count()) {
+                if (\App\Models\Student::where('student_student_class', $item->class_id)->count()) {
 
-                        foreach (\App\Models\Student::where('student_student_class', $item->class_id)->get() as $student) {
-                            $studeis =  $student->getStudies;
-                            //   برحسب تاریخ اضافه شود
-                            //    $studeis=  $student->getStudies->where('studies_students_date',);
-                            $excelentStudy = 0;
-                            $badStudy = 0;
-                            $normalStudy = 0;
+                    foreach (\App\Models\Student::where('student_student_class', $item->class_id)->get() as $student) {
+                        $studeis =  $student->getStudies;
+                        //   برحسب تاریخ اضافه شود
+                        //    $studeis=  $student->getStudies->where('studies_students_date',);
+                        $excelentStudy = 0;
+                        $badStudy = 0;
+                        $normalStudy = 0;
 
 
-                            foreach ($studeis as $key => $value) {
-                                if ($value->StudyName->studies_count < $value->studies_students_count) {
-                                    $excelentStudy++;
-                                } elseif ($value->StudyName->studies_count > $value->studies_students_count) {
-                                    $badStudy++;
-                                } else {
-                                    $normalStudy++;
-                                }
+                        foreach ($studeis as $key => $value) {
+                            if ($value->StudyName->studies_count < $value->studies_students_count) {
+                                $excelentStudy++;
+                            } elseif ($value->StudyName->studies_count > $value->studies_students_count) {
+                                $badStudy++;
+                            } else {
+                                $normalStudy++;
                             }
-                            $class_lists .= ' <tr>
+                        }
+                        $class_lists .= ' <tr>
                            <td> ' . ($key + 1) . ' </td>
                            <td>
-                            <a href="' . route('Studing.StudyingReportListStudent', $student) . '?basic=' . $request->basic . '" >
-                            ' . $student->student_firstname . ' ' . $student->student_lastname . ' 
-                            </a>           
+                           <a href="' . route('Teachers.WorkSpace.StudyStudentView', $student) . '?c=' . $request->class_id . '&l=' . $request->lesson_id . '&sd=' . $request->start_date . '&ed=' . $request->end_date . '" >
+                           ' . $student->student_firstname . ' ' . $student->student_lastname . ' 
+                            </a>        
                           </td>
                            <td>' . $excelentStudy . '</td>
                            <td>' . $normalStudy . '</td>
@@ -305,22 +308,36 @@ class StudyController extends Controller
          
           
                    </tr>';
-                        }
-                    } else {
-                        $class_lists .= '  <td>دانش اموزی برای این کلاس ثبت نشده است</td>
-';
                     }
+                } else {
+                    $class_lists .= '  <td>دانش اموزی برای این کلاس ثبت نشده است</td>
+';
+                }
 
-                    $class_lists .= '  </tbody>
+                $class_lists .= '  </tbody>
                                   
             </table></div>
 ';
-                }
             }
         }
         $class_lists .= '</div>';
 
 
         return $class_lists;
+    }
+
+
+    public function StudyStudentView(Student $student)
+    {
+        $studyForLesson = StudiesStudentsModel::where('student_id',$student->student_id)
+        ->where('lesson_id',request('l'))
+        
+        ->where('studies_students_date','>',$this->convertDate(request('sd')))
+        ->where('studies_students_date','<',$this->convertDate(request('ed')))
+        ->get();
+
+        return view('Teachers.Pannel.StudyStudent',compact(['student','studyForLesson']));
+
+
     }
 }

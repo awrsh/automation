@@ -32,6 +32,7 @@ class ExerciseController extends Controller
     {   
         
      $student = auth()->user();
+     
         // if ($student->exercise_dailies->contains(2)) {
         //     return 'dsfss';
         // };
