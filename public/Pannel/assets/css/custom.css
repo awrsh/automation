@@ -170,6 +170,6 @@ New Styles
     box-shadow: 0 3px 6px #000000f5;
 }
 
-.breadcrumb-item.active > a{
+.breadcrumb-item.active > a {
     color: #3bbd23;
 }
