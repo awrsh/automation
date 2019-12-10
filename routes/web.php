@@ -182,7 +182,7 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::post('/ActivityClass/getExerciseDate', 'User\activityClass\ExerciseController@getExerciseDate')->name('ActivityClass.getExerciseDate');
 
-    Route::post('/ActivityClass/ScoreExercise', 'User\activityClass\ExerciseController@insertScoreExercise')->name('activity_class.ScoreExercise');
+    Route::post('ActivityClass/ScoreExercise', 'User\activityClass\ExerciseController@insertScoreExercise')->name('activity_class.ScoreExercise');
 
     Route::get('/ActivityClass/StatusAbsence', 'User\activityClass\StatusAbsence@Status_absence')->name('activity_class.Status_absence');
 

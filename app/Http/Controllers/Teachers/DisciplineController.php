@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class DisciplineController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('authTeacher');
+    }
     public function DisciplineList()
     {
         $count = 0;

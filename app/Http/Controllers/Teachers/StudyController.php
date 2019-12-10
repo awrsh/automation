@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Auth;
 
 class StudyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('authTeacher');
+    }
+    
     public function AddStudyView()
     {
 
