@@ -42,7 +42,6 @@ class reportingStudentController extends Controller
     public function ReportScoresExerciseStudent(Student $student)
     {
 
-
         return view('User.ActivityClass.Studying_exercisetList',compact('student'));
 
     }

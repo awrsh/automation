@@ -56,7 +56,7 @@
             </li>
             <li><a href="#"><i class="icon ti-chart"></i> <span> گزارشات</span> </a>
                 <ul>
-                    <li><a href="{{route('Studing.StudyingModels')}}">  مقایسه کلاس ها به تفکیک هر درس </a></li>
+                    <li><a href="{{route('Reports.ClassAvg')}}">  مقایسه کلاس ها به تفکیک هر درس </a></li>
                     <li><a href=" {{route('Studing.StudyingReport')}} ">وضعیت مطالعه دانش اموزان</a></li>
                     <li><a href=" {{route('Studing.StudyingLessonsReport')}} ">  میانگین مطالعه کلاس ها به تفکیک دروس</a></li>
                     <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>

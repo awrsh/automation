@@ -55,7 +55,19 @@
                         </thead>
                         <tbody>
 
+                         @if (count($student->exercise_scores))
+                         @foreach ($student->exercise_scores as $key=>$exercise_scores)
+                         <tr>
 
+                           <td >{{$key +1}}</td>
+                           <td >{{\App\LessonModel::where('id',$exercise_scores->lesson_id)->first()->lesson_name}}</td>
+                           <td>{{$exercise_scores->score}}</td>
+                           <td >{{\Morilog\Jalali\Jalalian::forge($exercise_scores->exercise_date)->format('%A, %d %B %y')}}</td>
+                         </tr>
+                         @endforeach
+                         @else
+                         <td >موردی برای این دانش اموز وجود ندارد</td>
+                         @endif
                         </tbody>
                     </table>
                 </div>
@@ -82,47 +94,7 @@
     <!-- end::datepicker -->
 
     <script>
-        $(document).ready(function (e) {
-
-            $.ajaxSetup({
-
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-
-            $("#form").submit(function (e) {
-                e.preventDefault();
-                $('.button__wrapper').html('<button class="btn btn-primary" type="button" disabled> <span class="spinner-border spinner-border-sm m-l-5" role="status" aria-hidden="true"></span> در حال بارگذاری ... </button>')
-                var basic = $(this).find('#basic').val();
-                var start_date = $(this).find('#case_start_date').val();
-                var end_date = $(this).find('#case_end_date').val();
-
-// console.log({basic,start_date,end_date})
-                $.ajax({
-
-                    type: 'POST',
-                    url: 'getStudyingexerciseList',
-                    data: {
-                        basic: basic,
-                        start_date: start_date,
-                        end_date: end_date
-                    },
-                    success: function (data) {
-
-                        $('#content').html(data)
-                        $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
-
-
-                    }
-
-                });
-
-            });
-
-        });
-
+       
 
     </script>
 @endsection
