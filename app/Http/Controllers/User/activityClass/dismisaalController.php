@@ -47,7 +47,5 @@ class dismisaalController extends Controller
         } else {
             return back()->with('error', 'هیچ دانش آموزی انتخاب نشده است');
         }
-
-
     }
 }

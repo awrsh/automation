@@ -2,40 +2,16 @@
 
 @section('content')
     <div class="container-fluid">
-
-
         <!-- begin::page header -->
         <div class="page-header">
             <div>
-                <h3> کارنامه مطالعاتی </h3>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        {{-- <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li> --}}
-                        <li class="breadcrumb-item"><a href="#">مطالعاتی</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="#">کارنامه مطالعاتی</a>
-                        </li>
-
-                    </ol>
-                </nav>
+                <h3> نمرات تکالیف </h3>
             </div>
-
-
         </div>
-
-
         <div class="card">
-
+            <div class=" card-header">
+            </div>
             <div class="card-body">
-
-
-                @if(\Session::has('success'))
-                    <div class="alert alert-success">
-                        <p>
-                            {{\Session::get('success')}}
-                        </p>
-                    </div>
-                @endif
-
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -45,43 +21,51 @@
                         </ul>
                     </div>
                 @endif
-
-                <form id="form" action=" " method="post">
-                    @csrf
-
-                    <div class="row">
-                        <div class=" form-group col-md-4 ">
-                            <label for="" class="  pt-3"> <span class="text-danger">*</span> پایه </label>
-                            <select id="basic" name="basic" class=" custom-select  mb-3">
-                                <option value="  ">انتخاب مورد</option>
-                                @php
-                                    $sis = 1;
-                                    if ($sis==4) {
-                                      $basics =  \App\Models\BasicModel::where('section_id',2)->Orwhere('section_id',3)->get();
-                                    }else{
-                                      $basics =  \App\Models\BasicModel::where('section_id', $sis )->get();
-                                    }
-                                @endphp
-                                @foreach ($basics as $item)
-                                    <option value=" {{$item->basic_id}} ">{{$item->basic_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-12  my-3 button__wrapper">
-
-                            <button type="submit" class=" btn btn-primary"> نمایش</button>
+                <div class="profile row">
+                    <div class="col-sm-6 p-3 mb-5">
+                        <div class="d-flex">
+                            <div class=" col-sm-6 col-md-3">
+                                @if ($student->student_student_photo )
+                                    <img
+                                        src=" {{route('BaseUrl')}}/uploads/students/{{$student->student_student_photo}}"
+                                        style="width: 100px;" class="img-thumbnail" alt="">
+                                @else
+                                    <img src="{{route('BaseUrl')}}/Pannel/img/avatar.jpg" style="width: 100px;"
+                                         class="img-thumbnail" alt="">
+                                @endif
+                            </div>
+                            <div class="col-md-9 mt-3">
+                                <p class=" lead">{{$student->student_firstname .' _ '. $student->student_lastname}}</p>
+                                <p class="">کلاس {{$student->getClass->class_name}}</p>
+                            </div>
                         </div>
                     </div>
-                </form>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" thead-light">
+                        <tr>
+
+                            <th scope="col">ردیف</th>
+                            <th scope="col">نام درس</th>
+                            <th scope="col">نمره ثبت شده</th>
+                            <th scope="col">تاریخ تکلیف</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        </tbody>
+                    </table>
+                </div>
                 <div id="content">
+
                 </div>
             </div>
         </div>
+
+
     </div>
 @endsection
 
@@ -110,7 +94,6 @@
 
             $("#form").submit(function (e) {
                 e.preventDefault();
-
                 $('.button__wrapper').html('<button class="btn btn-primary" type="button" disabled> <span class="spinner-border spinner-border-sm m-l-5" role="status" aria-hidden="true"></span> در حال بارگذاری ... </button>')
                 var basic = $(this).find('#basic').val();
                 var start_date = $(this).find('#case_start_date').val();
@@ -120,31 +103,18 @@
                 $.ajax({
 
                     type: 'POST',
-                    url: 'getStudyingReportList',
+                    url: 'getStudyingexerciseList',
                     data: {
                         basic: basic,
                         start_date: start_date,
                         end_date: end_date
                     },
                     success: function (data) {
-                        console.log()
 
-                        if (data.length == 180) {
-                            $('#content').html('<p>موردی برای نمایش وجود ندارد</p>')
-                            $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
-
-                        } else {
-
-                            $('#content').html(data)
-                            $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
-                        }
-
-
-                    },
-                    error: function (data) {
-
+                        $('#content').html(data)
                         $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
-                        alert('لطفا ورودی ها را تکمیل کنید')
+
+
                     }
 
                 });
