@@ -89,6 +89,7 @@ class ExerciseController extends Controller
 
         if (strlen(implode($request->scores)) == 0) {
             return back()->with('Error', 'موردی ثبت نشد');
+            
         } else {
             foreach (\request()->scores as $key => $item) {
                 if ($item !== null) {
