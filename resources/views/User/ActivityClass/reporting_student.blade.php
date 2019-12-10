@@ -113,11 +113,13 @@
                     url: '../Studing/getStudyClasses',
                     data: {basic_id: basic_id,},
                     success: function (data) {
-
-                        if (data !== '') {
+                        
+                        if (data.length !== 0) {
 
                             $('#class').html(data[0])
 
+                        }else{
+                            $('#class').html('')
                         }
                     }
 
@@ -138,10 +140,13 @@
                     url: 'getlessens',
                     data: {basic_id: basic_id,},
                     success: function (data) {
-
-                        if (data !== '') {
+                        
+                        if (data.length !== 0) {
 
                             $('#lesson').html(data)
+
+                        }else{
+                            $('#lesson').html('<td>دانش اموزی پیدا نشد</td>')
 
                         }
                     }
@@ -162,11 +167,13 @@
                     url: 'getReportstudent',
                     data: {class_id: class_id,},
                     success: function (data) {
-
-                        if (data !== '') {
+                        
+                        if (data.length !== 0) {
 
                             $('#content-student').html(data)
 
+                        }else{
+                            $('#content-student').html('<td>دانش اموزی پیدا نشد</td>')
                         }
                     }
 

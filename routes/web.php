@@ -205,6 +205,12 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::post('/ActivityClass/getStudyingexerciseList', 'User\activityClass\reportingStudentController@ReportScoresExerciseStudent');
 
 
+    //گزارشات
+    Route::get('/Reports/ClassAvgView', 'User\Reports\ReportController@ClassAvgView')->name('Reports.ClassAvg');
+    Route::post('/Reports/ClassAvgView', 'User\Reports\ReportController@ClassAvg')->name('Reports.ClassAvg');
+
+
+
 });
 
 // ------------------ P E S R O N A L S - S C H O O l - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------

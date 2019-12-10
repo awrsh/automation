@@ -69,6 +69,8 @@
                                 $list = \App\ClassScoresModel::where('student_id',$student->student_id)->get();
                         @endphp
                         <tbody>
+                        @if (count($list))
+                            
                         @foreach($list  as $item)
                             <tr>
                                 <td>{{$i}}</td>
@@ -83,6 +85,10 @@
                                 $i++;
                             @endphp
                         @endforeach
+
+                        @else
+                        <td >موردی برای این دانش اموز وجود ندارد</td>
+                        @endif
                         </tbody>
                     </table>
                 </div>

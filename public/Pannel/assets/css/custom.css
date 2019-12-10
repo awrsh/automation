@@ -169,3 +169,7 @@ New Styles
     border-radius: 4px;
     box-shadow: 0 3px 6px #000000f5;
 }
+
+.breadcrumb-item.active > a{
+    color: #3bbd23;
+}
