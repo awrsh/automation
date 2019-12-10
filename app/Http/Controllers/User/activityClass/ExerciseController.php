@@ -73,6 +73,7 @@ class ExerciseController extends Controller
 
     public function insertScoreExercise(Request $request)
     {
+      
 
         $request->validate([
             'lesson' => 'required',
@@ -89,22 +90,25 @@ class ExerciseController extends Controller
 
         if (strlen(implode($request->scores)) == 0) {
             return back()->with('Error', 'موردی ثبت نشد');
-            
+
         } else {
-            foreach (\request()->scores as $key => $item) {
+            foreach ($request->scores as $key => $item) {
                 if ($item !== null) {
 
-                    if (ExerciseScoresModel::where(['student_id' => $key, 'exercise_date' => $this->convertDate(request()->date_ex)])->count()) {
-                        ExerciseScoresModel::where(['student_id' => $key, 'exercise_date'=> $this->convertDate(request()->date_ex)])->update([
-                            'exercise_date' => $this->convertDate(request()->date_ex),
+                    if (ExerciseScoresModel::where(['student_id' => $key, 'exercise_date' => $this->convertDate($request->date_ex)])->count()) {
+                        ExerciseScoresModel::where(['student_id' => $key, 'exercise_date'=> $this->convertDate($request->date_ex)])->update([
+                            'exercise_date' => $this->convertDate($request->date_ex),
                             'score' => $item,
                             'student_id' => $key,
+
+                            'lesson_id' => $request->lesson
                         ]);
                     } else {
                         ExerciseScoresModel::create([
-                            'exercise_date' => $this->convertDate(request()->date_ex),
+                            'exercise_date' => $this->convertDate($request->date_ex),
                             'score' => $item,
                             'student_id' => $key,
+                            'lesson_id' => $request->lesson
                         ]);
                     }
                 }
