@@ -174,7 +174,7 @@
                 $.ajax({
 
                     type: 'POST',
-                    url: 'getstudent',
+                    url: '{{route("ActivityClass.getStudents")}}',
                     data: {class_id: class_id,},
                     success: function (data) {
 
@@ -182,6 +182,8 @@
 
                             $('#content-student').html(data)
 
+                        }else{
+                            $('#content-student').html("<td>دانش اموزی برای این کلاس وجود ندارد</td>")
                         }
                     }
 

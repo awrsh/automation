@@ -4,12 +4,12 @@
     <!-- begin::page header -->
     <div class="page-header">
         <div>
-            <h3>ثبت نمره کلاسی</h3>
+            <h3>ثبت حضور غیاب کلاسی</h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">صحفه اصلی</a></li>
+                   
                     <li class="breadcrumb-item"><a href="#">فعالیت کلاسی</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="#">ثبت نمره کلاسی</a>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">ثبت حضور غیاب کلاسی</a>
                     </li>
 
                 </ol>
@@ -39,7 +39,7 @@
                 <p> {{\Session::get('Error')}}</p>
             </div>
             @endif
-            <form action="{{route('Teachers.WorkSpace.InsertClassScores')}}" method="post">
+            <form action="{{route('activity_class.insertAbsence')}}" method="post">
                 @csrf
                 <div class="row">
 
@@ -47,7 +47,7 @@
                     <div class="form-group col-md-5">
                         <label for="">نام درس: </label>
 
-                        <select class="custom-select" name="lesson_id" id="lesson_id">
+                        <select class="custom-select" name="lesson" id="lesson">
                             <option value="">باز کردن فهرست انتخاب</option>
 
                             @foreach(array_unique(auth()->guard('teacher')->user()->teacher_lessons()->pluck('lesson_name','lesson_id')->toArray())
@@ -73,25 +73,16 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-4  mb-3">
-
-                        <label for=""> آزمون: </label>
-                        <select class="custom-select" name="azmoon_group" id="azmoon_group">
-                            <option value="">باز کردن فهرست انتخاب</option>
-                            <option value="تکوینی 1">تکوینی 1</option>
-                            <option value="پایانی 1">پایانی 1</option>
-                            <option value="تکوینی 2">تکوینی 2</option>
-                            <option value="پایانی 2">پایانی 2</option>
-                            <option value="ماهانه مهر">ماهانه مهر</option>
-                            <option value="ماهانه آبان">ماهانه آبان</option>
-                            <option value="ماهانه بهمن">ماهانه بهمن</option>
-                            <option value="ماهانه اسفند">ماهانه اسفند</option>
-                            <option value="ماهانه اردیبهشت">ماهانه اردیبهشت</option>
-
-                        </select> </div>
+                <div class="row mb-3">
+                        <div class="col-md-4">
+                                <label for="">تاریخ</label>
+                                <input type="text" name="case_date"
+                                       class="form-control text-right date-picker-shamsi-list" dir="ltr"
+                                       autocomplete="off">
+                            </div>
                 </div>
+
+            
 
 
 
@@ -99,10 +90,11 @@
                     <table class="table table-striped table-bordered  ">
                         <thead>
                             <tr>
-                                <th>ردیف</th>
                                 <th>نام و نام خانوادگی</th>
-                                <th>نام پدر</th>
-                                <th>نمره</th>
+                                <th>شماره دانش اموزی</th>
+                                <th>کلاس</th>
+                                <th>پایه</th>
+                                <th>وضعیت</th>
                             </tr>
                         </thead>
                         <tbody class="text-center" id="content-student">
@@ -110,9 +102,10 @@
                     </table>
 
                 </div>
+
                 <div class="row">
                     <div class="col-md-4  mb-3 ">
-                        <button class="btn btn-primary btn__submit " disabled="">
+                        <button class="btn btn-primary btn__submit " >
                             وارد کردن
                         </button>
                     </div>
@@ -134,6 +127,19 @@
 <script>
     $(document).ready(function (e) {
 
+        $(document).on('change','.switch',function () {
+                           var i = $(this).val();
+                            if ($(this).is(':checked')) {
+                                $(this).next().html('<span class="text-success">حاضر</span>');
+                                $("#sts-"+i).val('حاضر');
+                            } else {
+                                $(this).next().html('<span class="text-danger">غایب</span>');
+                                $("#sts-"+i).val('غایب');
+                            }
+
+                        })
+
+
             $.ajaxSetup({
 
                 headers: {
@@ -141,76 +147,28 @@
                 }
             });
 
+        
+
+         
+
             $("#class_id").change(function (e) {
 
                 e.preventDefault();
 
-
-                $('.btn__submit').attr('disabled',false)
                 var class_id = $(this).val();
 
                 $.ajax({
 
                     type: 'POST',
-                    url: '{{route("Teachers.WorkSpace.getStudents")}}',
+                    url: '{{route("Teachers.WorkSpace.getStudent")}}',
                     data: {class_id: class_id,},
                     success: function (data) {
 
-                    if(data.length !== 0)
+                      console.log(data)
+
                             $('#content-student').html(data)
-                    else
-                            $('#content-student').html("<tr><td>دانش اموزی برای این کلاس وجود ندارد</td></tr>")
 
                         
-                    }
-
-                });
-
-            });
-
-
-            $("#basic").change(function (e) {
-
-                e.preventDefault();
-
-                var basic_id = $(this).val();
-
-                $.ajax({
-
-                    type: 'POST',
-                    url: 'getlessens',
-                    data: {basic_id: basic_id,},
-                    success: function (data) {
-
-                        if (data !== '') {
-
-                            $('#content-student').html(data)
-
-                        }
-                    }
-
-                });
-
-            });
-
-            $("#class").change(function (e) {
-
-                e.preventDefault();
-
-                var class_id = $(this).val();
-
-                $.ajax({
-
-                    type: 'POST',
-                    url: 'getstudent',
-                    data: {class_id: class_id,},
-                    success: function (data) {
-
-                        if (data !== '') {
-
-                            $('#content-student').html(data)
-
-                        }
                     }
 
                 });

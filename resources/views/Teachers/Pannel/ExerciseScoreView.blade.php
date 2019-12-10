@@ -140,11 +140,13 @@
             url: '{{route("Teachers.WorkSpace.getStudents")}}',
             data: {class_id: class_id,},
             success: function (data) {
-
-                if (data !== '') {
+                console.log(data.length)
+                if (data.length !== 0) {
 
                     $('#content-student').html(data)
 
+                }else{
+                    $('#content-student').html("<tr><td>دانش اموزی برای این کلاس وجود ندارد</td></tr>")
                 }
             }
 

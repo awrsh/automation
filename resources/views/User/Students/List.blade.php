@@ -104,6 +104,7 @@
                                                               <th>شماره شناسنامه</th>
                                                               <th> پایه</th>
                                                               <th>کلاس</th>
+                                                              <th>ارسال پیامک به اولیاء</th>
                                                               <th>ویرایش</th>
                                                         </tr>
                                                     </thead>
@@ -145,6 +146,8 @@
                                                            <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>تعیین پایه</a></td>
                                                            <td><a class='btn btn-danger btn-sm' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>تعیین کلاس</a></td>
                                                             @endif
+                                                            <td class="text-center"><a class='btn btn-success ' href='{{route('Student.SendSMSView',$students)}}'> <i class="fa fa-envelope"></i>  </a> </td>
+
                                                             <td class="text-center"><a class='btn btn-outline-primary ' href='{{route('Student.EditStudent')}}/{{$students->student_id}}'> <i class="icon ti-pencil"></i>&nbsp;  ویرایش  </a> </td>
                                                         </tr>
     

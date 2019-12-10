@@ -24,6 +24,7 @@ class MainController extends Controller
 
     public function Register(Request $request)
     {
+        
 
         $request->validate([
             'student_photo' => 'mimes:jpeg,png,jpg',

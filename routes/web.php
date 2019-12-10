@@ -61,6 +61,11 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::get('/Students/EditStudent/{id?}', 'User\StudentsContorller@Student')->name('Student.EditStudent');
 
+    Route::get('/Students/SendSMS/{student}', 'User\StudentsContorller@SendSMSView')->name('Student.SendSMSView');
+
+    Route::post('/Students/SendSMS', 'User\StudentsContorller@SendSMS')->name('Student.SendSMS');
+    
+
     Route::get('/Students/EditClass', 'User\MainController@EditClass')->name('Student.EditClass');
 
     Route::post('/Students/get_basics', 'User\MainController@GetBasics');
@@ -160,7 +165,7 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::post('/ActivityClass/getlessens', 'User\activityClass\ClassScoreController@getlesson')->name('ActivityClass.getLessons');
 
-    Route::post('/ActivityClass/getstudent', 'User\activityClass\ClassScoreController@getStudent');
+    Route::post('/ActivityClass/getstudent', 'User\activityClass\ClassScoreController@getStudent')->name('ActivityClass.getStudents');
 
 
     Route::post('/ActivityClass/ClassScore', 'User\activityClass\ClassScoreController@insertClassScore')->name('activity_class.classScoreInsert');
@@ -243,6 +248,8 @@ Route::group(['prefix' => 'Teachers'],function () {
     Route::get('Activity/ExerciseScores/Add', 'Teachers\ActivityController@AddExerciseScoresView')->name('Teachers.WorkSpace.AddExerciseScoresView');
 
 
+    Route::get('/ActivityClass/StatusAbsence', 'Teachers\ActivityController@Status_absence')->name('Teachers.WorkSpace.Status_absence');
+    Route::post('/ActivityClass/PresenceAbsence/getStudents', 'Teachers\ActivityController@getStudent')->name('Teachers.WorkSpace.getStudent');
 
 
 });

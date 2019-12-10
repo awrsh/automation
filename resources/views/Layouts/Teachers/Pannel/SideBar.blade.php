@@ -30,7 +30,7 @@
                     <li><a href=" {{route('Teachers.WorkSpace.AddExerciseDailyView')}} ">ثبت تکلیف</a></li>
                     <li><a href=" {{route('Teachers.WorkSpace.AddExerciseScoresView')}} ">  ثبت نمره تکلیف</a></li>
 
-                    <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
+                    <li><a href=" {{route('Teachers.WorkSpace.Status_absence')}} ">ثبت حضور غیاب کلاسی</a></li>
                 </ul>
             </li>
 

@@ -33,6 +33,7 @@ class CreateTeachersTable extends Migration
             $table->text('teacher_birthplace');
             $table->text('teacher_certificate_code');
             $table->integer('school_id');
+            $table->text('remember_token')->nullable();
             $table->timestamps();
         });
     }

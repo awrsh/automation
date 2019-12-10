@@ -24,6 +24,7 @@ class MainController extends Controller
     {
        
         $teacher = Auth::Guard('teacher')->user(); 
+        
        $lessons = $teacher->teacher_lessons()->get();
         return view('Teachers.Pannel.Dashboard',compact(['teacher','lessons']));
     }

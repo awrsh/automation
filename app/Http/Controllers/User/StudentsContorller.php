@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Exports\StudentsExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Client;
 use App\Imports\StudentsImport;
 use App\Models\Student;
 use Maatwebsite\Excel\Facades\Excel;
@@ -19,7 +20,7 @@ class StudentsContorller extends Controller
             $fileName = $request->file->getClientOriginalName();
             $fileNameWithoutEx = pathinfo($fileName, PATHINFO_FILENAME);
 
-            $request->file->move(public_path('uploads/students/'. $fileNameWithoutEx), $fileName);
+            $request->file->move(public_path('uploads/students/' . $fileNameWithoutEx), $fileName);
 
             if ($request->fileName == 'نام فايل ها بر اساس كد ملي') {
 
@@ -33,7 +34,6 @@ class StudentsContorller extends Controller
                     'student_student_photo' =>  $fileName,
                 ]);
             }
-
         }
 
         return back()->with('success', 'عکس باموفقیت افزوده شد');
@@ -88,17 +88,16 @@ class StudentsContorller extends Controller
         $export = new StudentsExport([$header]);
 
         return Excel::download($export, 'invoices.xlsx');
-
     }
 
     public function import(Request $request)
     {
         $result =  Excel::import(new StudentsImport, request()->file('file'));
 
-        if($result){
-            return view('User.Students.ImportData')->with('success','اطلاعات با موفقیت ثبت شد');
-        }else{
-            return view('User.Students.ImportData')->with('errors','خطا در ثبت اطلاعات');
+        if ($result) {
+            return view('User.Students.ImportData')->with('success', 'اطلاعات با موفقیت ثبت شد');
+        } else {
+            return view('User.Students.ImportData')->with('errors', 'خطا در ثبت اطلاعات');
         }
         return back();
     }
@@ -127,12 +126,10 @@ class StudentsContorller extends Controller
             $fileName = $request->student_photo->getClientOriginalName();
             $fileNameWithoutEx = pathinfo($fileName, PATHINFO_FILENAME);
             $request->student_photo->move(public_path('uploads/students/'), $fileName);
+        } else {
 
-        }else{
 
-
-            $fileName =Student::where('student_id', $request->id_student)->first()->student_student_photo;
-            
+            $fileName = Student::where('student_id', $request->id_student)->first()->student_student_photo;
         }
         Student::where('student_id', $request->id_student)->update([
 
@@ -152,5 +149,26 @@ class StudentsContorller extends Controller
         ]);
 
         return back()->with('success', 'اطلاعات باموفقیت ویرایش شد');
+    }
+
+    public function SendSMSView(Student $student)
+    {
+        return view('User.students.SMSView', compact('student'));
+    }
+    public function SendSMS(Request $request)
+    {
+        
+        $client = new \GuzzleHttp\Client([
+            'verify' => false,
+        ]);
+
+        $response = $client->request('POST', 'https://api.kavenegar.com/v1/7345753639564B705137654C55547468506264663452413179447A567441726D/sms/send.json', [
+            'form_params' => [
+                'receptor' => "+989911041242",
+                'message' => "با سلام خدمت ولی محترم دانش اموز به نام علی محیطی \r\n \r\n  $request->title $request->content  \r\n   با تشکر مدیریت علمی نو"
+            ]
+        ]);
+
+        return back();
     }
 }
