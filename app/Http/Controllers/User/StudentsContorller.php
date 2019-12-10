@@ -157,14 +157,14 @@ class StudentsContorller extends Controller
     }
     public function SendSMS(Request $request)
     {
-        
+
         $client = new \GuzzleHttp\Client([
             'verify' => false,
         ]);
 
         $response = $client->request('POST', 'https://api.kavenegar.com/v1/7345753639564B705137654C55547468506264663452413179447A567441726D/sms/send.json', [
             'form_params' => [
-                'receptor' => "+989911041242",
+                'receptor' => "+989154241249",
                 'message' => "با سلام خدمت ولی محترم دانش اموز به نام علی محیطی \r\n \r\n  $request->title $request->content  \r\n   با تشکر مدیریت علمی نو"
             ]
         ]);
