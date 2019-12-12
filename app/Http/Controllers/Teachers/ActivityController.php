@@ -11,6 +11,10 @@ use App\Models\BasicModel;
 
 class ActivityController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('authTeacher');
+    }
     public function ClassScores()
     {
         return view('Teachers.Pannel.ScoreClasses');

@@ -10,6 +10,10 @@ use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('authTeacher');
+    }
     public function EditProfile(Teacher $teacher,Request $request)
     {
       
