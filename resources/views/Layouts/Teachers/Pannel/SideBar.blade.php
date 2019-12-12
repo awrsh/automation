@@ -26,11 +26,11 @@
 
             <li><a href="#"><i class="icon ti-book"></i> <span>فعالیت های کلاسی</span> </a>
                 <ul>
-                    <li><a href="{{route('Studing.StudyingModels')}}"> </a></li>
-                    <li><a href=" {{route('Studing.StudyingReport')}} ">وضعیت مطالعه دانش اموزان</a></li>
-                    <li><a href=" {{route('Studing.StudyingLessonsReport')}} ">  میانگین مطالعه کلاس ها به تفکیک دروس</a></li>
+                    <li><a href="{{route('Teachers.WorkSpace.ClassScores')}}"> ثبت نمرات کلاسی</a></li>
+                    <li><a href=" {{route('Teachers.WorkSpace.AddExerciseDailyView')}} ">ثبت تکلیف</a></li>
+                    <li><a href=" {{route('Teachers.WorkSpace.AddExerciseScoresView')}} ">  ثبت نمره تکلیف</a></li>
 
-                    <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
+                    <li><a href=" {{route('Teachers.WorkSpace.Status_absence')}} ">ثبت حضور غیاب کلاسی</a></li>
                 </ul>
             </li>
 

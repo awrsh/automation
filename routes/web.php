@@ -64,6 +64,11 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::get('/Students/EditStudent/{id?}', 'User\StudentsContorller@Student')->name('Student.EditStudent');
 
+    Route::get('/Students/SendSMS/{student}', 'User\StudentsContorller@SendSMSView')->name('Student.SendSMSView');
+
+    Route::post('/Students/SendSMS', 'User\StudentsContorller@SendSMS')->name('Student.SendSMS');
+
+
     Route::get('/Students/EditClass', 'User\MainController@EditClass')->name('Student.EditClass');
 
     Route::post('/Students/get_basics', 'User\MainController@GetBasics');
@@ -121,9 +126,11 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::post('discipline/AddItems', 'User\Discipline\DisciplineController@InsertCases')->name('Discipline.AddCases');
 
     Route::get('discipline/AddPoints', 'User\Discipline\DisciplineController@AddPoints')->name('Discipline.AddPoints');
+
     Route::post('discipline/changeBasicForLaw', 'User\Discipline\DisciplineController@changeBasicForLaw')->name('Discipline.changeBasicForLaw');
 
     Route::post('discipline/InsertPoints', 'User\Discipline\DisciplineController@InsertPoints')->name('Discipline.InsertPoints');
+
     Route::post('discipline/changeBasic', 'User\Discipline\DisciplineController@changeBasic')->name('Discipline.changeBasic');
 
     Route::get('discipline/lists', 'User\Discipline\DisciplineController@DisciplineLists')->name('Discipline.lists');
@@ -161,24 +168,24 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::get('/ActivityClass/ClassScore', 'User\activityClass\ClassScoreController@index')->name('activity_class.classScore');
 
-    Route::post('/ActivityClass/getlessens', 'User\activityClass\ClassScoreController@getlesson');
+    Route::post('/ActivityClass/getlessens', 'User\activityClass\ClassScoreController@getlesson')->name('ActivityClass.getLessons');
 
-    Route::post('/ActivityClass/getstudent', 'User\activityClass\ClassScoreController@getStudent');
+    Route::post('/ActivityClass/getstudent', 'User\activityClass\ClassScoreController@getStudent')->name('ActivityClass.getStudents');
 
 
     Route::post('/ActivityClass/ClassScore', 'User\activityClass\ClassScoreController@insertClassScore')->name('activity_class.classScoreInsert');
 
-    Route::get('/ActivityClass/ExerciseAddِaily', 'User\activityClass\ExerciseController@exerciseAddDaily')->name('activity_class.ExerciseAdddaily');
+    Route::get('/ActivityClass/ExerciseDaily/Add', 'User\activityClass\ExerciseController@exerciseAddDaily')->name('activity_class.ExerciseAdddaily');
 
-    Route::post('/ActivityClass/ExerciseAddِaily', 'User\activityClass\ExerciseController@InsertExerciseAddDaily')->name('activity_class.SubmitExerciseAdddaily');
+    Route::post('/ActivityClass/ExerciseDaily/Add', 'User\activityClass\ExerciseController@InsertExerciseAddDaily')->name('activity_class.SubmitExerciseAdddaily');
 
     Route::get('/ActivityClass/ScoreExercise', 'User\activityClass\ExerciseController@ScoreExercise')->name('activity_class.ScoreExercise');
 
-    Route::post('/ActivityClass/getExercise', 'User\activityClass\ExerciseController@getExercise');
+    Route::post('/ActivityClass/getExercise', 'User\activityClass\ExerciseController@getExercise')->name('ActivityClass.getExercise');
 
-    Route::post('/ActivityClass/getExerciseDate', 'User\activityClass\ExerciseController@getExerciseDate');
+    Route::post('/ActivityClass/getExerciseDate', 'User\activityClass\ExerciseController@getExerciseDate')->name('ActivityClass.getExerciseDate');
 
-    Route::post('/ActivityClass/ScoreExercise', 'User\activityClass\ExerciseController@insertScoreExercise')->name('activity_class.ScoreExercise');
+    Route::post('ActivityClass/ScoreExercise', 'User\activityClass\ExerciseController@insertScoreExercise')->name('activity_class.ScoreExercise');
 
     Route::get('/ActivityClass/StatusAbsence', 'User\activityClass\StatusAbsence@Status_absence')->name('activity_class.Status_absence');
 
@@ -190,6 +197,21 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::post('ActivityClass/insertExitClass', 'User\activityClass\dismisaalController@InsertExitClass')->name('activity_class.InsertExitClass');
 
+    Route::get('/ActivityClass/Reporting_class', 'User\activityClass\reportingStudentController@Reporting')->name('activity_class.Reporting');
+
+    Route::get('/ActivityClass/ReportScoresClassStudent/{id?}', 'User\activityClass\reportingStudentController@ReportScoresClassStudent')->name('activity_class.ReportScoresClassStudent');
+
+    Route::post('/ActivityClass/getReportstudent', 'User\activityClass\reportingStudentController@getReportstudent');
+
+    Route::get('/ActivityClass/getStudyingexerciseList/{student}', 'User\activityClass\reportingStudentController@ReportScoresExerciseStudent')->name('activity_class.getStudyingexerciseList');
+
+    Route::post('/ActivityClass/getStudyingexerciseList', 'User\activityClass\reportingStudentController@ReportScoresExerciseStudent');
+
+
+    //گزارشات
+    Route::get('/Reports/ClassAvgView', 'User\Reports\ReportController@ClassAvgView')->name('Reports.ClassAvg');
+    Route::post('/Reports/ClassAvgView', 'User\Reports\ReportController@ClassAvg')->name('Reports.ClassAvg');
+
     Route::get('/Personels', 'User\PermissionsController@Pesonals')->name('Personels.Personels');
 
     Route::get('/EditPersonal/{id?}', 'User\PermissionsController@EditPersonal')->name('Personels.EditPersonal');
@@ -199,7 +221,7 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::get('/DeletePersonal/{id?}', 'User\PermissionsController@DeletePersonal')->name('Personels.DeletePersonal');
 
     Route::get('/ListPerosnals', 'User\PermissionsController@ListPersonals')->name('Personels.ListPersonals');
-    
+
     Route::get('/Teachers', 'User\PermissionsController@Teachers')->name('Personels.Teachers');
 
     Route::get('/ListTeachers', 'User\PermissionsController@ListTeachers')->name('Personels.ListTeachers');
@@ -207,15 +229,15 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::post('/AddPersonels', 'User\PermissionsController@AddPesonals')->name('Personels.Register');
 
     Route::post('ChangeStatusPersonal', 'User\PermissionsController@StatusPesonals')->name('Personels.ChangeStatusPersonal');
-    
+
     Route::post('/AddTeachers', 'User\PermissionsController@AddTeachers')->name('Teachers.Register');
 
     Route::get('/AddTeachers/RegisterStop2/{data?}', 'User\PermissionsController@RegisterStop')->name('Teachers.RegisterStop');
 
     Route::post('/AddTeachers/RegisterStop2', 'User\PermissionsController@SaveTeachers')->name('Teachers.RegisterStop2');
-    
+
     Route::get('/DeleteTeacher/{id?}', 'User\PermissionsController@DeleteTeacher')->name('Personels.DeleteTeacher');
-   
+
     Route::get('/DeleteTeacherLesson/{id?}', 'User\PermissionsController@DeleteTeacherLesson')->name('Personels.DeleteTeacherLesson');
 
     Route::get('/ShowTeacher/{id?}', 'User\PermissionsController@ShowTeacher')->name('Personels.ShowTeacher');
@@ -223,8 +245,8 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::post('/EditTeacher', 'User\PermissionsController@EditTeacher')->name('Teachers.EditTeacher');
 
     Route::get('/ReportCard', 'User\ReportCard\ReportCardController@AddReportCard')->name('ReportCard.Add');
-    
-    
+
+
 });
 
 // ------------------ P E S R O N A L S - S C H O O l - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
@@ -271,8 +293,16 @@ Route::group(['prefix' => 'Teachers'],function () {
     Route::post('/InsertStudy','Teachers\StudyController@InsertStudy')->name('Teachers.WorkSpace.InsertStudy');
     Route::get('Studing/ReportList', 'Teachers\StudyController@StudyReportListView')->name('Teachers.WorkSpace.StudyReportListView');
     Route::post('Studing/getStudyingReport', 'Teachers\StudyController@getStudyingReport')->name('Teachers.WorkSpace.getStudyingReport');
+    Route::get('Studing/Student/{student}', 'Teachers\StudyController@StudyStudentView')->name('Teachers.WorkSpace.StudyStudentView');
+    Route::get('Activity/ClassScores', 'Teachers\ActivityController@ClassScores')->name('Teachers.WorkSpace.ClassScores');
+    Route::post('Activity/getStudents', 'Teachers\ActivityController@getStudents__Ajax')->name('Teachers.WorkSpace.getStudents');
+    Route::post('Activity/ClassScores', 'Teachers\ActivityController@InsertClassScores')->name('Teachers.WorkSpace.InsertClassScores');
+    Route::get('Activity/ExerciseDaily/Add', 'Teachers\ActivityController@AddExerciseDailyView')->name('Teachers.WorkSpace.AddExerciseDailyView');
+    Route::get('Activity/ExerciseScores/Add', 'Teachers\ActivityController@AddExerciseScoresView')->name('Teachers.WorkSpace.AddExerciseScoresView');
 
 
+    Route::get('/ActivityClass/StatusAbsence', 'Teachers\ActivityController@Status_absence')->name('Teachers.WorkSpace.Status_absence');
+    Route::post('/ActivityClass/PresenceAbsence/getStudents', 'Teachers\ActivityController@getStudent')->name('Teachers.WorkSpace.getStudent');
 
 
 

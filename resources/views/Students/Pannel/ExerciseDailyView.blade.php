@@ -86,7 +86,7 @@
                                                     <td>
                                                         <div class="form-group">
                                                             <div class="custom-control custom-switch">
-                                                                <input type="checkbox" value="{{$lesson->id}}"
+                                                                <input type="checkbox" value="{{$exercise->exercise_id}}"
                                                                        name="status[]"
                                                                        class="custom-control-input switch"
                                                                        id="{{$rand}}">

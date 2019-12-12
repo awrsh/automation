@@ -10,13 +10,18 @@ use Illuminate\Support\Facades\Auth;
 
 class DisciplineController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('authTeacher');
+    }
     public function DisciplineList()
     {
-        
+        $count = 0;
 
         $teacher_lessons =Auth::Guard('teacher')->user()->teacher_lessons()->get();
+       $classes= Auth::Guard('teacher')->user()->teacher_lessons()->pluck('class_name','class_id');
        
-        return view('Teachers.Pannel.DisciplineList',compact('teacher_lessons'));
+        return view('Teachers.Pannel.DisciplineList',compact(['teacher_lessons','classes','count']));
     }
 
     public function DisciplineShow(Student $student)

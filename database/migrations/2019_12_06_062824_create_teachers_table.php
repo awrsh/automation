@@ -38,6 +38,7 @@ class CreateTeachersTable extends Migration
             $table->text('teacher_certificate_code');
             $table->text('teacher_pw');
             $table->integer('school_id');
+            $table->text('remember_token')->nullable();
             $table->timestamps();
         });
     }

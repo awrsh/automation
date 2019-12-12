@@ -32,7 +32,8 @@ class CreateStudents extends Migration
             $table->text('student_prev_school')->nullable();
             $table->text('student_student_photo')->nullable();
             $table->text('serial_certificate_number')->nullable();
-            $table->text('place_of-birth')->nullable();           
+            $table->text('place_of-birth')->nullable();
+            $table->text('remember_token')->nullable();           
             $table->timestamps();
         });
     }

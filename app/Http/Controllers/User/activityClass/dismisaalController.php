@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\activityClass;
 
+use App\DismissalModel;
 use App\Models\ClassModel;
 use App\Models\DisciplineCaseModel;
 use App\Models\DisciplineLawsModel;
@@ -18,23 +19,33 @@ class dismisaalController extends Controller
 
     public function InsertExitClass(Request $request)
     {
-        dd($request->all());
+
+       $request->validate([
+            'case_date' => 'required',
+            'case_effect' => 'required',
+            'case_description' => 'required',
+            'lesson' => 'required',
+        ], [
+            'case_date.required' => 'تاریخ را انتخاب کنید',
+            'lesson.required' => 'درس را انتخاب کنید',
+            'case_effect.required' => 'تاثیر در نمره را انتخاب کنید',
+             'case_description.required' => 'توضیحات اخراج را کامل کنید',
+         ]);
+
         if ($request->has('status')) {
-            $id_law = DisciplineLawsModel::where('law_title', 'اخراج از کلاس')->first()['law_id'];
+
             foreach (\request('status') as $item) {
-                DisciplineCaseModel::create(array(
+                DismissalModel::create(array(
                     'student_id' => $item,
-                    'law_id' => $id_law,
-                    'case_date' => $request->case_date,
-                    'case_descriotion' => $request->case_description,
-                    'case_effect' => $request->case_effect,
+                    'dismissal_date' => $request->case_date,
+                    'dismissal_desc' => $request->case_description,
+                    'dismissal_effect' => $request->case_effect,
+                    'lesson_id'=> $request->lesson
                 ));
             };
             return back()->with('success','ثبت اخراج از کلاس با موفقیت انجام شد');
         } else {
             return back()->with('error', 'هیچ دانش آموزی انتخاب نشده است');
         }
-
-
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\ExerciseDaily;
+use App\ExerciseScoresModel;
 use App\StudiesModel;
 use App\StudiesStudentsModel;
 use Illuminate\Database\Eloquent\Model;
@@ -46,9 +47,14 @@ class Student extends  Authenticatable
     
      public function exercise_dailies()
     {
-        return $this->belongsToMany(ExerciseDaily::class,'exercise_daily_student','exercise_id','student_id');
+        return $this->belongsToMany(ExerciseDaily::class,'exercise_daily_student','student_id','exercise_id');
     }
     
+
+    public function exercise_scores()
+    {
+        return $this->hasMany(ExerciseScoresModel::class,'student_id','student_id');
+    }
 
     
 }

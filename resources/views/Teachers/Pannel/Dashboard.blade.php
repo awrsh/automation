@@ -55,7 +55,7 @@
                         <div class=" col-sm-6 col-md-3">
                             @if ($teacher->teacher_profile )
 
-                            <img src=" {{route('BaseUrl')}}/uploads/students/{{$teacher->teacher_profile}}"
+                        <img src=" {{route('BaseUrl')}}/uploads/Teachers/Profile/{{$teacher->teacher_fullname}}/{{$teacher->teacher_profile}}"
                                 style="width: 100px;" class="img-thumbnail" alt="">
                             @else
                             <img src="{{route('BaseUrl')}}/Pannel/img/avatar.jpg" style="width: 100px;"
@@ -111,7 +111,7 @@
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content p-15">
-            <form id="form" action=" {{route('Teachers.WorkSpace.EditProfile',$teacher)}} " method="post">
+            <form id="form" action=" {{route('Teachers.WorkSpace.EditProfile',$teacher)}} " method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <h5 class="text-center mt-2 modal__header" >فرم ویرایش اطلاعات</h5>
@@ -143,6 +143,12 @@
                         <label class="text-muted" for="">شهر: </label>
                         <input type="text" value="{{  $teacher->teacher_birthplace  }} " name="teacher_birthplace"
                             class="form-control text-right " dir="ltr">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label class="text-muted" for="">اپلود عکس پروفایل:  </label>
+                       <input type="file" class=" form-control" name="teacher_profile" id="teacher_profile">
                     </div>
                 </div>
                 <div class="row mb-3">

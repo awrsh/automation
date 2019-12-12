@@ -57,7 +57,7 @@
             <form id="form" action="  " method="post">
                 @csrf
 
-                <div class="row">
+                {{-- <div class="row">
                     <div class=" form-group col-md-4 ">
                         <label for="" class="  pt-3"> <span class="text-danger">*</span> پایه </label>
                         <select id="basic" name="basic" class=" custom-select  mb-3">
@@ -75,7 +75,7 @@
                         </select>
                     </div>
 
-                </div>
+                </div> --}}
 
 
                 <div class="row date__picker">
@@ -85,7 +85,7 @@
                         <input type="text" id="case_start_date" name="case_start_date"
                             class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">
                     </div>
-                    <div class="col-md-5  ">
+                    <div class="col-md-5">
                         <label for="">تا تاریخ</label>
                         <input type="text" id="case_end_date" name="case_end_date"
                             class="form-control text-right date-picker-shamsi-list" dir="ltr" autocomplete="off">
@@ -93,14 +93,30 @@
                     </div>
 
                 </div>
-                <div class="row">
-                    <div class="form-group">
+                <div class="row mt-3">
+                    <div class="form-group col-md-5">
                         <label for="">نام درس: </label>
                         
-                        <select class="custom-select" name="lesson_id" id="">
+                        <select  class="custom-select" name="lesson_id" id="lesson_id">
                             <option value="">باز کردن فهرست انتخاب</option>
-                            @foreach ( as $item)
-                                
+
+                            @foreach (array_unique(auth()->guard('teacher')->user()->teacher_lessons()->pluck('lesson_name','lesson_id')->toArray()) as $key=>$item)
+                            );
+
+                            <option value="{{$key}}">{{$item}} 
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+               
+                    <div class="form-group col-md-5">
+                        <label for="">نام کلاس: </label>
+
+                        <select  class="custom-select" name="class_id" id="class_id">
+                            <option value="">باز کردن فهرست انتخاب</option>
+                            @foreach (array_unique(auth()->guard('teacher')->user()->teacher_lessons()->pluck('class_name','class_id')->toArray()) as $key=>$item)
+                            <option value="{{$key}}">{{$item}}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -184,24 +200,33 @@ $("#form").submit(function(e){
 e.preventDefault();
 
 $('.button__wrapper').html('<button class="btn btn-primary" type="button" disabled> <span class="spinner-border spinner-border-sm m-l-5" role="status" aria-hidden="true"></span> در حال بارگذاری ... </button>')
-var basic = $(this).find('#basic').val();
+var lesson_id = $(this).find('#lesson_id').val();
+var class_id = $(this).find('#class_id').val();
 var start_date = $(this).find('#case_start_date').val();
 var end_date = $(this).find('#case_end_date').val();
 
-console.log({basic,start_date,end_date})
+
 $.ajax({
 
 type:'POST',
 url:'{{route("Teachers.WorkSpace.getStudyingReport")}}',
 data:{
-  basic:basic,
+  lesson_id:lesson_id,
+  class_id:class_id,
   start_date:start_date,
   end_date:end_date
 },
 success:function(data){
- 
-    $('#content').html(data)
+    if(data.length == 218){
+        $('#content').html('<p>اطلاعاتی برای این کلاس وجود ندارد</p>') 
+        $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
+
+    }else{
+        $('#content').html(data)
     $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
+   
+}
+
    
 
 },

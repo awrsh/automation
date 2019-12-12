@@ -135,6 +135,7 @@ class MainController extends Controller
 
     public function getStudyModel(Request $request)
     {
+        
         $student=Auth::guard('student')->user();
         $studies=StudiesModel::where('class_id',$student->student_student_class)
         ->where('lesson_id',$request->lesson_id)->where('school_id',$student->school_id)

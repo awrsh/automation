@@ -194,6 +194,9 @@
                             });
 
                         });
+
+
+                        
                         $('.switch').change(function () {
                            var i = $(this).val();
                             if ($(this).is(':checked')) {

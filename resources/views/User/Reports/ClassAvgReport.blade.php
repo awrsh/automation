@@ -4,12 +4,12 @@
         <!-- begin::page header -->
         <div class="page-header">
             <div>
-                <h3>ثبت نمره کلاسی</h3>
+                <h3>گزارش گیری کلاسی</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">صحفه اصلی</a></li>
-                        <li class="breadcrumb-item"><a href="#">فعالیت کلاسی</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="#">ثبت نمره کلاسی</a>
+                        <li class="breadcrumb-item"><a href="#">گزارشات</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="#">گزارش گیری کلاسی<</a>
                         </li>
 
                     </ol>
@@ -33,7 +33,7 @@
                         <p>  {{\Session::get('success')}}</p>
                     </div>
                 @endif
-                <form action="{{route('activity_class.classScoreInsert')}}" method="post">
+                <form action="{{route('Reports.ClassAvg')}}" method="post">
                     @csrf
                     <div class="row">
                         <div class=" form-group col-md-4 ">
@@ -57,23 +57,11 @@
                             </select>
                         </div>
 
-                        <div class=" form-group col-md-4 ">
-                            <label for="" class="  pt-3"> <span class="text-danger">*</span> درس </label>
-                            <select id="lesson" name="lesson" class=" custom-select  mb-3">
-                                <option value="">انتخاب مورد</option>
-
-                            </select>
-                        </div>
-
-                        <div class=" form-group col-md-4 ">
-                            <label for="" class="  pt-3"> <span class="text-danger">*</span> کلاس </label>
-                            <select id="class" name="class" class=" custom-select  mb-3">
-                            </select>
-                        </div>
+                       
 
 
                             <div class="col-md-4 mb-3">
-                                <label for="">گروه ازمون</label>
+                                <label for="" class=" pt-3">گروه ازمون</label>
                                 <select name="examin_group" class="custom-select form-control custom-select-sm mb-3">
                                     <option value="تکوینی 1">تکوینی 1</option>
                                     <option value="پایانی 1">پایانی 1</option>
@@ -86,24 +74,10 @@
                                     <option value="ماهانه اردیبهشت">ماهانه اردیبهشت</option>
                                 </select>
                             </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered  ">
-                                <thead>
-                                <tr>
-                                    <th>ردیف</th>
-                                    <th>نام و نام خانوادگی</th>
-                                    <th>نام پدر</th>
-                                    <th>نمره</th>
-                                </tr>
-                                </thead>
-                                <tbody class="text-center" id="content-student">
-                                </tbody>
-                            </table>
-
-                        </div>
+                       
                     </div>
                     <button class="btn btn-primary">
-                        ثبت اطلاعات
+                       مشاهده 
                     </button>
                 </form>
             </div>
@@ -121,85 +95,8 @@
     <script>
         $(document).ready(function (e) {
 
-            $.ajaxSetup({
-
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $("#basic").change(function (e) {
-
-                e.preventDefault();
-
-                var basic_id = $(this).val();
-
-                $.ajax({
-
-                    type: 'POST',
-                    url: '../Studing/getStudyClasses',
-                    data: {basic_id: basic_id,},
-                    success: function (data) {
-
-                        if (data !== '') {
-
-                            $('#class').html(data[0])
-
-                        }
-                    }
-
-                });
-
-            });
-
-
-            $("#basic").change(function (e) {
-
-                e.preventDefault();
-
-                var basic_id = $(this).val();
-
-                $.ajax({
-
-                    type: 'POST',
-                    url: 'getlessens',
-                    data: {basic_id: basic_id,},
-                    success: function (data) {
-
-                        if (data !== '') {
-
-                            $('#lesson').html(data)
-
-                        }
-                    }
-
-                });
-
-            });
-
-            $("#class").change(function (e) {
-
-                e.preventDefault();
-
-                var class_id = $(this).val();
-
-                $.ajax({
-
-                    type: 'POST',
-                    url: 'getstudent',
-                    data: {class_id: class_id,},
-                    success: function (data) {
-
-                        if (data !== '') {
-
-                            $('#content-student').html(data)
-
-                        }
-                    }
-
-                });
-
-            });
+          
+        
 
         })
 

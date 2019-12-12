@@ -130,42 +130,35 @@
                             </select>
                         </div>
 
-                        <div class=" form-group col-md-4 ">
-                            <label for="" class="  pt-3"> <span class="text-danger">*</span> درس: </label>
-                            <select id="basic" name="lesson_name" class=" custom-select  mb-3">
-                                <option value="  ">انتخاب مورد</option>
-                                @php
+                        <div class="form-group col-md-4">
+                                <label for="" class="pt-3">نام درس: </label>
+        
+                                <select class="custom-select" name="lesson" id="lesson">
+                                    <option value="">باز کردن فهرست انتخاب</option>
+        
+                                    @foreach(array_unique(auth()->guard('teacher')->user()->teacher_lessons()->pluck('lesson_name','lesson_id')->toArray())
+                                    as $key=>$item)
+                                    );
+        
+                                    <option value="{{$key}}">{{$item}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+        
+                            <div class="form-group col-md-4">
+                                <label for="" class="pt-3">نام کلاس: </label>
+        
+                                <select class="custom-select" name="class" id="class">
+                                    <option value="">باز کردن فهرست انتخاب</option>
+                                    @foreach(array_unique(auth()->guard('teacher')->user()->teacher_lessons()->pluck('class_name','class_id')->toArray())
+                                    as $key=>$item)
+                                    <option value="{{$key}}">{{$item}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-
-                                $teacher_lessons = Auth::Guard('teacher')->user()->teacher_lessons()->get();
-
-
-                                @endphp
-                                @foreach ($teacher_lessons as $item)
-                                <option value="{{$item->lesson_name}}">{{$item->lesson_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-
-                        <div class=" form-group col-md-4 ">
-                            <label for="" class="  pt-3"> <span class="text-danger">*</span> کلاس: </label>
-                            <select id="basic" name="class_name" class=" custom-select  mb-3">
-                                <option value="  ">انتخاب مورد</option>
-                                @php
-
-
-                                $teacher_lessons = Auth::Guard('teacher')->user()->teacher_lessons()->get();
-
-
-                                @endphp
-                                @foreach ($teacher_lessons as $item)
-                                <option value="{{$item->class_name}}" @if ( old('basic')==$item->basic_id )
-                                    selected=""
-                                    @endif>{{$item->class_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
                         <div class=" form-group col-md-4 ">
                             <label for="ww" class="  pt-3"> <span class="text-danger">*</span> حد مطلوب الگو (برحسب
                                 دقیقه) </label>

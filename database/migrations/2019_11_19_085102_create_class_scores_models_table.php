@@ -18,6 +18,7 @@ class CreateClassScoresModelsTable extends Migration
             $table->text('class_scores_date');
             $table->text('score');
             $table->integer('student_id');
+            $table->integer('lesson_id');
             $table->timestamps();
         });
     }

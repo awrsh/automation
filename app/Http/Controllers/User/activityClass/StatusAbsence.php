@@ -11,6 +11,7 @@ class StatusAbsence extends Controller
 {
     public function Status_absence()
     {
+
         $classes = ClassModel::get();
         return view('User.ActivityClass.Status_Absence', compact('classes'));
     }
@@ -21,32 +22,41 @@ class StatusAbsence extends Controller
         return view('User.ActivityClass.Status_Absence', compact('classes'));
     }
 
-    public function insertAbsence()
+    public function insertAbsence(Request $request)
     {
-        if (\request()->lesson ==''){
-            return back()->with('error','درسی انتخاب نشده است');
-        }else {
 
-//             if (\request()->status==null || \request()->status ==""){
-//
-//             }
+        if (\request()->lesson == '') {
+            return back()->with('error', 'درسی انتخاب نشده است');
+        } else {
+
+            //             if (\request()->status==null || \request()->status ==""){
+            //
+            //             }
 
             foreach (\request()->students as $key => $item) {
 
-                PresentClassModel::create([
-                    'present_class_id' => \request()->basic,
-                    'present_class_date' => \request()->case_date,
-                    'present_status' => $item,
-                    'class_id' => \request()->class_id,
-                    'lesson_id' => \request()->lesson,
-                    'student_id' => $key
-                ]);
+                if (PresentClassModel::where('student_id', $key)
+                ->where('present_class_date',$this->convertDate(\request()->case_date))->count()) {
+                    PresentClassModel::where('student_id', $key)->where('present_class_date' , $this->convertDate(\request()->case_date))
+                    ->update([
+                        
+                        'present_status' => $item,
+                        'class_id' => \request()->class_id,
+                        'lesson_id' => \request()->lesson,
+                      
+                    ]);
+                } else {
+                    PresentClassModel::create([
+
+                        'present_class_date' => $this->convertDate(\request()->case_date),
+                        'present_status' => $item,
+                        'class_id' => \request()->class_id,
+                        'lesson_id' => \request()->lesson,
+                        'student_id' => $key
+                    ]);
+                }
             }
-            return back()->with('success','ثبت با موفقیت انجام شد');
+            return back()->with('success', 'حضور و غیاب مطابق لیست ثبت شد');
         }
     }
 }
-
-
-
-
