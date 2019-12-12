@@ -324,6 +324,5 @@ Route::group(['prefix' => 'Teachers'],function () {
     Route::post('/ActivityClass/PresenceAbsence/getStudents', 'Teachers\ActivityController@getStudent')->name('Teachers.WorkSpace.getStudent');
 
 
-
 });
 // ------------------ E N D - T E A C H E R - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
