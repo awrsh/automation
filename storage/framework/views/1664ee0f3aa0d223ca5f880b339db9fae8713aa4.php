@@ -1,0 +1,1 @@
+ffd<?php /**PATH C:\xampp\htdocs\Admin_pannel\resources\views/User/Dashboard.blade.php ENDPATH**/ ?>

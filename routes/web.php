@@ -64,6 +64,9 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::get('/Students/EditStudent/{id?}', 'User\StudentsContorller@Student')->name('Student.EditStudent');
 
+    Route::get('/Students/DeleteStudent/{id?}', 'User\StudentsContorller@Delete_student')->name('Student.DeleteStudent');
+
+
     Route::get('/Students/SendSMS/{student}', 'User\StudentsContorller@SendSMSView')->name('Student.SendSMSView');
 
     Route::post('/Students/SendSMS', 'User\StudentsContorller@SendSMS')->name('Student.SendSMS');
@@ -212,6 +215,19 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::get('/Reports/ClassAvgView', 'User\Reports\ReportController@ClassAvgView')->name('Reports.ClassAvg');
     Route::post('/Reports/ClassAvgView', 'User\Reports\ReportController@ClassAvg')->name('Reports.ClassAvg');
 
+//کارنامه
+    Route::get('/ReportCard/Add', 'User\ReportCard\ReportCardController@AddReportCard')->name('ReportCard.Add');
+    Route::post('ReportCard/getReportCardClasses', 'User\ReportCard\ReportCardController@getReportCardClasses')->name('ReportCard.getReportCardClasses');
+    Route::post('ReportCard/Insert', 'User\ReportCard\ReportCardController@InsertReportCard')->name('ReportCard.Insert');
+    Route::get('/ReportCard/InsertScore', 'User\ReportCard\ReportCardController@InsertScore')->name('ReportCard.InsertScore');
+    Route::post('ReportCard/getReportCards', 'User\ReportCard\ReportCardController@getReportCards')->name('ReportCard.getReportCard');
+    Route::post('ReportCard/getReportCardLessons', 'User\ReportCard\ReportCardController@getReportCardLessons')->name('ReportCard.getReportCardLessons');
+    Route::post('/ReportCard/getStudents', 'User\ReportCard\ReportCardController@getStudents')->name('ReportCard.getStudents');
+    Route::post('ReportCard/InsertStudentScores', 'User\ReportCard\ReportCardController@InsertStudentScores')->name('ReportCard.InsertStudentScores');
+    Route::get('/ReportCard/ClassesReportCardView', 'User\ReportCard\ReportCardController@ClassesReportCardView')->name('ReportCard.ClassesReportCardView');
+    Route::post('/ReportCard/ClassesPDF', 'User\ReportCard\ReportCardController@ClassesPDF')->name('ReportCard.ClassesPDF');
+
+
     Route::get('/Personels', 'User\PermissionsController@Pesonals')->name('Personels.Personels');
 
     Route::get('/EditPersonal/{id?}', 'User\PermissionsController@EditPersonal')->name('Personels.EditPersonal');
@@ -255,6 +271,7 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 Route::group(['prefix' => 'Students'],function () {
 
 // Route::get('/Register','Students\RegisterController@RegisterView')->name('Student.WorkSpace.Register');
+
 Route::get('/Login','Students\RegisterController@LoginView')->name('Student.WorkSpace.LoginView');
 Route::post('Login','Students\RegisterController@Login')->name('Student.WorkSpace.Login');
 Route::get('/LogOut','Students\RegisterController@LogOut')->name('Student.WorkSpace.LogOut');

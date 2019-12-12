@@ -1,0 +1,232 @@
+;
+
+<?php $__env->startSection('content'); ?>
+<div class="container-fluid">
+
+
+
+
+
+    <!-- begin::page header -->
+    <div class="page-header">
+        <div>
+            <h3>تعریف مورد انظباطی</h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
+                    <li class="breadcrumb-item"><a href="#">انظباطی</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">تعریف مورد انظباطی</a>
+                    </li>
+
+                </ol>
+            </nav>
+        </div>
+        
+
+
+    </div>
+
+
+
+    
+        <div class="card">
+       
+                <div class="card-body">
+        
+                        <?php if(\Session::has('success')): ?>
+                        <div class="alert alert-success">
+                        <p>
+                          <?php echo e(\Session::get('success')); ?>
+
+                        </p>
+                        </div>
+                        <?php endif; ?>
+        
+                        <?php if($errors->any()): ?>
+                        <div class="alert alert-danger">
+                            <ul>
+                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <li><?php echo e($error); ?></li>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </ul>
+                        </div>
+                        <?php endif; ?>
+        
+            <form id="form" action=" <?php echo e(route('Discipline.InsertLow')); ?> " method="post">
+                <?php echo csrf_field(); ?>
+                            <div class="mb-4">                      
+                                 <div class="row">
+                                       <div class=" form-group col-md-3">
+                                                <label for="">پایه</label>
+                                                <select id="basic" name="basic_id" class="custom-select mb-3" required>
+                                                  <option value="" selected="">  باز کردن فهرست انتخاب</option>
+                                                
+                                             <?php $__currentLoopData = \App\Models\BasicModel::where('section_id',1)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                             <option value="<?php echo e($item->basic_id); ?>" ><?php echo e($item->basic_name); ?></option>
+                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                 
+                                              </select>
+                                              </div>
+                                          
+                                              <div class=" form-group col-md-5">
+                                                <label for="">عنوان</label>
+                                                <input name="law_title" id="law_title" type="text" class="form-control"  placeholder="" required>
+                                                <span class="law_title__error text-danger"></span>
+                                              </div>
+                                            
+
+                                            
+                                              
+                                              <div class="col-md-4">
+                                                <h6 class="card-title mt-2 mb-2"> نوع مورد</h6>
+                                                              <div class="custom-control custom-radio custom-control-inline">
+                                                                      <input checked="" type="radio" value="تنبیهی"  id="customRadioInline1" name="law_type" class="custom-control-input">
+                                                                      <label class="custom-control-label" for="customRadioInline1"> تنبیهی </label>
+                                                                  </div>
+                                                                  <div class="custom-control custom-radio custom-control-inline">
+                                                                      <input type="radio" value="تشویقی"  id="customRadioInline2" name="law_type" class="custom-control-input">
+                                                                      <label class="custom-control-label" for="customRadioInline2"> تشویقی </label>
+                                                                  </div>
+                                              </div>
+                                            </div>
+
+
+
+                                            <div class=" row form-group">
+                                            <label for="" class="col-md-2"> تاثیر به اضای هر</label>
+                                             <input type="text" id="low_count" name="low_count" class=" col-md-1 form-control form-inline" required>
+                                             <label for="" class=" col-md-1"> بار </label>
+                                              <input type="text" id="law_num" name="law_num" class=" form-control col-md-1" required>
+                                              <label for="" class=" col-md-1"> نمره </label>
+                                            </div>
+
+
+                    
+                                                <div class="row">
+                                                        <div class="col-md-12  mb-3 button__wrapper">
+                                                           
+                                                            <button  type="submit" class=" btn btn-primary"> افزودن مورد</button>
+                                                        </div>
+                                                    </div>
+                            
+                            </div>
+ </form>
+                   
+ 
+
+        <table  class="table table-striped table-bordered example2">
+                <thead>
+                <tr>
+                    <th>نام</th>
+                    <th>نوع</th>
+                    <th>ضریب تاثیر گذاری</th>
+                    <th>تاثیر روی نمره</th>
+                    <th> پایه</th>
+                    <th>حذف</th>
+                    
+                </tr>
+                </thead>
+                <tbody class="tbody">
+                <?php $__currentLoopData = \App\Models\DisciplineLawsModel::latest()->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <tr>
+                        <td><?php echo e($item->law_title); ?></td>
+                        <td><?php echo e($item->law_type); ?></td>
+                        <td><?php echo e($item->law_count); ?></td>
+                        <td><?php echo e($item->law_num); ?></td>
+                        <td><?php echo e($item->basic_id); ?></td>
+                        <td> <a href=" <?php echo e(route('Discipline.DeleteLow',$item)); ?> " class=" text-danger"> <i class=" fa fa-trash fa-2x"></i> </a> </td>
+                   
+                    </tr>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            
+                
+            
+                </tbody>
+                
+          </table>
+      
+                </div>
+            </div>
+
+
+
+
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('js'); ?>
+<script src="<?php echo e(route('BaseUrl')); ?>/Pannel/assets/vendors/dataTable/jquery.dataTables.min.js"></script>
+<script src="<?php echo e(route('BaseUrl')); ?>/Pannel/assets/vendors/dataTable/dataTables.bootstrap4.min.js"></script>
+<script src="<?php echo e(route('BaseUrl')); ?>/Pannel/assets/vendors/dataTable/dataTables.responsive.min.js"></script>
+<script src="<?php echo e(route('BaseUrl')); ?>/Pannel/assets/js/examples/datatable.js"></script>
+
+
+<script>
+
+
+$(document).ready(function(e){
+    
+    $.ajaxSetup({
+   
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+   });
+   $('#law_title').focus(function(){
+
+       $('.law_title__error').text('')
+   })
+
+   
+   $("#form").submit(function(e){
+   e.preventDefault();
+   $('.button__wrapper').html('<button class="btn btn-primary" type="button" disabled> <span class="spinner-border spinner-border-sm m-l-5" role="status" aria-hidden="true"></span> در حال بارگذاری ... </button>')
+   var basic = $(this).find('#basic').val();
+   var law_title = $(this).find('#law_title').val();
+   var law_type = $(this).find("input[name=law_type]").val();
+   var low_count = $(this).find('#low_count').val();
+   var law_num = $(this).find('#law_num').val();
+   
+   // console.log({basic,start_date,end_date})
+   $.ajax({
+   
+   type:'POST',
+   url:'InsertLow',
+   data:{
+     basic:basic,
+     law_title:law_title,
+     law_type:law_type,
+     low_count:low_count,
+     law_num:law_num
+   },
+   success:function(data){
+       $('.tbody').append(data)
+       $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
+      
+        },
+        error:function(data){
+    
+       $('.button__wrapper').html(' <button type="submit" class=" btn btn-danger">موارد را کامل کنید</button>')
+       $('.law_title__error').text(data.responseJSON.errors.law_title)
+        }
+          });
+   
+      });
+   
+});  
+   
+        
+    
+  
+   
+ 
+
+        </script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('css'); ?>
+<link rel="stylesheet" href="<?php echo e(route('BaseUrl')); ?>/Pannel/assets/vendors/dataTable/responsive.bootstrap.min.css"
+    type="text/css">
+    
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('Layouts.Pannel.Template', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\automation\resources\views/User/Discipline/DefineLow.blade.php ENDPATH**/ ?>
