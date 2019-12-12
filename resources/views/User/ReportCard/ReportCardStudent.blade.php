@@ -4,12 +4,12 @@
     <!-- begin::page header -->
     <div class="page-header">
         <div>
-            <h3>ثبت نمره کلاسی</h3>
+            <h3>ثبت نمره کارنامه</h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">صحفه اصلی</a></li>
-                    <li class="breadcrumb-item"><a href="#">فعالیت کلاسی</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="#">ثبت نمره کلاسی</a>
+
+                    <li class="breadcrumb-item"><a href="#"> کارنامه</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">ثبت نمره کارنامه</a>
                     </li>
 
                 </ol>
@@ -33,7 +33,12 @@
                 <p> {{\Session::get('success')}}</p>
             </div>
             @endif
-            <form action="{{route('activity_class.classScoreInsert')}}" method="post">
+            @if(\Session::has('Error'))
+            <div class="alert text-center alert-danger">
+                <p> {{\Session::get('Error')}}</p>
+            </div>
+            @endif
+            <form action="{{route('ReportCard.InsertStudentScores')}}" method="post">
                 @csrf
                 <div class="row">
                     <div class=" form-group col-md-4 ">
@@ -57,43 +62,44 @@
                         </select>
                     </div>
 
-                    <div class=" form-group col-md-4 ">
-                        <label for="" class="  pt-3"> <span class="text-danger">*</span> درس </label>
-                        <select id="lesson" name="lesson" class=" custom-select  mb-3">
-                            <option value="">انتخاب مورد</option>
-
-                        </select>
-                    </div>
 
                     <div class=" form-group col-md-4 ">
                         <label for="" class="  pt-3"> <span class="text-danger">*</span> کلاس </label>
                         <select id="class" name="class" class=" custom-select  mb-3">
+                            
+                            <option value=""> ابتدا پایه را انتخاب کنید</option>
+                        </select>
+                    </div>
+
+                    <div class=" form-group col-md-4 ">
+                        <label for="" class="  pt-3"> <span class="text-danger">*</span> انتخاب کارنامه </label>
+                        <select id="report_card" name="report_card" class=" custom-select  mb-3">
+                            <option value=""> ابتدا کلاس را انتخاب کنید</option>
+
                         </select>
                     </div>
 
 
-                    <div class="col-md-4 mb-3">
-                        <label for="">گروه ازمون</label>
-                        <select name="examin_group" class="custom-select form-control custom-select-sm mb-3">
-                            <option value="تکوینی 1">تکوینی 1</option>
-                            <option value="پایانی 1">پایانی 1</option>
-                            <option value="تکوینی 2">تکوینی 2</option>
-                            <option value="پایانی 2">پایانی 2</option>
-                            <option value="ماهانه مهر">ماهانه مهر</option>
-                            <option value="ماهانه آبان">ماهانه آبان</option>
-                            <option value="ماهانه بهمن">ماهانه بهمن</option>
-                            <option value="ماهانه اسفند">ماهانه اسفند</option>
-                            <option value="ماهانه اردیبهشت">ماهانه اردیبهشت</option>
+                    <div class=" form-group col-md-6 ">
+                        <label for="" class="  pt-3"> <span class="text-danger">*</span> درس (این لیست شامل درس هایست که در هنگام تعریف کارنامه ثبت شده است)</label>
+                        <select id="lesson" name="lesson" class=" custom-select  mb-3">
+                            <option value=""> باز کردن فهرست انتخاب</option>
+
                         </select>
                     </div>
+
+
+
+                   
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered  ">
+                        <table class="table table-striped table-bordered ">
                             <thead>
                                 <tr>
                                     <th>ردیف</th>
                                     <th>نام و نام خانوادگی</th>
-                                    <th>نام پدر</th>
-                                    <th>نمره</th>
+                                    <th> کد ملی</th>
+                                    <th> شماره دانش اموزی </th>
+                                    <th>ثبت نمره</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center" id="content-student">
@@ -133,12 +139,13 @@
                 e.preventDefault();
 
                 var basic_id = $(this).val();
+              
 
                 $.ajax({
 
                     type: 'POST',
                     url: '../Studing/getStudyClasses',
-                    data: {basic_id: basic_id,},
+                    data: {basic_id: basic_id},
                     success: function (data) {
 
                         if (data !== '') {
@@ -153,31 +160,60 @@
             });
 
 
-            $("#basic").change(function (e) {
+            $("#class").change(function (e) {
 
                 e.preventDefault();
 
-                var basic_id = $(this).val();
-
+                var class_id = $(this).val();
+                
                 $.ajax({
 
                     type: 'POST',
-                    url: 'getlessens',
-                    data: {basic_id: basic_id,},
+                    url: '{{route("ReportCard.getReportCard")}}',
+                    data: {class_id: class_id},
                     success: function (data) {
 
                         if (data.length !== 0) {
 
-                            $('#lesson').html(data)
+                            $('#report_card').html(data)
 
-                            }else{
-                            $('#lesson').html('<option>درسی برای این پایه ثبت نشده است</option>')
-                            }
+                        }else{
+                            $('#report_card').html('<option>کارنامه ای برای این کلاس ثبت نشده است</option>')
+                        }
                     }
 
                 });
 
             });
+
+
+
+            
+            $("#report_card").change(function (e) {
+
+            e.preventDefault();
+
+            var report_card = $(this).val();
+
+            $.ajax({
+
+                type: 'POST',
+                url: '{{route("ReportCard.getReportCardLessons")}}',
+                data: {report_card: report_card},
+                success: function (data) {
+
+                    if (data.length !== 0) {
+
+                        $('#lesson').html(data)
+
+                    }else{
+                        $('#lesson').html('<option>هیچ درسی در این کارنامه ثبت نشده است</option>')
+                    }
+                }
+
+            });
+
+        });
 
             $("#class").change(function (e) {
 
@@ -188,7 +224,7 @@
                 $.ajax({
 
                     type: 'POST',
-                    url: 'getstudent',
+                    url: '{{route("ReportCard.getStudents")}}',
                     data: {class_id: class_id,},
                     success: function (data) {
 

@@ -209,8 +209,21 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::get('/Reports/ClassAvgView', 'User\Reports\ReportController@ClassAvgView')->name('Reports.ClassAvg');
     Route::post('/Reports/ClassAvgView', 'User\Reports\ReportController@ClassAvg')->name('Reports.ClassAvg');
 
+//کارنامه
+    Route::get('/ReportCard/Add', 'User\ReportCard\ReportCardController@AddReportCard')->name('ReportCard.Add');
+    Route::post('ReportCard/getReportCardClasses', 'User\ReportCard\ReportCardController@getReportCardClasses')->name('ReportCard.getReportCardClasses');
+    Route::post('ReportCard/Insert', 'User\ReportCard\ReportCardController@InsertReportCard')->name('ReportCard.Insert');
+    Route::get('/ReportCard/InsertScore', 'User\ReportCard\ReportCardController@InsertScore')->name('ReportCard.InsertScore');
+    Route::post('ReportCard/getReportCards', 'User\ReportCard\ReportCardController@getReportCards')->name('ReportCard.getReportCard');
+    Route::post('ReportCard/getReportCardLessons', 'User\ReportCard\ReportCardController@getReportCardLessons')->name('ReportCard.getReportCardLessons');
+    Route::post('/ReportCard/getStudents', 'User\ReportCard\ReportCardController@getStudents')->name('ReportCard.getStudents');
+    Route::post('ReportCard/InsertStudentScores', 'User\ReportCard\ReportCardController@InsertStudentScores')->name('ReportCard.InsertStudentScores');
+    Route::get('/ReportCard/ClassesReportCardView', 'User\ReportCard\ReportCardController@ClassesReportCardView')->name('ReportCard.ClassesReportCardView');
+    Route::post('/ReportCard/ClassesPDF', 'User\ReportCard\ReportCardController@ClassesPDF')->name('ReportCard.ClassesPDF');
 
-
+    
+    
+   
 });
 
 // ------------------ P E S R O N A L S - S C H O O l - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------

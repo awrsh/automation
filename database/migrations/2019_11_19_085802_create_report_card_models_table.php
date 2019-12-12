@@ -13,13 +13,21 @@ class CreateReportCardModelsTable extends Migration
      */
     public function up()
     {
+        Schema::create('report_lessons', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->text('lesson_name');
+            $table->integer('lesson_id');
+            $table->integer('lesson_zarib');
+            $table->text('lesson_score');
+            $table->integer('report_card_id');
+            $table->timestamps();
+        });
+
         Schema::create('report_card', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('report_card_name');
-            $table->text('report_card_lessons');
-            $table->integer('report_card_lesson_multiplication');
             $table->integer('class_id');
-            $table->integer('test_id');
+            $table->integer('school_id');
             $table->timestamps();
         });
     }
@@ -32,5 +40,6 @@ class CreateReportCardModelsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('report_card');
+        Schema::dropIfExists('report_lessons');
     }
 }

@@ -44,7 +44,7 @@
                     <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
                 </ul>
             </li>
-            <li><a href="#"><i class="icon ti-book"></i> <span>فعالیت های کلاسی</span> </a>
+            <li><a href="#"><i class="icon ti-pencil-alt"></i> <span>فعالیت های کلاسی</span> </a>
                 <ul>
                     <li><a href="{{route('activity_class.classScore')}}"> نمرات کلاسی</a></li>
                     <li><a href=" {{route('activity_class.ExerciseAdddaily')}} ">ثبت تکلیف</a></li>
@@ -54,7 +54,15 @@
                     <li><a href=" {{route('activity_class.Reporting')}} ">گزارش گیری وضعیت هر دانش آموز </a></li>
                       </ul>
             </li>
-            <li><a href="#"><i class="icon ti-chart"></i> <span> گزارشات</span> </a>
+            <li><a href="#"><i class="icon ti-layout"></i> <span> کارنامه</span> </a>
+                <ul>
+                    <li><a href="{{route('ReportCard.Add')}}">  ثبت کارنامه </a></li>
+                    <li><a href=" {{route('ReportCard.InsertScore')}} ">وارد کردن نمرات کارنامه</a></li>
+                    <li><a href=" {{route('ReportCard.ClassesReportCardView')}} ">  مشاهده کارنامه</a></li>
+                    <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
+                </ul>
+            </li>
+            <li><a href="#"><i class="icon ti-bar-chart"></i> <span> گزارشات</span> </a>
                 <ul>
                     <li><a href="{{route('Reports.ClassAvg')}}">  مقایسه کلاس ها به تفکیک هر درس </a></li>
                     <li><a href=" {{route('Studing.StudyingReport')}} ">وضعیت مطالعه دانش اموزان</a></li>
