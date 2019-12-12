@@ -90,16 +90,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-12  my-3">
-                                <h6><span class="text-danger">*</span> پس از اضافه کردن دانش اموزان از جدول , دکمه تایید
-                                    را بزنید </h6>
-
-                                <button type="submit" class=" btn btn-primary">تایید</button>
-                            </div>
-                        </div>
-
                     </div>
 
                     <hr>
@@ -160,15 +150,19 @@
                                             </td>
                                         </tr>
                                     @endforeach
-
-
                                     </tbody>
-
                                 </table>
-
                             </div>
                         @endforeach
                     </div>
+                        <div class="row">
+                            <div class="col-md-12  mt-5">
+                                <h6><span class="text-danger">*</span> پس از اضافه کردن دانش اموزان از جدول , دکمه تایید
+                                    را بزنید </h6>
+
+                                <button type="submit" class=" btn btn-primary">تایید</button>
+                            </div>
+                        </div>
                 </div>
             </div>
 

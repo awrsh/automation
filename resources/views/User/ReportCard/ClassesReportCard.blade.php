@@ -182,6 +182,43 @@
 
             });
 
+
+
+            $("#form").submit(function(e){
+   e.preventDefault();
+   $('.button__wrapper').html('<button class="btn btn-primary" type="button" disabled> <span class="spinner-border spinner-border-sm m-l-5" role="status" aria-hidden="true"></span> در حال بارگذاری ... </button>')
+   var basic = $(this).find('#basic').val();
+   var law_title = $(this).find('#law_title').val();
+   var law_type = $(this).find("input[name=law_type]").val();
+   var low_count = $(this).find('#low_count').val();
+   var law_num = $(this).find('#law_num').val();
+   
+   // console.log({basic,start_date,end_date})
+   $.ajax({
+   
+   type:'POST',
+   url:'InsertLow',
+   data:{
+     basic:basic,
+     law_title:law_title,
+     law_type:law_type,
+     low_count:low_count,
+     law_num:law_num
+   },
+   success:function(data){
+       $('.tbody').append(data)
+       $('.button__wrapper').html(' <button type="submit" class=" btn btn-primary"> نمایش</button>')
+      
+        },
+        error:function(data){
+    
+       $('.button__wrapper').html(' <button type="submit" class=" btn btn-danger">موارد را کامل کنید</button>')
+       $('.law_title__error').text(data.responseJSON.errors.law_title)
+        }
+          });
+   
+      });
+
         })
 
 

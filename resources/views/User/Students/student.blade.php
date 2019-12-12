@@ -30,7 +30,7 @@
                                     <div class="flex__column">
                                         @php
                                             if($data->student_student_photo!=""){
-                                            $img = route('BaseUrl').'/uploads/students/'.$data->student_national_number.'/'.$data->student_student_photo;
+                                            $img = route('BaseUrl').'/uploads/students/pic/'.$data->student_student_photo;
                                             }else{
                                              $img = route('BaseUrl').'/Pannel/img/avatar.jpg';
                                             }
@@ -39,7 +39,7 @@
                                     </div>
                             </div>
                     </div>
-              
+
                 <form id="form1" method="post" action="{{route('Student.EditInfo')}}"
                         enctype="multipart/form-data" class="needs-validation" novalidate>
                         <div id="wizard2">
@@ -102,17 +102,14 @@
 
                                     </div><!-- form-group -->
                                 </div>
-
                             </section>
                             <section>
-
                                 <div class="row">
-                              
+
                                     <div class="form-group col-md-6 wd-xs-300">
                                         <label> شماره دانش اموزی</label>
                                         <input type="text" name="student_number" value="{{$data->student_student_number}}" required
                                             class="form-control text-right" dir="ltr">
-
                                     </div><!-- form-group -->
                                 </div>
                                 <div class="row">
@@ -138,7 +135,6 @@
                                         <label> اپلود عکس(3X4) </label>
                                         <input type="file" id="target" name="student_photo"
                                             class="form-control-file text-right" dir="rtl">
-
                                     </div><!-- form-group -->
                                 </div>
 
@@ -218,7 +214,7 @@
     (function () {
             'use strict';
             window.addEventListener('load', function () {
-                
+
                 // Fetch all the forms we want to apply custom Bootstrap validation styles to
                 var forms = document.getElementsByClassName('needs-validation');
                 // Loop over them and prevent submission
@@ -293,7 +289,7 @@
             {
                 $("#massage-certificate_number").html('شماره شناسنامه وارد شده اشتباه است');
                 $('.subForm').attr("disabled", true);
-                 
+
             }else{
                 $("#massage-certificate_number").html('');
                 $('.subForm').attr("disabled", false);
@@ -305,7 +301,7 @@
             {
                 $("#massage-national_number").html('کد ملی وارد شده اشتباه است');
                 $('.subForm').attr("disabled", true);
-                 
+
             }else{
                 $("#massage-national_number").html('');
                 $('.subForm').attr("disabled", false);
@@ -319,7 +315,7 @@
             {
                 $("#massage-father_name").html('شماره موبایل وارد شده اشتباه است');
                 $('.subForm').attr("disabled", true);
-                 
+
             }else{
                 $("#massage-father_name").html('');
                 $('.subForm').attr("disabled", false);
@@ -340,7 +336,7 @@
                 $('.subForm').attr("disabled", true);
         }
     });
-    
+
 
 
 
@@ -349,7 +345,7 @@
             {
                 $("#massage-mother_mobile").html('شماره موبایل وارد شده اشتباه است');
                 $('.subForm').attr("disabled", true);
-                 
+
             }else{
                 $("#massage-mother_mobile").html('');
                 $('.subForm').attr("disabled", false);
@@ -372,13 +368,13 @@
     });
 
 
-    
+
     $('#student_mobile').on('change',function(e){
             if($(this).val().length>11 || $(this).val().length <11)
             {
                 $("#massage-student_mobile").html('شماره موبایل وارد شده اشتباه است');
                 $('.subForm').attr("disabled", true);
-                 
+
             }else{
                 $("#massage-student_mobile").html('');
                 $('.subForm').attr("disabled", false);
@@ -401,7 +397,7 @@
     });
 
         })();
-      
+
 
 
 

@@ -2,12 +2,25 @@
 
 namespace App\Http\Controllers\User;
 
+use App\AdvisorSubjectsModel;
+use App\ClassScoresModel;
+use App\DismissalModel;
+use App\ExerciseDaily;
+use App\ExerciseScoresModel;
 use App\Exports\StudentsExport;
+use App\Models\DisciplineCaseModel;
+use App\Models\DisciplineNumberModel;
+use App\PresentClassModel;
+use App\ReportCardStudentModel;
+use App\StudiesModel;
+use App\StudiesReportCardModel;
+use App\StudiesStudentsModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use App\Imports\StudentsImport;
 use App\Models\Student;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -20,18 +33,18 @@ class StudentsContorller extends Controller
             $fileName = $request->file->getClientOriginalName();
             $fileNameWithoutEx = pathinfo($fileName, PATHINFO_FILENAME);
 
-            $request->file->move(public_path('uploads/students/' . $fileNameWithoutEx), $fileName);
+            $request->file->move(public_path('uploads/students/pic/' ), $fileName);
 
             if ($request->fileName == 'نام فايل ها بر اساس كد ملي') {
 
                 $student = Student::where('student_national_number', $fileNameWithoutEx)->update([
-                    'student_student_photo' =>  $fileName,
+                    'student_student_photo' => $fileName,
                 ]);
             }
             if ($request->fileName == 'نام فايل ها بر اساس شماره دانش آموزي') {
 
                 $student = Student::where('student_student_number', $fileNameWithoutEx)->update([
-                    'student_student_photo' =>  $fileName,
+                    'student_student_photo' => $fileName,
                 ]);
             }
         }
@@ -41,9 +54,12 @@ class StudentsContorller extends Controller
 
     public function export(Request $request)
     {
-
+if ($request ->import_data == null ) {
+    return back()-> with('error', 'هیچ موردی برای ایجاد شدن فایل اکسل انتخاب نشده است');
+}
         session()->put('import_data', $request->import_data);
         $header = [];
+
         foreach ($request->import_data as $item) {
             switch ($item) {
                 case 'firstname':
@@ -92,14 +108,17 @@ class StudentsContorller extends Controller
 
     public function import(Request $request)
     {
-        $result =  Excel::import(new StudentsImport, request()->file('file'));
+     if ($request ->except('_token')==null) {
+         return back()->with('error', 'هیچ فایل اکسلی پیدا نشد');
+     }
+        $result = Excel::import(new StudentsImport, request()->file('file'));
 
         if ($result) {
-            return view('User.Students.ImportData')->with('success', 'اطلاعات با موفقیت ثبت شد');
+            return  back()->with('success', 'اطلاعات با موفقیت ثبت شد');
         } else {
-            return view('User.Students.ImportData')->with('errors', 'خطا در ثبت اطلاعات');
+            return  back()->with('errors', 'خطا در ثبت اطلاعات');
         }
-        return back();
+
     }
 
     public function Student($id)
@@ -125,7 +144,7 @@ class StudentsContorller extends Controller
         if ($request->has('student_photo')) {
             $fileName = $request->student_photo->getClientOriginalName();
             $fileNameWithoutEx = pathinfo($fileName, PATHINFO_FILENAME);
-            $request->student_photo->move(public_path('uploads/students/'), $fileName);
+            $request->student_photo->move(public_path('uploads/students/pic/'), $fileName);
         } else {
 
 
@@ -155,20 +174,37 @@ class StudentsContorller extends Controller
     {
         return view('User.students.SMSView', compact('student'));
     }
+
     public function SendSMS(Request $request)
     {
-        
+
         $client = new \GuzzleHttp\Client([
             'verify' => false,
         ]);
 
         $response = $client->request('POST', 'https://api.kavenegar.com/v1/7345753639564B705137654C55547468506264663452413179447A567441726D/sms/send.json', [
             'form_params' => [
-                'receptor' => "+989911041242",
-                'message' => "با سلام خدمت ولی محترم دانش اموز به نام علی محیطی \r\n \r\n  $request->title $request->content  \r\n   با تشکر مدیریت علمی نو"
+                'receptor' => "+989154241249",
+                'message' => "با سلام خدمت ولی محترم دانش اموز به نام علی محیطی \r\n \r\n  $request->title   \r\n   با تشکر مدیریت علمی نو"
             ]
         ]);
 
+        return back();
+    }
+
+    public function Delete_student($id)
+    {
+        Student::where('student_id', $id)->delete();
+        ExerciseScoresModel::where('student_id', $id)->delete();
+        AdvisorSubjectsModel::where('student_id', $id)->delete();
+        ClassScoresModel::where('student_id', $id)->delete();
+        DisciplineCaseModel::where('student_id', $id)->delete();
+        DisciplineNumberModel::where('student_id', $id)->delete();
+        DismissalModel::where('student_id', $id)->delete();
+        DB::table('exercise_daily_student')->where('student_id', $id)->delete();
+        PresentClassModel::where('student_id', $id)->delete();
+        ReportCardStudentModel::where('student_id', $id)->delete();
+        StudiesStudentsModel::where('student_id', $id)->delete();
         return back();
     }
 }
