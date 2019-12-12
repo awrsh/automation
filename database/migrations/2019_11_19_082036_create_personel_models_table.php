@@ -16,12 +16,16 @@ class CreatePersonelModelsTable extends Migration
         Schema::create('personel', function (Blueprint $table) {
             $table->bigIncrements('personel_id');
             $table->text('personel_name');
-            $table->text('personel_role');
+            $table->text('personel_education');
+            $table->text('personel_codenational');
             $table->text('personel_phone');
+            $table->text('personel_tel');
             $table->text('personel_username');
             $table->text('personel_password');
+            $table->text('personel_address');
             $table->text('personel_status');
-            $table->integer('permission_id');
+            $table->text('personel_role');
+            $table->text('personel_permissions');
             $table->integer('school_id');
             $table->timestamps();
         });

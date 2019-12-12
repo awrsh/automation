@@ -43,8 +43,8 @@ class ReportCardController extends Controller
                     <th> حداکثر نمره</th>
                     <th> ضریب درس</th>
                     <th>جزو کارنامه</th>
-                   
-                 
+
+
                 </tr>
             </thead>
             <tbody>';
@@ -56,13 +56,13 @@ class ReportCardController extends Controller
             $table .= ' <tr>
                         <td>' . $key++ . ' </td>
                         <td>' . $item->lesson_name . '</td>
-                        <td>                       
-                            <input name="max_score[' . $item->id . ']" type="text" value="20" style="width: 50px">         
+                        <td>
+                            <input name="max_score[' . $item->id . ']" type="text" value="20" style="width: 50px">
                         </td>
-                        <td>                       
-                        <input name="zarib[' . $item->id . ']" type="text" value="1" style="width: 50px">         
+                        <td>
+                        <input name="zarib[' . $item->id . ']" type="text" value="1" style="width: 50px">
                         </td>
-                        <td>                       
+                        <td>
                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" value="1"
                                                                    name="status[' . $item->id . ']"
@@ -74,9 +74,9 @@ class ReportCardController extends Controller
                                                         </div>
                         </td>
 
-                        
 
-                        
+
+
                  </tr>';
             $i++;
         }
@@ -253,9 +253,9 @@ class ReportCardController extends Controller
             <th>نام و نام خانوادگی</th>
             <th>  نام پدر</th>
             <th>شماره دانش اموزی</th>
-           
+
             <th>مشاهده کارنامه</th>
-            
+
         </tr>
         </thead>
         <tbody class="tbody">';
@@ -264,15 +264,15 @@ class ReportCardController extends Controller
         <td>' . $student->student_firstname . ' - ' . $student->student_lastname  . '</td>
         <td>' . $student->student_father_name . '</td>
         <td>' . $student->student_student_number . '</td>
-       
-    
+
+
         <td> <a href="' . route('ReportCard.ShowStudent', $student) . '?azmoon=' . $request->azmoon_group . ' " class=" text-danger"> <i class="icon ti-layout"></i> </a> </td>
 
     </tr>';
         }
 
         $table .= '  </tbody>
-        
+
   </table>';
 
 
@@ -285,7 +285,7 @@ class ReportCardController extends Controller
     {
 
         $azmoon_group = $request->azmoon;
-        
+
        $report_card = ReportCardModel::where('school_id',session()->get('ManagerSis')['id'])
         ->where('class_id',$student->student_student_class)
         ->where('azmoon_group',$request->azmoon)
@@ -297,11 +297,11 @@ class ReportCardController extends Controller
 
         $report_card_student =ReportCardStudentModel::where('student_id',$student->student_id)
         ->where('report_card_id',$report_card->id)->first();
-        
+
       if ($report_card_student == null) {
         return back()->with('Error','کارنامه '.$azmoon_group.' برای این دانش اموز وجود ندارد');
       }
-      
+
         return view('User.ReportCard.ReportCardStudentPDF',compact(['student','report_card_lessons']));
 
 

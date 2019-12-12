@@ -36,7 +36,7 @@ class LoginController extends Controller
 
         $res = School::where([
             'school_username' => request()->post('username'),
-            'school_password' => md5(request()->post('password')),
+            'school_password' =>md5(request()->post('password')),
             'school_status' => 'on',
             'school_url' => route('BaseUrl'),
         ])->get();

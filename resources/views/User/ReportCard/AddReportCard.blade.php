@@ -10,7 +10,7 @@
                 <h3>تعریف  کارنامه</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                     
+
                         <li class="breadcrumb-item"><a href="#">کارنامه</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><a href="#">تعریف  کارنامه</a>
                         </li>
@@ -54,8 +54,8 @@
                                 <input name="card_name" type="text" class="form-control" placeholder=""
                                        value="  ">
                             </div>
-                           
-                        
+
+
                             <div class=" form-group col-md-6 ">
                                 <label for="" class="  "> <span class="text-danger">*</span> پایه </label>
                                 <select id="basic" name="basic" class=" custom-select  mb-3">
@@ -76,7 +76,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div> 
+                        </div>
                             <div class=" row">
                             <div class=" form-group col-md-6 ">
                                 <label for="" class="  "> <span class="text-danger">*</span> کلاس </label>

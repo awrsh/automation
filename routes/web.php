@@ -12,9 +12,12 @@ Route::post('/CreateAcount', 'LoginController@SubmitAccount')->name('AddAccount'
 
 Route::get('/ForgetPassword', 'LoginController@ForgetPassword')->name('ForgetPassword');
 
-Route::get('/LogoutManager', function () {
-    session()->forget('ManagerSis');
-    return redirect(route('BaseUrl'));})->name('logout.manager');
+Route::get('/LogoutManager',
+    function () {
+        session()->forget('ManagerSis');
+        return redirect(route('BaseUrl'));
+    }
+)->name('logout.manager');
 
 //-------------A D M I N ----------------------------------------------------------------------------------------------------------------------------------------------------
 Route::get('/Admin/Login', 'LoginController@Admin')->name('login.Admin');
@@ -226,7 +229,40 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::post('/ReportCard/getStudentTable', 'User\ReportCard\ReportCardController@getStudentTable')->name('ReportCard.getStudentTable');
     Route::get('/ReportCard/ShowStudent/{student}', 'User\ReportCard\ReportCardController@ShowStudent')->name('ReportCard.ShowStudent');
 
-   
+
+    Route::get('/Personels', 'User\PermissionsController@Pesonals')->name('Personels.Personels');
+
+    Route::get('/EditPersonal/{id?}', 'User\PermissionsController@EditPersonal')->name('Personels.EditPersonal');
+
+    Route::post('/SEditPersonal', 'User\PermissionsController@SEditPersonal')->name('Personels.SEditPersonal');
+
+    Route::get('/DeletePersonal/{id?}', 'User\PermissionsController@DeletePersonal')->name('Personels.DeletePersonal');
+
+    Route::get('/ListPerosnals', 'User\PermissionsController@ListPersonals')->name('Personels.ListPersonals');
+
+    Route::get('/Teachers', 'User\PermissionsController@Teachers')->name('Personels.Teachers');
+
+    Route::get('/ListTeachers', 'User\PermissionsController@ListTeachers')->name('Personels.ListTeachers');
+
+    Route::post('/AddPersonels', 'User\PermissionsController@AddPesonals')->name('Personels.Register');
+
+    Route::post('ChangeStatusPersonal', 'User\PermissionsController@StatusPesonals')->name('Personels.ChangeStatusPersonal');
+
+    Route::post('/AddTeachers', 'User\PermissionsController@AddTeachers')->name('Teachers.Register');
+
+    Route::get('/AddTeachers/RegisterStop2/{data?}', 'User\PermissionsController@RegisterStop')->name('Teachers.RegisterStop');
+
+    Route::post('/AddTeachers/RegisterStop2', 'User\PermissionsController@SaveTeachers')->name('Teachers.RegisterStop2');
+
+    Route::get('/DeleteTeacher/{id?}', 'User\PermissionsController@DeleteTeacher')->name('Personels.DeleteTeacher');
+
+    Route::get('/DeleteTeacherLesson/{id?}', 'User\PermissionsController@DeleteTeacherLesson')->name('Personels.DeleteTeacherLesson');
+
+    Route::get('/ShowTeacher/{id?}', 'User\PermissionsController@ShowTeacher')->name('Personels.ShowTeacher');
+
+    Route::post('/EditTeacher', 'User\PermissionsController@EditTeacher')->name('Teachers.EditTeacher');
+
+    Route::get('/ReportCard', 'User\ReportCard\ReportCardController@AddReportCard')->name('ReportCard.Add');
 
 
 });
@@ -286,6 +322,7 @@ Route::group(['prefix' => 'Teachers'],function () {
 
     Route::get('/ActivityClass/StatusAbsence', 'Teachers\ActivityController@Status_absence')->name('Teachers.WorkSpace.Status_absence');
     Route::post('/ActivityClass/PresenceAbsence/getStudents', 'Teachers\ActivityController@getStudent')->name('Teachers.WorkSpace.getStudent');
+
 
 
 });

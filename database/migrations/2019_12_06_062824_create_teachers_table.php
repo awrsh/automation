@@ -17,6 +17,8 @@ class CreateTeachersTable extends Migration
         Schema::create('teacher_lessons', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('class_name');
+            $table->text('class_id');
+            $table->text('lesson_id');
             $table->text('lesson_name');
             $table->integer('teacher_id');
             $table->timestamps();
@@ -29,9 +31,12 @@ class CreateTeachersTable extends Migration
             $table->string('teacher_email');
             $table->text('teacher_profile')->nullable();
             $table->string('teacher_mobile');
+            $table->string('teacher_tel');
             $table->text('teacher_address'); 
-            $table->text('teacher_birthplace');
+            $table->text('teacher_birthday');
+            $table->text('teacher_Education');
             $table->text('teacher_certificate_code');
+            $table->text('teacher_pw');
             $table->integer('school_id');
             $table->text('remember_token')->nullable();
             $table->timestamps();

@@ -23,6 +23,7 @@
                     <li><a href=" {{route('Student.EditClass')}} ">ویرایش کلاس بندی</a></li>
                 </ul>
             </li>
+
         </ul>
         </li>
         <li><a href="#"><i class="icon ti-alert"></i> <span>انظباطی</span> </a>
@@ -70,6 +71,17 @@
                     <li><a href=" {{route('Studing.StudyingReportList')}} ">کارنامه مطالعاتی دروس دانش اموز</a></li>
                 </ul>
             </li>
+
+            <li><a href="#"><i class="icon ti-id-badge"></i> <span>پرسنل</span> </a>
+                <ul>
+                    <li><a href="{{route('Personels.Personels')}}"> ثبت نام پرسنل</a></li>
+                    <li><a href=" {{route('Personels.ListPersonals')}}">لیست پرسنل</a></li>
+                    <li><a href=" {{route('Personels.Teachers')}} ">ثبت نام دبیران</a></li>
+                    <li><a href=" {{route('Personels.ListTeachers')}}">لیست دبیران</a></li>
+                </ul>
+
+            </li>
+
             <li><a href="{{route('logout.manager')}}"><i class="icon ti-close"></i> <span>خروج</span> </a></li>
         </ul>
     </div>

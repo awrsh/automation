@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TeacherLessons extends Model
 {
     protected $table = 'teacher_lessons';
-    
+    protected $guarded =[];
     public function Lesson()
     {
         return $this->belongsTo(LessonModel::class, 'lesson_id', 'id');

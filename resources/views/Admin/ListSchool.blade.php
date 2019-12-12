@@ -132,7 +132,6 @@
                 var status = $(this).data('data');   
                
                 $.ajax({
-
                     type:'POST',
                     url:'ChangeStatusSchool',
                     data:{id_school:id_school,status:status},
@@ -141,10 +140,7 @@
                     },
                     error:function(data){
                      
-                      
-
                     }
-
                 });
 
             });
