@@ -41,7 +41,7 @@
               <select id="basic" name="basic" class="col-md-4 custom-select custom-select-lg mb-3">
                 <option value="" selected="">باز کردن فهرست انتخاب</option>
 
-                @foreach (\App\Models\BasicModel::where('section_id',1)->get() as $item)
+                @foreach (\App\Models\BasicModel::where('section_id',Session::get('ManagerSis')['sections'])->get() as $item)
                 <option value="{{$item->basic_id}}" >{{$item->basic_name}}</option>
                 @endforeach
 

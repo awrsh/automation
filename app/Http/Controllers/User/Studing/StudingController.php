@@ -22,7 +22,7 @@ class StudingController extends Controller
     public function getStudyClasses(Request $request)
     {
         $classes = ClassModel::where('basic_id', $request->basic_id)->get();
-        $options = ' <option selected="">باز کردن فهرست انتخاب</option>';
+        $options = ' <option value="" selected="">باز کردن فهرست انتخاب</option>';
         foreach ($classes as $item) {
             $options .= ' <option value="' . $item->class_id . '">' . $item->class_name . '</option>';
         }

@@ -190,13 +190,41 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::post('ActivityClass/insertExitClass', 'User\activityClass\dismisaalController@InsertExitClass')->name('activity_class.InsertExitClass');
 
-    Route::get('/Personels', 'User\PermissionsController@index')->name('Personels');
+    Route::get('/Personels', 'User\PermissionsController@Pesonals')->name('Personels.Personels');
+
+    Route::get('/EditPersonal/{id?}', 'User\PermissionsController@EditPersonal')->name('Personels.EditPersonal');
+
+    Route::post('/SEditPersonal', 'User\PermissionsController@SEditPersonal')->name('Personels.SEditPersonal');
+
+    Route::get('/DeletePersonal/{id?}', 'User\PermissionsController@DeletePersonal')->name('Personels.DeletePersonal');
+
+    Route::get('/ListPerosnals', 'User\PermissionsController@ListPersonals')->name('Personels.ListPersonals');
+    
+    Route::get('/Teachers', 'User\PermissionsController@Teachers')->name('Personels.Teachers');
+
+    Route::get('/ListTeachers', 'User\PermissionsController@ListTeachers')->name('Personels.ListTeachers');
 
     Route::post('/AddPersonels', 'User\PermissionsController@AddPesonals')->name('Personels.Register');
 
     Route::post('ChangeStatusPersonal', 'User\PermissionsController@StatusPesonals')->name('Personels.ChangeStatusPersonal');
+    
+    Route::post('/AddTeachers', 'User\PermissionsController@AddTeachers')->name('Teachers.Register');
 
+    Route::get('/AddTeachers/RegisterStop2/{data?}', 'User\PermissionsController@RegisterStop')->name('Teachers.RegisterStop');
 
+    Route::post('/AddTeachers/RegisterStop2', 'User\PermissionsController@SaveTeachers')->name('Teachers.RegisterStop2');
+    
+    Route::get('/DeleteTeacher/{id?}', 'User\PermissionsController@DeleteTeacher')->name('Personels.DeleteTeacher');
+   
+    Route::get('/DeleteTeacherLesson/{id?}', 'User\PermissionsController@DeleteTeacherLesson')->name('Personels.DeleteTeacherLesson');
+
+    Route::get('/ShowTeacher/{id?}', 'User\PermissionsController@ShowTeacher')->name('Personels.ShowTeacher');
+
+    Route::post('/EditTeacher', 'User\PermissionsController@EditTeacher')->name('Teachers.EditTeacher');
+
+    Route::get('/ReportCard', 'User\ReportCard\ReportCardController@AddReportCard')->name('ReportCard.Add');
+    
+    
 });
 
 // ------------------ P E S R O N A L S - S C H O O l - R O U T E S ----------------------------------------------------------------------------------------------------------------------------------------------
