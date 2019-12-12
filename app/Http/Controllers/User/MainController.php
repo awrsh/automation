@@ -14,8 +14,8 @@ class MainController extends Controller
 {
     public function index()
     {
-        
-        $s='';
+
+        $s = '';
         $school = School::where('school_id', 1)->first();
         $count = $school->school_count_students;
 
@@ -24,7 +24,7 @@ class MainController extends Controller
 
     public function Register(Request $request)
     {
-        
+
 
         $request->validate([
             'student_photo' => 'mimes:jpeg,png,jpg',
@@ -33,7 +33,7 @@ class MainController extends Controller
             'student_certificate_number' => 'unique:students'
 
         ], [
-            'student_photo.mimes' => 'فرمت فایل صحیح نیست',    
+            'student_photo.mimes' => 'فرمت فایل صحیح نیست',
             'student_national_number.unique' => 'دانش اموز دیگری با این کد ملی وجود دارد',
             'student_student_number.unique' => 'شماره دانش اموزی از قبل وجود دارد',
             'student_certificate_number.unique' => 'دانش اموز دیگری با این شماره شناسنامه وجود دارد'
@@ -42,14 +42,14 @@ class MainController extends Controller
         ]);
 
         if ($request->has('student_photo')) {
-            $fileName = $request->national_number .'.'. $request->student_photo->getClientOriginalExtension();
+            $fileName = $request->student_national_number . '.' . $request->student_photo->getClientOriginalExtension();
             $fileNameWithoutEx = pathinfo($fileName, PATHINFO_FILENAME);
-            $request->student_photo->move(public_path('uploads/students/'.$request->national_number), $fileName);
-        }else{
-            $fileName ='';
+            $request->student_photo->move(public_path('uploads/students/pic/'), $fileName);
+        } else {
+            $fileName = '';
         }
 
-       $insert_status= Student::create([
+        $insert_status = Student::create([
             'school_id' => 1,
             'student_firstname' => $request->firstname,
             'student_lastname' => $request->lastname,
@@ -59,16 +59,18 @@ class MainController extends Controller
             'student_father_mobile' => $request->father_mobile,
             'student_mother_mobile' => $request->mother_mobile,
             'student_birthday' => $request->birthday,
-        
+
             'student_student_number' => $request->student_student_number,
             'student_home_tel' => $request->home_tel,
             'student_student_mobile' => $request->student_mobile,
             'student_prev_school' => $request->prev_school,
             'student_student_photo' => $fileName,
-            
+            'address_student' => $request->address_student,
+            'average_student' => $request->Average_student
+
         ]);
         School::find(1)->decrement('school_count_students', 1);
-        
+
         return redirect()->route('Student.EditClass')->with('success', 'دانش اموز با موفقیت ثبت شد');
     }
 
@@ -96,19 +98,19 @@ class MainController extends Controller
 
     public function changeBasicForStudent(Request $request)
     {
-        if($request->basic_id == null) $request->basic_id = 1;
-        $classes = ClassModel::where('basic_id',$request->basic_id)->get();
-       
-            
-        
-        return view('User.Students.List',compact('classes'));
+        if ($request->basic_id == null) $request->basic_id = 1;
+        $classes = ClassModel::where('basic_id', $request->basic_id)->get();
+
+
+        return view('User.Students.List', compact('classes'));
     }
+
     public function ListStudents()
     {
-        $session_id= \App\Models\School::where('school_name',session()->get('ManagerSis')['name'])->first()->school_sections;
-        $basic_id =  \App\Models\BasicModel::where('section_id', $session_id )->first()->basic_id;
-                                         
-        $classes = ClassModel::where('basic_id',$basic_id)->get();
+        $session_id = \App\Models\School::where('school_name', session()->get('ManagerSis')['name'])->first()->school_sections;
+        $basic_id = \App\Models\BasicModel::where('section_id', $session_id)->first()->basic_id;
+
+        $classes = ClassModel::where('basic_id', $basic_id)->get();
         return view('User.Students.List', compact('classes'));
     }
 
@@ -134,7 +136,6 @@ class MainController extends Controller
     }
 
 
-
     public function GetClassesForView(Request $request)
     {
         $classes = ClassModel::where('basic_id', $request->basic_id)->get();
@@ -153,16 +154,16 @@ class MainController extends Controller
         </thead>
         <tbody>
         ';
-        foreach ($classes as $key=>$item) {
+        foreach ($classes as $key => $item) {
 
 
-            $class_lists .=' <tr>
-            <td> '.($key+1).' </td>
-            <td>'.$item->class_name.'</td>
+            $class_lists .= ' <tr>
+            <td> ' . ($key + 1) . ' </td>
+            <td>' . $item->class_name . '</td>
             <td>
                <a
                title="توجه در صورت حذف کلاس  , دانش اموزان در کلاس بندی نشده ها قرار میگیرند "
-               href="DeleteClass/'.$item->class_id.'" class=" text-danger">
+               href="DeleteClass/' . $item->class_id . '" class=" text-danger">
                 <i class="fa fa-trash-o fa-2x"></i> 
                 </a>
             </td>
@@ -171,16 +172,15 @@ class MainController extends Controller
             
 
      </tr>';
-                }
-                $class_lists .='  </tbody>
+        }
+        $class_lists .= '  </tbody>
                           
                 </table></div>
     ';
         return $class_lists;
 
- 
-    }
 
+    }
 
 
     public function showClasses(Request $request)
@@ -191,13 +191,11 @@ class MainController extends Controller
         foreach ($classes as $item) {
             $options .= ' <option value="' . $item->student_id . '">' . $item->student_firstname . ' - ' . $item->student_lastname . '</option>';
         }
-            return $options;
-
+        return $options;
 
 
     }
 
-    
 
     public function Discipline()
     {

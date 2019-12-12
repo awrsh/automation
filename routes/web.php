@@ -61,10 +61,13 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
 
     Route::get('/Students/EditStudent/{id?}', 'User\StudentsContorller@Student')->name('Student.EditStudent');
 
+    Route::get('/Students/DeleteStudent/{id?}', 'User\StudentsContorller@Delete_student')->name('Student.DeleteStudent');
+
+
     Route::get('/Students/SendSMS/{student}', 'User\StudentsContorller@SendSMSView')->name('Student.SendSMSView');
 
     Route::post('/Students/SendSMS', 'User\StudentsContorller@SendSMS')->name('Student.SendSMS');
-    
+
 
     Route::get('/Students/EditClass', 'User\MainController@EditClass')->name('Student.EditClass');
 

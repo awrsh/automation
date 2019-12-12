@@ -9,13 +9,14 @@ $(document).ready(function () {
 	});
 
 	$('input.date-picker-shamsi-list').datepicker({
-		
+
 		dateFormat: "yy/mm/dd",
 		showOtherMonths: true,
 		selectOtherMonths: true,
 		changeMonth: true,
 		changeYear: true,
-		showButtonPanel: true
+		showButtonPanel: true,
+
 	}).datepicker('setDate', 'today');
 	;
 

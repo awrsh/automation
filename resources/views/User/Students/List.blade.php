@@ -103,6 +103,7 @@
                                             <th>کلاس</th>
                                             <th>ارسال پیامک به اولیاء</th>
                                             <th>ویرایش</th>
+                                            <th>حذف</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -110,7 +111,7 @@
                                         @foreach (\App\Models\Student::where('student_student_class',$item->class_id)->get() as $key=>$students)
 
                                             <tr>
-                                                <td>{{$key}}</td>
+                                                <td>{{$key+1}}</td>
                                                 @if ($students->student_firstname)
                                                     <td>{{ $students->student_firstname}}</td>
                                                 @else
@@ -162,6 +163,9 @@
                                                 <td class="text-center"><a class='btn btn-outline-primary '
                                                                            href='{{route('Student.EditStudent')}}/{{$students->student_id}}'>
                                                         <i class="icon ti-pencil"></i>&nbsp; ویرایش </a></td>
+                                                <td class="text-center"><a class='btn btn-outline-danger'
+                                                                           href='{{route('Student.DeleteStudent')}}/{{$students->student_id}}'>
+                                                        <i class="icon ti-trash"></i>&nbsp; حذف </a></td>
                                             </tr>
                                         @endforeach
                                         </tbody>
