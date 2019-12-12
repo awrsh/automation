@@ -217,17 +217,94 @@ class ReportCardController extends Controller
         return view('User.ReportCard.ClassesReportCard');
     }
 
-    public function ClassesPDF(Request $request)
+    public function getStudentTable(Request $request)
     {
+
+
+        // dd(ReportCardModel::where('azmoon_group', $request->azmoon_group)
+        //     ->where('class_id', $request->class_id)
+        //     ->where('school_id', session()->get('ManagerSis')['id'])
+        //     ->first());
+
+        // $request->validate([
+        //     'law_title' => 'required | unique:discipline_laws',
+        //     'law_type' => 'required',
+        //     'low_count' => 'required',
+        //     'law_num' => 'required'
+
+        // ], [
+
+        //     'law_title.required' => 'عنوان الزامی است',
+        //     'law_title.unique' => 'موردی با این عنوان وجود دارد',
+        //     'law_type.required' => ' نوع مورد را انتخاب نمایید',
+        //     'low_count.required' => 'ضریب ایین نامه انظباطی را وارد کنید',
+        //     'law_num.required' => 'ضریب ایین نامه انظباطی را وارد کنید'
+        // ]);
+
+
+        $students = Student::where('student_student_class', $request->class_id)
+            ->where('school_id', session()->get('ManagerSis')['id'])->get();
+
+
+        $table = '
+        <table  class="table table-striped table-bordered example2">
+        <thead>
+        <tr>
+            <th>نام و نام خانوادگی</th>
+            <th>  نام پدر</th>
+            <th>شماره دانش اموزی</th>
+           
+            <th>مشاهده کارنامه</th>
+            
+        </tr>
+        </thead>
+        <tbody class="tbody">';
+        foreach ($students as $key => $student) {
+            $table .= '<tr>
+        <td>' . $student->student_firstname . ' - ' . $student->student_lastname  . '</td>
+        <td>' . $student->student_father_name . '</td>
+        <td>' . $student->student_student_number . '</td>
+       
     
-        dd(ReportCardModel::where('azmoon_group',$request->azmoon_group)
-        ->where('class_id',$request->class)
-        ->where('school_id',session()->get('ManagerSis')['id'])
-        ->first());
+        <td> <a href="' . route('ReportCard.ShowStudent', $student) . '?azmoon=' . $request->azmoon_group . ' " class=" text-danger"> <i class="icon ti-layout"></i> </a> </td>
 
-        return view('');
+    </tr>';
+        }
 
+        $table .= '  </tbody>
         
+  </table>';
+
+
+        return $table;
+    }
+
+
+
+    public function ShowStudent(Request $request,Student $student)
+    {
+
+        $azmoon_group = $request->azmoon;
+        
+       $report_card = ReportCardModel::where('school_id',session()->get('ManagerSis')['id'])
+        ->where('class_id',$student->student_student_class)
+        ->where('azmoon_group',$request->azmoon)
+        ->first();
+        if ($report_card == null) {
+            return back()->with('Error','کارنامه '.$azmoon_group.' ثبت نشده است');
+        }
+        $report_card_lessons = $report_card->reportCardLessons;
+
+        $report_card_student =ReportCardStudentModel::where('student_id',$student->student_id)
+        ->where('report_card_id',$report_card->id)->first();
+        
+      if ($report_card_student == null) {
+        return back()->with('Error','کارنامه '.$azmoon_group.' برای این دانش اموز وجود ندارد');
+      }
+      
+        return view('User.ReportCard.ReportCardStudentPDF',compact(['student','report_card_lessons']));
+
+
 
     }
 }

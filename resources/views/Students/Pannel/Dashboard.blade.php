@@ -240,7 +240,7 @@ $(document).ready(function () {
     };
     chart_demo_4();
     function chart_demo_4() {
-       console.log()
+     
         if ($('#chart_demo_4').length) {
             var ctx = document.getElementById("chart_demo_4").getContext("2d");
             var densityData = {
@@ -289,8 +289,12 @@ $(document).ready(function () {
     }
 });
 
+
 </script>
+
+
 @endsection
+
 @section('css')
 <link rel="stylesheet" href="{{route('BaseUrl')}}/Pannel/assets/vendors/dataTable/responsive.bootstrap.min.css"
     type="text/css">

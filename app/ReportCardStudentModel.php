@@ -2,15 +2,18 @@
 
 namespace App;
 
+use App\Models\ReportCardModel;
 use Illuminate\Database\Eloquent\Model;
 
 class ReportCardStudentModel extends Model
 {
-<<<<<<< HEAD
+
     protected $table ='report_card_student';
     protected $guarded =[];
-=======
-    protected $table="report_card_student";
-    protected $guarded=[];
->>>>>>> abd55ecdb1b018948a47af13978758ffab2f5ff2
+
+   public function getReportCard()
+   {
+       return $this->belongsTo(ReportCardModel::class,'report_card_id','id');
+   }
+
 }

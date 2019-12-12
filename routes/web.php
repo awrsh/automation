@@ -223,8 +223,10 @@ Route::prefix('/Manager')->middleware('ManagerL')->group(function () {
     Route::post('ReportCard/InsertStudentScores', 'User\ReportCard\ReportCardController@InsertStudentScores')->name('ReportCard.InsertStudentScores');
     Route::get('/ReportCard/ClassesReportCardView', 'User\ReportCard\ReportCardController@ClassesReportCardView')->name('ReportCard.ClassesReportCardView');
     Route::post('/ReportCard/ClassesPDF', 'User\ReportCard\ReportCardController@ClassesPDF')->name('ReportCard.ClassesPDF');
+    Route::post('/ReportCard/getStudentTable', 'User\ReportCard\ReportCardController@getStudentTable')->name('ReportCard.getStudentTable');
+    Route::get('/ReportCard/ShowStudent/{student}', 'User\ReportCard\ReportCardController@ShowStudent')->name('ReportCard.ShowStudent');
 
-
+   
 
 
 });
